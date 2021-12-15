@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <link href="statics/css/bootstrap.min.css" rel="stylesheet">
+  <link href="statics/css/font-awesome.min.css" rel="stylesheet">
+  <link type="text/css" href="statics/css/check_out_management.css" rel="stylesheet">
+  
+  <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>  
+  
+  <title>退宿</title>
+
+</head>
+
+
+<body>
+
+<div>
+  <nav class="navbar navbar-light fixed-top" style="background-color:#899878">
+    <a class="navbar-brand" href="#" style="color:#F7F7F2"><img src="statics/img/bed.svg" width=5%> 宿舍管理系統</a>
+    <img src="statics/img/profile.svg" width="40" height="40" style="position: absolute; left: 1660px; top: 7px">
+    <a class="btn btn-outline-secondary mb-3 mb-md-0 m1-md-3" style="border-radius: 10px;background-color:#F7F7F2;font-family: Work Sans;font-style: normal;font-weight: bold" href="login.html">登出</a>
+  </nav>
+</div>
+
+  <div class="container" style="position:absolute; width:295px; height:76px; left:60px; top:100px;border-radius:50px;background-color: #E4E6C3">
+    <img src="statics/img/check_out.svg"  width="95%" height="95%" style="position: absolute;left: -70px;top: 3px;">
+    <span style="position: absolute;width: 95px;height: 28px;left: 140px;top: 28px;font-family: Work Sans;font-style: normal;font-weight: bold;font-size: 24px;line-height: 28px;letter-spacing: -0.02em;">退宿系統</span>
+  </div>
+  
+  <div id="content">
+  <h2>退宿申請列表</h2>
+  
+
+  <table id="table">
+  	<thead>
+  		<tr>
+  			<th>編號</th>
+  			<th>宿舍</th>
+  			<th>房號</th>
+  			<th>床位</th>
+  			<th>狀態</th>
+  			<th>Pass</th>
+  		</tr>
+  	</thead>
+  	<tbody>
+  	</tbody>
+  </table>  
+
+  <script type="text/javascript">
+  	$(document).ready(function() {
+      getAllForm();
+  	});
+  	
+  	function pass(id){
+  
+  		var request = {'id': id};
+        var data_string = JSON.stringify(request);
+        
+        $.ajax({
+            type: "PUT",
+            url: "api/check_out.do",
+            crossDomain: true,
+            data: data_string,
+            cache: false,
+            dataType: 'json',
+            timeout: 5000,
+            success: function (response) {
+                if(response.status == 200){
+                    getAllForm();
+                }    
+            },
+            error: function () {
+                alert("無法連線到伺服器！");
+            }
+        });
+  	}
+  	
+  	function getAllForm(){
+        $.ajax({
+            type: "GET",
+            url: "api/check_out.do",
+            crossDomain: true,
+            cache: false,
+            dataType: 'json',
+            timeout: 5000,
+            success: function (response) {
+                if(response.status == 200){
+                    updateTable(response.response.data);
+                }
+                console.log(response);
+            },
+            error: function () {
+                alert("無法連線到伺服器！");
+            }
+    	}); 		
+  	}
+    function updateTable(data) {
+        $("#table > tbody").empty();
+        var table_html = '';
+        $.each(data, function(index, value) {
+        	var id = value['id'].toString();
+            table_html += '<tr><td scope="row">' + value['id'] + '</td>';
+            table_html += '<td>' + value['dorm'] + '</td>';
+            table_html += '<td>' + value['room'] + '</td>';
+            table_html += '<td>' + value['bed'] + '</td>';
+            table_html += '<td>' + value['passORnot'] + '</td>';
+            table_html += '<td><a href="javascript: pass(' + value['id'] + ');">Pass</a></td></tr>';
+        })
+
+        $("#table > tbody").append(table_html);
+    }  	
+  
+  
+  
+  </script>
+</div>
+
+</body>
+
+</html>

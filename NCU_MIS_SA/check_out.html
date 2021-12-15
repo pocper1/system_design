@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <link href="statics/css/bootstrap.min.css" rel="stylesheet">
+  <link href="statics/css/font-awesome.min.css" rel="stylesheet">
+  <link type="text/css" href="statics/css/check_out.css" rel="stylesheet">
+  
+  <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>  
+  
+  <title>退宿</title>
+
+</head>
+
+
+<body>
+
+<div>
+  <nav class="navbar navbar-light fixed-top" style="background-color:#899878">
+    <a class="navbar-brand" href="#" style="color:#F7F7F2"><img src="statics/img/bed.svg" width=5%> 宿舍管理系統</a>
+    <img src="statics/img/profile.svg" width="40" height="40" style="position: absolute; left: 1660px; top: 7px">
+    <a class="btn btn-outline-secondary mb-3 mb-md-0 m1-md-3" style="border-radius: 10px;background-color:#F7F7F2;font-family: Work Sans;font-style: normal;font-weight: bold" href="login.html">登出</a>
+  </nav>
+
+
+  <div class="container" style="position:absolute; width:295px; height:76px; left:60px; top:100px;border-radius:50px;background-color: #E4E6C3">
+    <img src="statics/img/check_out.svg"  width="95%" height="95%" style="position: absolute;left: -70px;top: 3px;">
+    <span style="position: absolute;width: 95px;height: 28px;left: 140px;top: 28px;font-family: Work Sans;font-style: normal;font-weight: bold;font-size: 24px;line-height: 28px;letter-spacing: -0.02em;">退宿系統</span>
+  </div>
+
+
+	<div class="process">
+	<ul>
+	  <li>
+	    <img src="statics/img/pic/p1.svg" width="60" style="margin-bottom:20px"><br>
+	    <i class="fa fa-refresh" id="p1"></i>
+	    <i class="fa fa-check" id="p1c"></i>
+	    <p>填寫申請表</p>
+	  </li>
+	  <li>
+	    <img src="statics/img/pic/p2.svg" width="60" style="margin-bottom:20px"><br>
+	    <i class="fa fa-times" id="p2"></i>
+	    <i class="fa fa-refresh" id="p2c"></i>
+	    <p>檢查中</p>
+	  </li>
+	  <li>
+	    <img src="statics/img/pic/p3.svg" width="60" style="margin-bottom:20px"><br>
+	    <i class="fa fa-times"></i>
+	    <p>完成退宿</p>
+	  </li>
+	  </ul>
+	</div>
+
+	<div class="container" id="form_back">
+		<br>
+		<center><p style="font-family: Work Sans; font-style: normal; font-weight: bold; font-size: 24px;">退宿申請表</p></center>
+		
+		
+		
+		<form accept-charset="utf-8" id="my_form">
+		  <div>
+		    <label class="form-label">宿舍</label><br>
+		    <select class="form-select" id="dorm" style="width:300px" required="required">
+		      <option value="國際宿舍 International Dorm">國際宿舍 International Dorm</option>
+		      <option value="研究生宿舍 Graduate Student Dorm">研究生宿舍 Graduate Student Dorm</option>
+		      <option value="G1">G1</option>
+		      <option value="G2">G2</option>
+		      <option value="G3">G3</option>
+		      <option value="G4">G4</option>
+		      <option value="G5">G5</option>
+		      <option value="G14">G14</option>
+		      <option value="B3">B3</option>
+		      <option value="B5">B5</option>
+		      <option value="B6">B6</option>
+		      <option value="B7">B7</option>
+		      <option value="B9A">B9A</option>
+		      <option value="B9B">B9B</option>
+		      <option value="B11">B11</option>
+		      <option value="B12">B12</option>
+		      <option value="B13">B13</option>
+		    </select>
+		 
+		  </div>
+		  <br>
+		  <div>
+		    <label class="form-label">房號</label>
+		    <input type="text" id="room" class="form-control" style="width:300px" required="required">
+		  </div>
+		  <br>
+		  <div>
+		  	<label class="form-label">床號</label>
+		    <input type="text" id="bed" class="form-control" style="width:300px" required="required">
+		  </div>
+		  <br>
+		  <p><input type="submit"></p>
+		  
+		</form>
+		
+		<p id="success"	style="position: absolute;left: 360px;top: 250px"></p>
+		
+		<script type="text/javascript">
+			$("#p1c").hide();
+			$("#p2c").hide();
+	    	$("#my_form").submit(function(event) {
+	    		event.preventDefault();
+	            var dorm = $('#dorm').val();
+	            var room = $('#room').val();
+	            var bed = $('#bed').val();
+	
+	            var room_rule = /^[0-9]{3,4}$/;
+	            var bed_rule = /^[1-9]$/;
+	
+	 
+	            if (!room_rule.test(room)) {
+	                alert("房號格式不符！");
+	            }
+	            else if(!bed_rule.test(bed)) {
+	                alert("床位格式不符");
+	            }
+	            else {
+                    var data_object = {
+                            "dorm": dorm,
+                            "room": room,
+                            "bed": bed
+                    };
+
+                    var data_string = JSON.stringify(data_object);
+
+                    $.ajax({
+                    	type: "POST",
+                        url: "api/check_out.do",
+                        data: data_string,
+                        crossDomain: true,
+                        cache: false,
+                        dataType: 'json',
+                        timeout: 5000,
+                        success: function (response) {
+                        	if(response.status == 200){
+            		    		$("#my_form").hide();
+            		    		$("#p1").hide();
+            		    		$("#p2").hide();
+            		    		$("#form_back").css("opacity", "0.55");
+            		    		$("#p1c").show();
+            		    		$("#p2c").show();
+            		    		$("ul li:nth-child(1) .fa").css("background","#60aa97");
+            		    		$("ul li:nth-child(1) .fa").toggleClass("changed");
+            		    		$("ul li:nth-child(2) .fa").css("background","#148e14");
+            		    		$("ul li:nth-child(2) .fa").toggleClass("changed");
+            		    		$('#success').html(response.message);
+                        	}
+                        },
+                        error: function () {
+                        	alert("無法連線到伺服器！");
+                        }
+                    });
+                }
+		    		
+	    	});
+	    </script>
+	</div>
+</div>
+
+</body>
+
+</html>
