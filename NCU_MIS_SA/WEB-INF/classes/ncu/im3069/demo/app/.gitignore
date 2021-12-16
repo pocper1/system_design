@@ -1,2 +1,13 @@
 /CheckOut.class
 /CheckOutHelper.class
+/Member.class
+/MemberHelper.class
+/Order.class
+/OrderHelper.class
+/OrderItem.class
+/OrderItemHelper.class
+/Product.class
+/ProductHelper.class
+/Discussion.class
+/DiscussionHelp.class
+/DiscussionHelper.class
