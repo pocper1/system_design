@@ -1,6 +1,6 @@
 package ncu.im3069.demo.app;
-
-import java.sql.*;
+import java.sql.Timestamp;
+import org.json.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -11,16 +11,14 @@ public class CheckIn {
     private int id;
 
     private String name;
-
-    private String email;
-
-    private String phone;
     
     private String dorm;
     
     private String roomNo;
     
     private String bedNo;
+    
+    private boolean isDamaged;
     
     /** create，訂單創建時間 */
     private Timestamp create;
@@ -46,22 +44,6 @@ public class CheckIn {
 		this.name = name;
 	}
 
-  
-    public String getEmail() {
-        return this.email;
-    }
-    
-	public void setEmail(String email) {
-		this.email = email;
-	}
-    
-	public void setPhone(String phone) {
-		this.phone=phone;
-	}
-	
-	public String getPhone() {
-		return this.phone;
-	}
     
 	public String getDormNo() {
 		return dorm;
@@ -94,90 +76,65 @@ public class CheckIn {
 	public Timestamp getModifyTime() {
 	        return this.modify;
 	}
-    
-    
-    private ArrayList<Member> roommateAL = new ArrayList<Member>();
-    
-    private CheckinHelper ch =  CheckinHelper.getHelper();
+	
+	public boolean getIsDamaged() {
+		return isDamaged;
+	}
 
-    public CheckIn(String name, String email, String phone, String dorm, String roomNo, String bedNo) {
-        this.setName(name);
-        this.email = email;
-        this.phone = phone;
+	public void setDamaged(boolean isDamaged) {
+		this.isDamaged = isDamaged;
+	}
+    
+    
+    
+    private CheckInHelper ch =  CheckInHelper.getHelper();
+    
+    public CheckIn(int id, String name, String dorm, String roomNo, String bedNo, boolean isDamaged) {
+    	this.id=id;
+        this.name=name;
         this.dorm = dorm;
         this.bedNo = bedNo;
+        this.isDamaged = isDamaged;
         this.create = Timestamp.valueOf(LocalDateTime.now());
         this.modify = Timestamp.valueOf(LocalDateTime.now());
+        update();
     }
 
-//    public void addOrderProduct(Product pd, int quantity) {
-//        this.list.add(new OrderItem(pd, quantity));
-//    }
-//
-//
-//    private void getOrderProductFromDB() {
-//        ArrayList<OrderItem> data = oph.getOrderProductByOrderId(this.id);
-//        this.list = data;
-//    }
-
-    /**
-     * 取得訂單基本資料
-     *
-     * @return JSONObject 取得訂單基本資料
-     */
+    public CheckIn(String name, String dorm, String roomNo, String bedNo, boolean isDamaged) {
+        this.name=name;
+        this.dorm = dorm;
+        this.bedNo = bedNo;
+        this.isDamaged = isDamaged;
+        this.create = Timestamp.valueOf(LocalDateTime.now());
+        this.modify = Timestamp.valueOf(LocalDateTime.now());
+        update();
+    }
     
-    public JSONObject getRoommateData() {
+    public CheckIn(int id,boolean isDamaged) {
+    	this.id = id;
+        this.isDamaged = isDamaged;
+        update();
+    }
+
+    
+    public JSONObject update() {
+        JSONObject data = new JSONObject();
+        data = ch.update(this);
+        return data;
+    }
+
+    public JSONObject getData() {
 		JSONObject jso = new JSONObject();
 		jso.put("id", getId());
 		jso.put("name", getName());
-		jso.put("email", getEmail());
-		jso.put("phone", getPhone());
 		jso.put("dorm", getDormNo());
 		jso.put("roomNo", getRoomNo());
 		jso.put("bedNo", getBedNo());
+		jso.put("isDamaged", getIsDamaged());
 
-		
 		return jso;
     	
     }
-
-    /**
-     * 取得訂單產品資料
-     *
-     * @return JSONArray 取得訂單產品資料
-     */
-//    public JSONArray getOrderProductData() {
-//        JSONArray result = new JSONArray();
-//
-//        for(int i=0 ; i < this.list.size() ; i++) {
-//            result.put(this.list.get(i).getData());
-//        }
-//
-//        return result;
-//    }
-//
-//    /**
-//     * 取得訂單所有資訊
-//     *
-//     * @return JSONObject 取得訂單所有資訊
-//     */
-//    public JSONObject getOrderAllInfo() {
-//        JSONObject jso = new JSONObject();
-//        jso.put("order_info", getOrderData());
-//        jso.put("product_info", getOrderProductData());
-//
-//        return jso;
-//    }
-//
-//    /**
-//     * 設定訂單產品編號
-//     */
-//    public void setOrderProductId(JSONArray data) {
-//        for(int i=0 ; i < this.list.size() ; i++) {
-//            this.list.get(i).setId((int) data.getLong(i));
-//        }
-//    }
-//
 
 
 }
