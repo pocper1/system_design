@@ -19,15 +19,23 @@
 -- Table structure for table `products`
 --
 
-DROP TABLE IF EXISTS `products`;
+DROP TABLE IF EXISTS `fixs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `products` (
+CREATE TABLE `fixs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(250) DEFAULT NULL,
-  `price` double DEFAULT NULL,
-  `image` varchar(250) DEFAULT NULL,
-  `describe` varchar(255) DEFAULT NULL,
+  `userID` varchar(250) DEFAULT NULL,
+  `dorm` varchar(255) DEFAULT NULL,
+  `roomNo` varchar(255) DEFAULT NULL,
+  `floor` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `item` varchar(255) DEFAULT NULL,
+  `detail` varchar(255) DEFAULT NULL,
+  `inRoom` int DEFAULT NULL,
+  `reserve` varchar(255) DEFAULT NULL,
+  `progress` varchar(255) DEFAULT NULL,
+  `created` date DEFAULT NULL,
+  `modified` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -36,10 +44,9 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-LOCK TABLES `products` WRITE;
-/*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'iPhone 5C',199.99,'iPhone5C.jpg','這是iPhone5C'),(2,'iPhone 5S',299.99,'iPhone5S.jpg','這是iPhone5S'),(3,'iPhone 6',399.99,'iPhone6.jpg','這是iPhone 6'),(4,'iPhone 6 Plus',499.99,'iPhone6Plus.jpg','這是iPhone 6 Plus');
-/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+LOCK TABLES `fixs` WRITE;
+/*!40000 ALTER TABLE `fixs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fixs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
