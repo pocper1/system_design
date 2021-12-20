@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2021 at 09:18 AM
+-- Generation Time: Dec 20, 2021 at 05:56 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -24,18 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `checkin`
+-- Table structure for table `check_in`
 --
 
-CREATE TABLE `checkin` (
+CREATE TABLE `check_in` (
   `id` int(10) NOT NULL,
-  `checkInID` int(10) NOT NULL,
-  `userID` int(10) NOT NULL,
-  `dorm` varchar(255) NOT NULL,
-  `roomNo` varchar(255) NOT NULL,
-  `isDamaged` tinyint(1) NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL
+  `name` varchar(255) DEFAULT NULL,
+  `dorm_no` varchar(30) DEFAULT NULL,
+  `room_no` varchar(10) DEFAULT NULL,
+  `bed_no` varchar(10) DEFAULT NULL,
+  `is_damaged` tinyint(1) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
+  `modify_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -43,9 +43,9 @@ CREATE TABLE `checkin` (
 --
 
 --
--- Indexes for table `checkin`
+-- Indexes for table `check_in`
 --
-ALTER TABLE `checkin`
+ALTER TABLE `check_in`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -53,9 +53,9 @@ ALTER TABLE `checkin`
 --
 
 --
--- AUTO_INCREMENT for table `checkin`
+-- AUTO_INCREMENT for table `check_in`
 --
-ALTER TABLE `checkin`
+ALTER TABLE `check_in`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
