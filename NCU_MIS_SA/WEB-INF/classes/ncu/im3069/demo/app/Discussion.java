@@ -2,6 +2,7 @@ package ncu.im3069.demo.app;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import org.json.*;
 
@@ -24,6 +25,14 @@ public class Discussion {
     
     /** id，更新時間 */
     private Timestamp updated_at;
+    
+    /** comment，留言列表 */
+    private ArrayList<Comment> list = new ArrayList<Comment>();
+
+    /** oph，CommentHelper 之物件與 Comment 相關之資料庫方法（Sigleton） */
+    private CommentHelper oph = CommentHelper.getHelper();
+    
+    
     /**
      * 實例化（Instantiates）一個新的（new）Product 物件<br>
      * 採用多載（overload）方法進行，此建構子用於新增產品時
@@ -65,6 +74,7 @@ public class Discussion {
 		this.article_content = article_content;
 		this.author = author;
 		this.updated_at = Timestamp.valueOf(LocalDateTime.now());
+//		getCommentFromDB();
 	}
 
 	/**
@@ -116,13 +126,31 @@ public class Discussion {
     }
 
     /**
-     * 取得訂單修改時間
+     * 取得文章修改時間
      *
      * @return Timestamp 回傳訂單修改時間
      */
     public Timestamp getUpdatedTime() {
         return this.updated_at;
     }
+    
+    /**
+     * 取得該篇文章所有留言
+     *
+     * @return the data 取得該篇文章所有留言並封裝於JSONObject物件內
+     */
+//    public ArrayList<Comment> getComment() {
+//        return this.comment;
+//    }
+//
+//    /**
+//     * 從 DB 中取得訂單產品
+//     */
+//    private void getCommentFromDB() {
+//        ArrayList<Comment> data = oph.getOrderProductByOrderId(this.id);
+//        this.list = data;
+//    }
+    
     
     /**
      * 取得產品資訊
