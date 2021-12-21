@@ -51,63 +51,39 @@
   </div>
 
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">宿舍報修系統</h1>
-    <p class="lead">**以下為報修系統使用者介面**</p>
+    <h1 class="display-4">問題反映</h1>
+    <p class="lead">**填寫以下資訊以送出報修表單**</p>
   </div>
 
   <div class="album py-5 bg-light">
     <div class="container">
-	      <a href="addFix.html" class="btn btn-primary text-right">
-	        新增報修
-	        <i class="fas fa-plus"></i>
-	      </a>
-	      <a href="addFixQuestion.html" class="btn btn-primary ml-2">
-	        問題反映
-	        <i class="fas fa-plus"></i>
-	      </a>
-      <div class="pt-3">
-	      <table class="table table-success table-striped text-center">
-			<thead>
-			  <tr>
-			    <th scope="col">#</th>
-			    <th scope="col">大樓</th>
-			    <th scope="col">類別</th>
-			    <th scope="col">報修日期</th>
-			    <th scope="col">進度</th>
-			    <th scope="col">詳細資訊</th>
-			    <th scope="col">刪除</th>
-			  </tr>
-			</thead>
-		  <tbody id="fix_table">
-		  
-		  </tbody>
-		  </table>
+      <div id="product_panel" class="row">
       </div>
     </div>
   </div>
 
   <script>   
-    //var [client_cart_obj, client_cart_amount]  = getCartDataFromClient();
+    var [client_cart_obj, client_cart_amount]  = getCartDataFromClient();
     
-    function getAllFix() {
+    function getAllProduct() {
       $.ajax({
         type: "GET",
-        url: "api/fix.do",
+        url: "api/product.do",
         crossDomain: true,
         cache: false,
         dataType: 'json',
         timeout: 5000,
         success: function (response) {
           if (response.status == 200) {
-        	var fix_table = '';
+        	var product_panel = '';
         	
         	$.each(response.response.data, function (){
-        		fix_table += addFix(this);
+        		product_panel += addProduct(this);
         	})
         	
-        	$("#fix_table").append(fix_table);
-        	//setButtonFunction();
-        	//checkIfExistInCart();
+        	$("#product_panel").append(product_panel);
+        	setButtonFunction();
+        	checkIfExistInCart();
           }
         },
         error: function () {
@@ -116,51 +92,27 @@
       });
     }
 
-    getAllFix();
+    //getAllProduct();
     
-    function addFix(data) {
-    	document.getElementById('fix_table').innerHTML="";
+    function addProduct(data) {
     	let inner_html = '';
-    	inner_html+='<tr><th scope="row">'+data.id+'</th>';
-		inner_html+='<td>'+data.dorm+'</td>';
-		inner_html+='<td>'+data.category+'</td>';
-		inner_html+='<td>'+data.created.split(" ",1)+'</td>';
-		inner_html+='<td>'+data.progress+'%</td>';
-		inner_html+='<td><div><a href="checkFix.html" class="btn btn-warning ml-2">詳細資訊 <i class="fas fa-plus"></i></a></div></td>';
-		inner_html+='<td><div><a href="javascript: deleteFix(' + data['id'] + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-plus"></i></a></div></td></tr>';
+    	inner_html += '<div class="col-md-4">';
+   		inner_html += '<div class="card-header">';
+   		inner_html += '<h4 class="font-weight-normal text-center text-truncate">' + data.name + '</h4>';
+ 		inner_html += '</div>';
+ 		inner_html += '<div class="card mb-4 shadow-sm">';
+ 		inner_html += '<img src="statics/img/product/' + data.image + '" width="100%">';
+		inner_html += '<div class="card-body">';
+		inner_html += '<h1 class="card-title pricing-card-title">$' + data.price + ' <small class="text-muted">/ USD</small></h1>';
+		inner_html += '<p class="card-text">' + data.describe + '</p>';
+		inner_html += '<div class="d-flex justify-content-between align-items-center">';
+		inner_html += '<div class="btn-group">';
+		inner_html += '<button id="add_cart_' + data.id + '" name="add_cart" type="button" class="btn btn-lg btn-block btn-outline-primary">加入購物車</button>';
+		inner_html += '</div><small class="text-muted">id: ' + data.id + '</small>';
+		inner_html += '</div></div></div></div>';
+    	
 		return inner_html;
     }
-
-    function deleteFix(id) {
-        var check = window.confirm("確認刪除此筆資料？");
-        if (check == true) {
-            console.log("You pressed OK!");
-            var request = {'id': id};
-            var data_string = JSON.stringify(request);
-            $.ajax({
-                type: "DELETE",
-                url: "api/fix.do",
-                crossDomain: true,
-                data: data_string,
-                cache: false,
-                dataType: 'json',
-                timeout: 5000,
-                success: function (response) {
-                    if(response.status == 200){
-                        getAllFix();
-                    }
-                    console.log(response);
-                },
-                error: function () {
-                    alert("無法連線到伺服器！");
-                }
-            });
-        }
-        else {
-            console.log("You pressed Cancel!");
-        }
-    }
-    /*
     
     function setButtonFunction() {
     	$('button[name="add_cart"]').click(function () {
@@ -220,7 +172,7 @@
     	    $('#' + id).removeClass('disabled');
     	    $('#' + id).html('加入購物車');
     	}
-    }*/
+    }
   </script>
 
   <footer class="text-muted">

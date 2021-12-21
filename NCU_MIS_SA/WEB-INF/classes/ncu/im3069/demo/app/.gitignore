@@ -13,3 +13,7 @@
 /DiscussionHelper.class
 /Comment.class
 /CommentHelper.class
+/Fix.class
+/FixHelper.class
+/CheckIn.class
+/CheckInHelper.class
