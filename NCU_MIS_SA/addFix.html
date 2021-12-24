@@ -41,12 +41,58 @@
 <body>
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">NCU_MIS-SA</h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-2 text-dark" href="index.html">會員管理模組</a>
-      <a class="p-2 text-dark" href="product.html">商品列表</a>
-      <a class="p-2 text-dark" href="dormManagement.html">宿舍報修</a>
-      <a class="p-2 text-dark" href="order.html">訂單列表</a>
-    </nav>
+    
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-bed me-1"></i> 宿舍管理系統</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link" href="member.html"><strong>會員管理</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">公告欄</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="discussion_board.html">討論版</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">宿舍繳費</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dormManagement.html">宿舍報修</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">報到手續</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">退宿手續</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fas fa-user me-1"></i>使用者
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="/"><i class="fas fa-sign-out-alt me-1"></i>登出</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
     <a class="btn btn-outline-primary" href="welcome.html">首頁</a>
   </div>
 
@@ -62,12 +108,31 @@
       <div class="row">
           <div class="col-4">
             <label for="dorm" class="form-label">大樓</label>
-            <input
+            <select id="dorm"  aria-describedby="title">
+				<option value="D10.男十ㄧ舍">D10.男十ㄧ舍 Student B11</option>
+				<option value="D11.男十二舍">D11.男十二舍 Student B12</option>
+				<option value="D12.男十三舍">D12.男十三舍 Student B13</option>
+				<option value="D13.研究生宿舍">D13.研究生宿舍 Graduate Students Dorm</option>
+				<option value="D14.女十四舍">D14.女十四舍 Student G14</option>
+				<option value="D15.女一宿舍">D15.女一宿舍 Student G1</option>
+				<option value="D16.女二宿舍">D16.女二宿舍 Student G2</option>
+				<option value="D17.女三宿舍">D17.女三宿舍 Student G3</option>
+				<option value="D18.女四宿舍">D18.女四宿舍 Student G4</option>
+				<option value="D3.男三宿舍">D3.男三宿舍 Student B3</option>
+				<option value="D4.女五宿舍">D4.女五宿舍 Student G5</option>
+				<option value="D5.男五宿舍(女6)">D5.男五宿舍(女6) Student G6</option>
+				<option value="D6.男六宿舍">D6.男六宿舍	Student B6</option>
+				<option value="D7.男七舍">D7.男七舍	Student B7</option>
+				<option value="D9A.男九A">D9A.男九A Student B9A</option>
+				<option value="D9B.男九B">D9B.男九B Student B9B</option>
+				<option value="HO1.國際學舍">HO1.國際學舍 International Dorm</option>
+			</select>
+            <!--<input
               type="text"
               class="form-control"
               id="dorm"
               aria-describedby="title"
-            />
+            />-->
           </div>
           <div class="col-4">
             <label for="floor" class="form-label">樓層</label>
@@ -90,22 +155,58 @@
       </div>
       <div class="row">
           <div class="col-4">
-            <label for="category" class="form-label">種類</label>
-            <input
+            <label for="category" class="form-label">種類</label><br>
+            <select id="category" onchange="SetSubmenu(this)" aria-describedby="title">
+            	<option value="衣櫃">衣櫃</option>
+            	<option value="鞋櫃">鞋櫃</option>
+            	<option value="燈具">燈具</option>
+            	<option value="電力系統">電力系統</option>
+            	<option value="書桌">書桌</option>
+            	<option value="浴刷">浴廁</option>
+            	<option value="床">床</option>
+            	<option value="門">門</option>
+            	<option value="窗戶">窗戶</option>
+            	<option value="供水系統">供水系統</option>
+            	<option value="牆壁">牆壁</option>
+            	<option value="天花板">天花板</option>
+            	<option value="磁磚">磁磚</option>
+            	<option value="鍋爐">鍋爐</option>
+            	<option value="飲水機">飲水機</option>
+            	<option value="油漆">油漆</option>
+            	<option value="冷氣機">冷氣機</option>
+            	<option value="其他">其他</option>
+            	<option value="漏水">漏水</option>
+            	<option value="電扇">電扇</option>
+            	<option value="電話">電話</option>
+            	<option value="電視">電視(限交誼廳)</option>
+            	<option value="洗、烘衣機">洗、烘衣機</option>
+            	<option value="消防">消防</option>
+            	<option value="販賣機">販賣機</option>
+            	<option value="廚房">廚房電器</option>
+            	<option value="寢室椅">寢室椅</option>
+            	<option value="寢室地板">寢室地板</option>
+            	<option value="冷氣讀卡機">冷氣讀卡機</option>
+            	<option value="浴室供水">浴室供水系統</option>
+            </select>
+<!--            <input
               type="text"
               class="form-control"
               id="category"
               aria-describedby="title"
-            />
+            />-->
           </div>
           <div class="col-4">
             <label for="item" class="form-label">項目</label>
+            <br>
+            <select id="item" aria-describedby="title">
+            </select>
+            <!-- 
             <input
               type="text"
               class="form-control"
               id="item"
               aria-describedby="title"
-            />
+            /> -->
           </div>
           <div class="col-4">
             <label for="detail" class="form-label">細項</label>
@@ -119,7 +220,7 @@
       </div>
       <div class="row">
       	<div class="col-12">
-      		<label for="reserve" class="form-label">預約時間</label>
+      		<label for="reserve" class="form-label">預約時間 ( 請輸入時段 ex : 2021/12/31 12:00-13:00 ) </label>
       		<input 
       		type="text"
       		class="form-control"
@@ -129,24 +230,19 @@
       	</div>
       </div>
           
-          <div class="col-6 mt-4">
-            <label for="inRoom" class="form-label">入寢維修</label>
+          <div class="d-flex justify-content-end">
             <input
               type="checkbox"
               class="form-check-input ml-2"
               id="checkbox_inRoom"
               aria-describedby="title"
             />
+            <label for="checkbox_inRoom" class="form-label pr-3">入寢維修</label>
           </div>
           <div style="display:none">
           	<input type="text" placeholder="inRoom" id="inRoom">
           </div>
-          <div class="row">
-		      <div class="col align-self-start">
-		      </div>
-		      <div class="col align-self-center">
-		    </div>
-	          <div class="col align-self-end">
+	          <div class="d-flex justify-content-center">
 		          <button
 		            id="post_Fix"
 		            type="submit"
@@ -154,8 +250,11 @@
 		          >
 		            送出
 		          </button>
-	          </div>
-          </div>
+		      <a href="dormManagement.html" class="btn btn-secondary text-right ml-2">
+		        回上一頁
+		        <i class="fas fa-plus"></i>
+		      </a>
+	        </div>
         </form>
       
       </div>
@@ -163,6 +262,107 @@
   </div>
 
   <script>   
+  function SetSubmenu(obj)   {
+	  switch(obj.value){
+	  case "衣櫃":
+		  alert("1");
+		  break;
+	  case "鞋櫃":
+		  alert("2");
+		  break;
+	  case "燈具":
+		  alert("3");
+		  break;
+	  case "電力系統":
+		  alert("4");
+		  break;
+	  case "書桌":
+		  alert("5");
+		  break;
+	  case "浴刷":
+		  alert("6");
+		  break;
+	  case "床":
+		  alert("7");
+		  break;
+	  case "門":
+		  alert("8");
+		  break;
+	  case "窗戶":
+		  alert("9");
+		  break;
+	  case "供水系統":
+		  alert("10");
+		  break;
+	  case "牆壁":
+		  alert("11");
+		  break;
+	  case "天花板":
+		  alert("11");
+		  break;
+	  case "磁磚":
+		  alert("11");
+		  break;
+	  case "鍋爐":
+		  alert("11");
+		  break;
+	  case "飲水機":
+		  alert("11");
+		  break;
+	  case "油漆":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  case "其他":
+		  alert("11");
+		  break;
+	  case "漏水":
+		  alert("11");
+		  break;
+	  case "電扇":
+		  alert("11");
+		  break;
+	  case "電話":
+		  alert("11");
+		  break;
+	  case "電視":
+		  alert("11");
+		  break;
+	  case "洗、烘衣機":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  case "冷氣機":
+		  alert("11");
+		  break;
+	  }
+	}
+  
   $("#checkbox_inRoom").change(function(){
 	  var status=document.getElementById("checkbox_inRoom").checked;
 	  $("#inRoom").val(status==true?1:0);

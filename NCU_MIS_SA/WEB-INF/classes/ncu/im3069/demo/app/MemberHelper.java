@@ -153,10 +153,11 @@ public class MemberHelper {
                 String email = rs.getString("email");
                 String password = rs.getString("password");
                 int login_times = rs.getInt("login_times");
+                String role = rs.getString("role");
                 String status = rs.getString("status");
                 
                 /** 將每一筆會員資料產生一名新Member物件 */
-                m = new Member(member_id, email, password, name, login_times, status);
+                m = new Member(member_id, email, password, name, login_times,role, status);
                 /** 取出該名會員之資料並封裝至 JSONsonArray 內 */
                 jsa.put(m.getData());
             }
@@ -235,10 +236,11 @@ public class MemberHelper {
                 String email = rs.getString("email");
                 String password = rs.getString("password");
                 int login_times = rs.getInt("login_times");
+                String role = rs.getString("role");
                 String status = rs.getString("status");
                 
                 /** 將每一筆會員資料產生一名新Member物件 */
-                m = new Member(member_id, email, password, name, login_times, status);
+                m = new Member(member_id, email, password, name, login_times,role, status);
                 /** 取出該名會員之資料並封裝至 JSONsonArray 內 */
                 jsa.put(m.getData());
             }
@@ -458,18 +460,19 @@ public class MemberHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "Update `missa`.`members` SET `name` = ? ,`password` = ? , `modified` = ? WHERE `email` = ?";
+            String sql = "Update `missa`.`members` SET `name` = ? ,`password` = ? , `modified` = ?, `role`=?  WHERE `email` = ?";
             /** 取得所需之參數 */
             String name = m.getName();
             String email = m.getEmail();
             String password = m.getPassword();
-            
+            String role = m.getRole();
             /** 將參數回填至SQL指令當中 */
             pres = conn.prepareStatement(sql);
             pres.setString(1, name);
             pres.setString(2, password);
             pres.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            pres.setString(4, email);
+            pres.setString(4,role);
+            pres.setString(5, email);
             /** 執行更新之SQL指令並記錄影響之行數 */
             row = pres.executeUpdate();
 

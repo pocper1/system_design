@@ -18,8 +18,7 @@
         </div>
         <div id="content">
             <h2>更新會員資料</h2>
-            <a href="index.html">會員清單</a>
-            <a href="product.html">購物車模組</a>
+            <a href="member.html">會員清單</a>
 
             <div id="flashMessage" class="message" style="display: none;"></div>
 
@@ -45,6 +44,15 @@
                     <label for="member_status">會員組別</label>
                     <input name="status" type="text" id="member_status" disabled>
                 </div>
+                <div class="input text">
+                    <label for="member_role">會員身分</label>
+                    <select name='role' id="member_role">
+					    <option value='0'>宿民</option>
+					    <option value='1'>宿舍管理員</option>
+					    <option value='2'>宿舍舍監</option>
+					    <option value='3'>外聘廠商</option>
+					</select>
+                </div>
                 <div class="submit"><input type="button" value="更新" id="submit"></div>
             </form>
 
@@ -59,6 +67,7 @@
                     var name = $('#member_name').val();
                     var email = $('#member_email').val();
                     var password = $('#member_password').val();
+                    var role =$('#member_role').val();
 
                     var password_rule = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
@@ -71,6 +80,7 @@
                             "id": id,
                             "name": name,
                             "email": email,
+                            "role": role,
                             "password": password
                         };
 
@@ -181,3 +191,5 @@
 </body>
 
 </html>
+
+

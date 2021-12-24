@@ -35,6 +35,7 @@ public class Member {
     /** status，會員之組別 */
     private String status;
     
+    private String role;
     /** mh，MemberHelper之物件與Member相關之資料庫方法（Sigleton） */
     private MemberHelper mh =  MemberHelper.getHelper();
     
@@ -46,10 +47,11 @@ public class Member {
      * @param password 會員密碼
      * @param name 會員姓名
      */
-    public Member(String email, String password, String name) {
+    public Member(String email, String password, String name,String role) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.role=role;
         update();
     }
 
@@ -62,11 +64,12 @@ public class Member {
      * @param password 會員密碼
      * @param name 會員姓名
      */
-    public Member(int id, String email, String password, String name) {
+    public Member(int id, String email, String password, String name, String role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
+        this.role=role;
         /** 取回原有資料庫內該名會員之更新時間分鐘數與組別 */
         getLoginTimesStatus();
         /** 計算會員之組別 */
@@ -84,12 +87,13 @@ public class Member {
      * @param login_times 更新時間的分鐘數
      * @param status the 會員之組別
      */
-    public Member(int id, String email, String password, String name, int login_times, String status) {
+    public Member(int id, String email, String password, String name, int login_times,String role, String status) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.login_times = login_times;
+        this.role = role;
         this.status = status;
     }
     
@@ -147,6 +151,10 @@ public class Member {
         return this.status;
     }
     
+    public String getRole() {
+    	return this.role;
+    }
+    
     /**
      * 更新會員資料
      *
@@ -186,6 +194,7 @@ public class Member {
         jso.put("password", getPassword());
         jso.put("login_times", getLoginTimes());
         jso.put("status", getStatus());
+        jso.put("role", getRole());
         
         return jso;
     }
