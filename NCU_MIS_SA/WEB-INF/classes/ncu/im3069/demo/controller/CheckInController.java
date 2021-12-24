@@ -22,7 +22,7 @@ import ncu.im3069.tools.JsonReader;
  * @param <ch>
  * @since 1.0.0
  */
-@WebServlet("/api/check_out.do")
+@WebServlet("/api/check_in.do")
 public class CheckInController extends HttpServlet {
     
     /** The Constant serialVersionUID. */
