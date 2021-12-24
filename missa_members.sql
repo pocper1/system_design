@@ -30,7 +30,8 @@ CREATE TABLE `members` (
   `modified` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `login_times` int(11) DEFAULT '0',
-  `status` varchar(255) DEFAULT '偶數會員',
+  `role` varchar(10) DEFAULT '0',
+  `status` varchar(255) DEFAULT 'even',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -41,7 +42,7 @@ CREATE TABLE `members` (
 
 LOCK TABLES `members` WRITE;
 /*!40000 ALTER TABLE `members` DISABLE KEYS */;
-INSERT INTO `members` VALUES (1,'測試人員','test@cc.ncu.edu.tw','Test1234567','2019-10-18 11:30:28','2019-10-18 11:30:28',0,'偶數會員');
+INSERT INTO `members` VALUES (1,'test��','test@cc.ncu.edu.tw','Test1234567','2019-10-18 11:30:28','2019-10-18 11:30:28',0,0,'even');
 /*!40000 ALTER TABLE `members` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
