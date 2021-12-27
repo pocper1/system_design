@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>公佈欄</title>
+   <!--以下是 Bootstrap 的文件包-->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="<?=$link;?>css/bootstrap-responsive.min.css" rel="stylesheet">
+   <link href="<?=$link;?>css/bootstrap.min.css" rel="stylesheet" media="screen">
+   <script src="<?=$link;?>js/jquery.js"></script>
+   <script src="<?=$link;?>js/bootstrap.min.js"></script>
+</head>
+<style>
+#heig{
+     height:10px;
+}
+#color{
+     background-color: #E5E5E5;
+}
+</style>
+
+<body>
+   <!--"container"為固定置中,請參考 http://kkbruce.tw/Bootstrap/Scaffolding 佈局篇-->
+   <div class="container">
+   <!--class="table table-bordered table-condensed"請參考 http://kkbruce.tw/Bootstrap/BaseCSS#tables -->
+     <table width="1200" border="0" class="table table-bordered table-condensed">
+       <tr>
+         <td colspan="2" bgcolor="#CCCCCC"><div align="center"><strong>公佈欄</strong></div></td>
+       </tr>
+       <tr>
+         <td>
+         <!-- 請參考 http://kkbruce.tw/Bootstrap/BaseCSS#forms -->
+         <div id="heig">
+         <form action="" method="post" name="like" class="form-inline" id="like">
+           <strong>搜尋標題: </strong>
+           <label>
+           <input type="text" name="title"/>
+           </label>
+           <button class="btn" type="submit">搜尋</button>
+         </form>
+         </div>
+         </td>
+         <td>
+
+           <div align="center">       
+             <!-- 請參考 http://kkbruce.tw/Bootstrap/BaseCSS#buttons -->
+             <button class="btn" type="button" onClick="window.location='addbulletinboard.html'">新增公告</button>
+         </div></td>
+       </tr>
+       <tr>
+         <td colspan="2"><table width="1200" border="0"  class="table table-bordered table-condensed table-striped table-hover">
+           <tr>
+             <td id="color"><div align="center"><strong>項次</strong></div></td>
+             <td id="color"><div align="center"><strong>分類</strong></div></td>
+             <td id="color"><div align="center"><strong>標題</strong></div></td>
+             <td id="color"><div align="center"><strong>時間</strong></div></td>
+             <td id="color"><div align="center"><strong>管理</strong></div></td>
+           </tr>
+           <tr>
+             <td><div align="center"></div></td>
+             <td><div align="center"></div></td>
+             <td><div align="center"></div></td>
+             <td><div align="center"></div></td>
+             <td><div align="center"></div></td>
+           </tr>
+         </table></td>
+       </tr>
+     </table>
+     
+     <script type="text/javascript">
+     </script>
+</div>
+</body>
+</html>
