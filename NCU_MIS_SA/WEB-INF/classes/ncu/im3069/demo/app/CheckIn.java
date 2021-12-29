@@ -2,13 +2,12 @@ package ncu.im3069.demo.app;
 import java.sql.Timestamp;
 import org.json.*;
 import java.time.LocalDateTime;
-import java.util.*;
-
-import org.json.*;
 
 public class CheckIn {
 
     private int id;
+    
+    private String userID;
 
     private String name;
     
@@ -35,6 +34,14 @@ public class CheckIn {
     public int getId() {
         return this.id;
     }
+    
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
     
 	public String getName() {
 		return name;
@@ -84,28 +91,32 @@ public class CheckIn {
 	public void setDamaged(boolean isDamaged) {
 		this.isDamaged = isDamaged;
 	}
+	
+
     
     
     
     private CheckInHelper ch =  CheckInHelper.getHelper();
     
-    public CheckIn(int id, String name, String dorm, String roomNo, String bedNo, boolean isDamaged) {
+    public CheckIn(int id,String userID, String name, String dorm, String roomNo, String bedNo, boolean isDamaged, Timestamp created, Timestamp modified) {
     	this.id=id;
+    	this.userID=userID;
         this.name=name;
         this.dorm = dorm;
         this.bedNo = bedNo;
         this.isDamaged = isDamaged;
-        this.create = Timestamp.valueOf(LocalDateTime.now());
+        this.create = created;
         this.modify = Timestamp.valueOf(LocalDateTime.now());
         update();
     }
 
-    public CheckIn(String name, String dorm, String roomNo, String bedNo, boolean isDamaged) {
+    public CheckIn(String userID, String name, String dorm, String roomNo, String bedNo, boolean isDamaged, Timestamp created, Timestamp updated_at) {
+    	this.userID=userID;
         this.name=name;
         this.dorm = dorm;
         this.bedNo = bedNo;
         this.isDamaged = isDamaged;
-        this.create = Timestamp.valueOf(LocalDateTime.now());
+        this.create = created;
         this.modify = Timestamp.valueOf(LocalDateTime.now());
         update();
     }
@@ -134,8 +145,9 @@ public class CheckIn {
     public JSONObject getData() {
 		JSONObject jso = new JSONObject();
 		jso.put("id", getId());
+		jso.put("userID", getUserID());
 		jso.put("name", getName());
-		jso.put("dorm", getDormNo());
+		jso.put("dormNo", getDormNo());
 		jso.put("roomNo", getRoomNo());
 		jso.put("bedNo", getBedNo());
 		jso.put("isDamaged", getIsDamaged());
@@ -143,6 +155,8 @@ public class CheckIn {
 		return jso;
     	
     }
+
+
 
 
 }
