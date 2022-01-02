@@ -99,9 +99,6 @@ public class FixController extends HttpServlet {
 	        JSONObject jso = jsr.getObject();
 	
 	        /** 取出經解析到 JSONObject 之 Request 參數 */
-
-	        
-
             	String userID = jso.getString("UserID");
 	  	      	String dorm = jso.getString("dorm");
 	  	      	String roomNo = jso.getString("roomNo");
@@ -132,36 +129,6 @@ public class FixController extends HttpServlet {
 
 	        /** 透過 JsonReader 物件回傳到前端（以 JSONObject 方式） */
 	        jsr.response(resp, response);
-	        
-	
-	//        /** 建立一個新的訂單物件 */
-	//        Order od = new Order(first_name, last_name, email, address, phone);
-	//
-	//        /** 將每一筆訂單細項取得出來 */
-	//        for(int i=0 ; i < item.length() ; i++) {
-	//            String product_id = item.getString(i);
-	//            int amount = quantity.getInt(i);
-	//
-	//            /** 透過 ProductHelper 物件之 getById()，取得產品的資料並加進訂單物件裡 */
-	//            Product pd = ph.getById(product_id);
-	//            od.addOrderProduct(pd, amount);
-	//        }
-	//
-	//        /** 透過 orderHelper 物件的 create() 方法新建一筆訂單至資料庫 */
-	//        JSONObject result = oh.create(od);
-	//
-	//        /** 設定回傳回來的訂單編號與訂單細項編號 */
-	//        od.setId((int) result.getLong("order_id"));
-	//        od.setOrderProductId(result.getJSONArray("order_product_id"));
-	//
-	//        /** 新建一個 JSONObject 用於將回傳之資料進行封裝 */
-	//        JSONObject resp = new JSONObject();
-	//        resp.put("status", "200");
-	//        resp.put("message", "訂單新增成功！");
-	//        resp.put("response", od.getOrderAllInfo());
-	
-	        /** 透過 JsonReader 物件回傳到前端（以 JSONObject 方式） */
-	//        jsr.response(response);
 	}
     public void doDelete(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
@@ -178,7 +145,7 @@ public class FixController extends HttpServlet {
         /** 新建一個JSONObject用於將回傳之資料進行封裝 */
         JSONObject resp = new JSONObject();
         resp.put("status", "200");
-        resp.put("message", "會員移除成功！");
+        resp.put("message", "報修移除成功！");
         resp.put("response", query);
 
         /** 透過JsonReader物件回傳到前端（以JSONObject方式） */
