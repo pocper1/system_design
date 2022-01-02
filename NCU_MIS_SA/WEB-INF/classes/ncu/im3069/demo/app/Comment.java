@@ -9,7 +9,7 @@ import org.json.*;
 public class Comment {
 
     /** id，訂單編號 */
-    private int id;
+    private int comment_id;
 
     /** user_id，訂單編號 */
     private int user_id;
@@ -68,7 +68,21 @@ public class Comment {
         this.updated_at = Timestamp.valueOf(LocalDateTime.now());
     }
  
-
+    /**
+     * 實例化（Instantiates）一個搜尋（search）Comment 物件<br>
+     * 採用多載（overload）方法進行，此建構子用於編輯留言資料時，編輯一個留言
+     *
+     * @param user_id 使用者編號
+     * @param content 文章內容
+     * @param created_at 留言創建時間
+     * @param updated_at 留言修改時間
+     */
+    public Comment(int ct_id, int user_id, String content, Timestamp created_at) {
+    	this.comment_id = ct_id;
+    	this.user_id = user_id;
+        this.content = content;
+        this.created_at = created_at;
+    }
     /**
      * 設定留言編號
      */
