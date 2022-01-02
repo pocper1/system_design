@@ -1,7 +1,7 @@
 package ncu.im3069.demo.app;
 
 import java.sql.*;
-import java.time.LocalDateTime;
+//import java.time.LocalDateTime;
 import org.json.*;
 
 import ncu.im3069.demo.util.DBMgr;
@@ -45,7 +45,7 @@ public class CheckInHelper {
             conn = DBMgr.getConnection();
             
             /** SQL指令 */
-            String sql = "DELETE FROM `missa`.`check_out` WHERE `id` = ? LIMIT 1";
+            String sql = "DELETE FROM `missa`.`check_in` WHERE `id` = ? LIMIT 1";
             
             /** 將參數回填至SQL指令當中 */
             pres = conn.prepareStatement(sql);
@@ -101,7 +101,7 @@ public class CheckInHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "SELECT * FROM `missa`.`check_out`";
+            String sql = "SELECT * FROM `missa`.`check_in`";
             
             /** 將參數回填至SQL指令當中，若無則不用只需要執行 prepareStatement */
             pres = conn.prepareStatement(sql);
@@ -119,14 +119,18 @@ public class CheckInHelper {
                 
                 /** 將 ResultSet 之資料取出 */
                 int ci_id = rs.getInt("id");
+                String userID = rs.getString("userID");
                 String name = rs.getString("name");
                 String dorm = rs.getString("dormNo");
                 String room = rs.getString("roomNo");
                 String bed = rs.getString("bedNo");
                 boolean isDamaged = rs.getBoolean("isDamaged");
+                Timestamp created = rs.getTimestamp("created");
+                Timestamp modified = rs.getTimestamp("modified");
                 
                 /** 將每一筆會員資料產生一名新Member物件 */
-                c = new CheckIn(ci_id, name, dorm, room, bed,isDamaged);
+                //int id,String userID, String name, String dorm, String roomNo, String bedNo, boolean isDamaged, Timestamp created, Timestamp modified
+                c = new CheckIn(ci_id,userID, name, dorm, room, bed,isDamaged, created, modified);
                 /** 取出該名會員之資料並封裝至 JSONsonArray 內 */
                 jsa.put(c.getData());
             }
@@ -176,7 +180,7 @@ public class CheckInHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "SELECT * FROM `missa`.`check_out` WHERE `id` = ? LIMIT 1";
+            String sql = "SELECT * FROM `missa`.`check_in` WHERE `id` = ? LIMIT 1";
             
             /** 將參數回填至SQL指令當中 */
             pres = conn.prepareStatement(sql);
@@ -192,18 +196,21 @@ public class CheckInHelper {
             /** 正確來說資料庫只會有一筆該會員編號之資料，因此其實可以不用使用 while 迴圈 */
             while(rs.next()) {
                 /** 每執行一次迴圈表示有一筆資料 */
-                row += 1;
+                //row += 1;
                 
                 /** 將 ResultSet 之資料取出 */
                 int ci_id = rs.getInt("id");
+                String userID = rs.getString("userID");
                 String name = rs.getString("name");
                 String dorm = rs.getString("dormNo");
                 String room = rs.getString("roomNo");
                 String bed = rs.getString("bedNo");
                 boolean isDamaged = rs.getBoolean("isDamaged");
+                Timestamp created = rs.getTimestamp("created");
+                Timestamp modified = rs.getTimestamp("modified");
                 
                 /** 將每一筆會員資料產生一名新Member物件 */
-                c = new CheckIn(ci_id, name, dorm, room, bed,isDamaged);
+                c = new CheckIn(ci_id,userID, name, dorm, room, bed,isDamaged, created, modified);
                 /** 取出該名會員之資料並封裝至 JSONsonArray 內 */
                 jsa.put(c.getData());
             }
@@ -246,7 +253,7 @@ public class CheckInHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "SELECT count(*) FROM `missa`.`check_in` WHERE `dorm` = ? AND `room` = ? AND `bed` = ?";
+            String sql = "SELECT count(*) FROM `missa`.`check_in` WHERE `dorm_no` = ? AND `room_no` = ? AND `bed_no` = ?";
             
             /** 取得所需之參數 */
             String dorm = c.getDormNo();
@@ -289,37 +296,52 @@ public class CheckInHelper {
         /** 記錄實際執行之SQL指令 */
         String exexcute_sql = "";
         /** 紀錄程式開始執行時間 */
-        long start_time = System.nanoTime();
+        //long start_time = System.nanoTime();
         /** 紀錄SQL總行數 */
-        int row = 0;
+        //int row = 0;
+        JSONArray arr = new JSONArray();
+        
+        long id = -1;
         
         try {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "INSERT INTO `missa`.`check_in`(`dorm`, `room`, `bed`, `created` ,`isDamaged`)"
-                    + " VALUES(?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `missa`.`check_in`(`user_id`, `name`,`dorm_no`, `room_no`, `bed_no`,`is_damaged`, `create_time` ,`modify_time`)"
+                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             
             /** 取得所需之參數 */
+            String userID = c.getUserID();
+            String name = c.getName();
             String dorm = c.getDormNo();
             String room = c.getRoomNo();
             String bed = c.getBedNo();
             boolean isDamaged = c.getIsDamaged();
+            Timestamp create = c.getCreateTime();
+            Timestamp modify = c.getModifyTime();
             
             /** 將參數回填至SQL指令當中 */
-            pres = conn.prepareStatement(sql);
-            pres.setString(1, dorm);
-            pres.setString(2, room);
-            pres.setString(3, bed);
-            pres.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
-            pres.setBoolean(5, isDamaged);
+            pres = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pres.setString(1, userID);
+            pres.setString(2, name);
+            pres.setString(3, dorm);
+            pres.setString(4, room);
+            pres.setString(5, bed);
+            pres.setBoolean(6, isDamaged);
+            pres.setTimestamp(7, create);
+            pres.setTimestamp(12, modify);
+            
 
             
             /** 執行新增之SQL指令並記錄影響之行數 */
-            row = pres.executeUpdate();
+            pres.executeUpdate();
             
             /** 紀錄真實執行的SQL指令，並印出 **/
             exexcute_sql = pres.toString();
+            ResultSet rs = pres.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getLong(1);
+            }
             System.out.println(exexcute_sql);
 
         } catch (SQLException e) {
@@ -334,15 +356,18 @@ public class CheckInHelper {
         }
 
         /** 紀錄程式結束執行時間 */
-        long end_time = System.nanoTime();
+        //long end_time = System.nanoTime();
         /** 紀錄程式執行時間 */
-        long duration = (end_time - start_time);
+        //long duration = (end_time - start_time);
 
         /** 將SQL指令、花費時間與影響行數，封裝成JSONObject回傳 */
         JSONObject response = new JSONObject();
-        response.put("sql", exexcute_sql);
-        response.put("time", duration);
-        response.put("row", row);
+        //response.put("sql", exexcute_sql);
+        //response.put("time", duration);
+        response.put("id", id);
+        response.put("data", arr);
+        
+        //response.put("row", row);
 
         return response;
     }
@@ -362,7 +387,7 @@ public class CheckInHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "Update `missa`.`check_out` SET `passORnot` = ? WHERE `id` = ?";
+            String sql = "Update `missa`.`check_in` SET `passORnot` = ? WHERE `id` = ?";
             /** 取得所需之參數 */
             int id = c.getId();
             boolean isDamaged = c.getIsDamaged();
