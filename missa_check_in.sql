@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2021 at 05:35 PM
+-- Generation Time: Dec 20, 2021 at 05:56 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -29,23 +29,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `check_in` (
   `id` int(10) NOT NULL,
-  `user_id` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `dorm_no` varchar(255) DEFAULT NULL,
+  `dorm_no` varchar(30) DEFAULT NULL,
   `room_no` varchar(10) DEFAULT NULL,
   `bed_no` varchar(10) DEFAULT NULL,
   `is_damaged` tinyint(1) DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT NULL,
   `modify_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `check_in`
---
-
-INSERT INTO `check_in` (`id`, `user_id`, `name`, `dorm_no`, `room_no`, `bed_no`, `is_damaged`, `create_time`, `modify_time`) VALUES
-(1, NULL, 'name1', 'dorm1', '133', '1', 0, NULL, NULL),
-(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -65,7 +56,7 @@ ALTER TABLE `check_in`
 -- AUTO_INCREMENT for table `check_in`
 --
 ALTER TABLE `check_in`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
