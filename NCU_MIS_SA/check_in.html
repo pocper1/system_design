@@ -88,6 +88,7 @@
       </div>
     </div>
   </nav>
+  
     <div id="container">
         <div id="header">
         	<h1 class="display-4">報到手續</h1>
@@ -119,7 +120,7 @@
             </table>
             
             <div>
-            	<input type="checkbox" id="room_damaged" name="room_damaged_stat" value="1">
+            	<input type="checkbox" id="is_damaged" name="room_damaged_stat" value="1">
   				<label for="room_damaged"> My bed/room is damaged</label><br>
             
             </div>
@@ -137,24 +138,17 @@
                 $("#check").click(function () {
                 	var data = {
                 			"user_id": $("#user_id").val(),
-                			"name": $("#name").val(),
-                			"dorm_no": $("#dorm_no").val(),
-                			"room_no": $("#room_no").val(),
-                			"bed_no": $("#bed_no").val(),
-                			"check_in_stat": $("#check_in_stat").val(),
-                			"is_damaged": $("#is_damaged").val(),
-                			//"item": client_cart_obj,
-                			//"quantity": client_cart_amount
+                			"is_damaged": $("#is_damaged").val()
                 	}
 
                 	// 驗證輸入的資料
-                	pass_vaild = vaildData(data);
-                	if (pass_vaild) {
+                	//pass_vaild = vaildData(data);
+                	//if (pass_vaild) {
                 		var data_string = JSON.stringify(data);
 
                 		// 發出POST的AJAX請求
                     $.ajax({
-                      type: "POST",
+                      type: "PUT",
                       url: "api/check_in.do",
                       data: data_string,
                       crossDomain: true,
@@ -186,7 +180,7 @@
                           alert("無法連線到伺服器！");
                       }
                     });
-                	}
+                	//}
                 });
 
                 
@@ -261,10 +255,53 @@
                     getAllMember();
                 });
                 
-                function getThisId(){
-                	var thisId  = document.getElementById("username").value;
-                	
-                }
+                
+                function checkLogin(){
+            	    $.ajax({
+            	            type: "GET",
+            	            url: "api/login.do",
+            	            crossDomain: true,
+            	            cache: false,
+            	            dataType: 'json',
+            	            timeout: 5000,
+            	            success: function (response) {
+            	                if(response.status == 200){
+            						let inner_html='';
+            	                	if(response.response.status != "login"){//未登入
+            	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+            	                	}else{//登入
+            	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
+            	                	}
+            	                	$("#loginOrNot").append(inner_html);
+            	                }
+            	                console.log(response);
+            	            },
+            	            error: function () {
+            	                alert("無法連線到伺服器！");
+            	            }
+            	    });
+              }
+              checkLogin();
+             function Logout() {
+            	    // 發出POST的AJAX請求
+            	    $.ajax({
+            	      type: "POST",
+            	      url: "api/logout.do",
+            	      crossDomain: true,
+            	      cache: false,
+            	      dataType: "json",
+            	      timeout: 5000,
+            	      success: function (response) {
+            	          if(response.status == 200){
+            	          }
+            	          console.log(response);
+            	      },
+            	      error: function () {
+            	        alert("無法連線到伺服器！");
+            	      },
+            	    });
+            	    window.location.reload();
+              };
             </script>
         </div>
         <div id="footer">
