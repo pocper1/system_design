@@ -108,7 +108,7 @@
 
            <div align="center">       
              <!-- 請參考 http://kkbruce.tw/Bootstrap/BaseCSS#buttons -->
-             <button class="btn btn-primary" type="button" onClick="window.location='add_bulletinboard.html'">新增公告</button>
+             <button class="btn btn-primary" type="button" onClick="window.location='addbulletinboard.html'">新增公告</button>
          </div></td>
        </tr>
        <tr>
@@ -129,6 +129,54 @@
      </table>
      
      <script type="text/javascript">
+   //account function
+     function checkLogin(){
+   	    $.ajax({
+   	            type: "GET",
+   	            url: "api/login.do",
+   	            crossDomain: true,
+   	            cache: false,
+   	            dataType: 'json',
+   	            timeout: 5000,
+   	            success: function (response) {
+   	                if(response.status == 200){
+   						let inner_html='';
+   	                	if(response.response.status != "login"){//未登入
+   	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+   	                	}else{//登入
+   	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
+   	                	}
+   	                	$("#loginOrNot").append(inner_html);
+   	                }
+   	                console.log(response);
+   	            },
+   	            error: function () {
+   	                alert("無法連線到伺服器！");
+   	            }
+   	    });
+     }
+     checkLogin();
+    function Logout() {
+   	    // 發出POST的AJAX請求
+   	    $.ajax({
+   	      type: "POST",
+   	      url: "api/logout.do",
+   	      crossDomain: true,
+   	      cache: false,
+   	      dataType: "json",
+   	      timeout: 5000,
+   	      success: function (response) {
+   	          if(response.status == 200){
+   	          }
+   	          console.log(response);
+   	      },
+   	      error: function () {
+   	        alert("無法連線到伺服器！");
+   	      },
+   	    });
+   	    window.location.reload();
+     };
+     //end account function
          // 全域變數紀錄SQL指令下的次數
                 var sql_num = 0;
                 function deleteBulletinBoard(id) {
@@ -224,6 +272,7 @@
                 $(document).ready(function() {
                     getAllBulletinBoard();
                 });
+                
      </script>
      
     
