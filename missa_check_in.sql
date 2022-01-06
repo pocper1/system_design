@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2021 at 05:35 PM
+-- Generation Time: Jan 04, 2022 at 02:51 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -30,10 +30,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `check_in` (
   `id` int(10) NOT NULL,
   `user_id` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `dorm_no` varchar(255) DEFAULT NULL,
   `room_no` varchar(10) DEFAULT NULL,
   `bed_no` varchar(10) DEFAULT NULL,
+  `check_in_stat` varchar(20) DEFAULT NULL,
   `is_damaged` tinyint(1) DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT NULL,
   `modify_time` timestamp NULL DEFAULT NULL
@@ -43,9 +45,13 @@ CREATE TABLE `check_in` (
 -- Dumping data for table `check_in`
 --
 
-INSERT INTO `check_in` (`id`, `user_id`, `name`, `dorm_no`, `room_no`, `bed_no`, `is_damaged`, `create_time`, `modify_time`) VALUES
-(1, NULL, 'name1', 'dorm1', '133', '1', 0, NULL, NULL),
-(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `check_in` (`id`, `user_id`, `email`, `name`, `dorm_no`, `room_no`, `bed_no`, `check_in_stat`, `is_damaged`, `create_time`, `modify_time`) VALUES
+(1, '108403001', 'neishen@gmail.com', 'name1', 'B9B', '101', '1', NULL, 0, '2021-12-30 12:14:51', '2021-12-30 12:14:51'),
+(2, '108403002', '', 'name2', 'B9B', '101', '2', 'ready to check in', 0, '2021-12-29 04:16:04', '2021-12-29 04:16:04'),
+(5, '108403003\r\n', '', 'name3', 'DORM LAIN', '101', '1', 'checked in', 0, '2022-01-03 02:06:15', '2022-01-03 02:06:15'),
+(6, '108403006\r\n', '', 'name6', 'B9A', '101', '1', 'ready to check in', 0, '2022-01-03 02:07:59', '2022-01-03 02:07:59'),
+(7, '108403007\r\n', '', 'name7', 'B9B', '101', '3', 'ready to check in', 0, '2022-01-03 02:11:29', '2022-01-03 02:11:29'),
+(8, '108403008\r\n', '', 'name8', 'B9B', '101', '4', 'checked in', 0, '2022-01-03 02:12:41', '2022-01-03 02:12:41');
 
 --
 -- Indexes for dumped tables
@@ -65,7 +71,7 @@ ALTER TABLE `check_in`
 -- AUTO_INCREMENT for table `check_in`
 --
 ALTER TABLE `check_in`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
