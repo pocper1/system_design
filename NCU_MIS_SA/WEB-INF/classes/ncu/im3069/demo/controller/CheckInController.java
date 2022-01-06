@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package ncu.im3069.demo.controller;
 
 import java.io.*;
@@ -384,5 +383,5 @@ public class CheckInController extends HttpServlet {
         jsr.response(resp, response);
     }
     
->>>>>>> branch 'master' of https://github.com/pocper1/system_design
+
 }
