@@ -74,7 +74,7 @@ public class Discussion {
 		this.article_content = article_content;
 		this.author = author;
 		this.updated_at = Timestamp.valueOf(LocalDateTime.now());
-		getCommentFromDB();
+//		getCommentFromDB();
 	}
 
 	/**
@@ -146,10 +146,10 @@ public class Discussion {
 //    /**
 //     * 從 DB 中取得訂單產品
 //     */
-    private void getCommentFromDB() {
-        ArrayList<Comment> data = oph.getCommentByCommentId(this.id);
-        this.list = data;
-    }
+//    private void getCommentFromDB() {
+//        ArrayList<Comment> data = oph.getCommentByCommentId(this.id);
+//        this.list = data;
+//    }
     
     
     /**

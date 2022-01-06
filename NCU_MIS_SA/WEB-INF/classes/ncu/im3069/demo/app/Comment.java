@@ -8,16 +8,18 @@ import org.json.*;
 
 public class Comment {
 
-    /** id，訂單編號 */
-    private int comment_id;
+    /** id，留言編號 */
+    private int id;
 
-    /** user_id，訂單編號 */
+    /** discussion_id，留言之文章編號 */
+    private String discussion_id;
+    
+    /** user_id，留言之使用者編號 */
     private int user_id;
     
     /** content，留言 */
     private String content;
 
-   
     /** created_at，留言創建時間 */
     private Timestamp created_at;
 
@@ -45,11 +47,10 @@ public class Comment {
      * @param created_at 留言創建時間
      * @param updated_at 留言修改時間
      */
-    public Comment(int user_id, String content, Timestamp created_at, Timestamp updated_at) {
-        this.user_id = user_id;
+    public Comment(String discussion_id, int user_id, String content) {
+    	this.discussion_id = discussion_id;
+    	this.user_id = user_id;
         this.content = content;
-        this.created_at = Timestamp.valueOf(LocalDateTime.now());
-        this.updated_at = Timestamp.valueOf(LocalDateTime.now());
     }
     
    
@@ -62,8 +63,10 @@ public class Comment {
      * @param created_at 留言創建時間
      * @param updated_at 留言修改時間
      */
-    public Comment(int user_id, String content, Timestamp updated_at) {
-        this.user_id = user_id;
+    public Comment(int id, String discussion_id, int user_id, String content, Timestamp updated_at) {
+    	this.id = id;
+    	this.discussion_id = discussion_id;
+    	this.user_id = user_id;
         this.content = content;
         this.updated_at = Timestamp.valueOf(LocalDateTime.now());
     }
@@ -77,8 +80,9 @@ public class Comment {
      * @param created_at 留言創建時間
      * @param updated_at 留言修改時間
      */
-    public Comment(int ct_id, int user_id, String content, Timestamp created_at) {
-    	this.comment_id = ct_id;
+    public Comment(String discussion_id, int ct_id, int user_id, String content, Timestamp created_at) {
+    	this.discussion_id = discussion_id;
+    	this.id = ct_id;
     	this.user_id = user_id;
         this.content = content;
         this.created_at = created_at;
@@ -102,7 +106,16 @@ public class Comment {
     /**
      * 取得使用者編號
      *
-     * @return int 回傳留言編號
+     * @return String 回傳留言之使用者編號
+     */
+    public String getDiscussionID() {
+        return this.discussion_id;
+    }
+    
+    /**
+     * 取得使用者編號
+     *
+     * @return int 回傳留言之使用者編號
      */
     public int getUserID() {
         return this.user_id;
@@ -144,6 +157,7 @@ public class Comment {
     public JSONObject getCommentData() {
         JSONObject jso = new JSONObject();
         jso.put("id", getID());
+        jso.put("discussion_id", getDiscussionID());
         jso.put("user_id", getUserID());
         jso.put("content", getContent());
         jso.put("created_at", getCreatedTime());
