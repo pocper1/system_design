@@ -84,15 +84,18 @@
           </li>
           <div id="loginOrNot">
           </div>
+          
         </ul>
       </div>
     </div>
   </nav>
+  
     <div id="container">
         <div id="header">
         	<h1 class="display-4">報到手續</h1>
         </div>
         <div id="content">
+ 
 
             <div id="flashMessage" class="message" style="display: none;"></div>
 
@@ -101,10 +104,10 @@
                     <tr>
                         <th class="text-center" style="width: 10%">id</th>
                         <th class="text-center" style="width: 30%">user id</th>
-                        <th class="text-center" style="width: 10%">name</th>
-                        <th class="text-center" style="width: 10%">dorm</th>
-                        <th class="text-center" style="width: 10%">room</th>
-                        <th class="text-center" style="width: 10%">bed</th>
+                        <th  class="text-center" style="width: 10%">name</th>
+                        <th class="text-center" style="width: 10%" id ="dorm_no">dorm</th>
+                        <th class="text-center" style="width: 10%" id ="room_no">room</th>
+                        <th class="text-center" style="width: 10%" id = "bed_no">bed</th>
                         <th class="text-center" style="width: 10%">check in status</th>
                         <th class="text-center" style="width: 10%">is damaged</th>
                         <!--  
@@ -119,7 +122,7 @@
             </table>
             
             <div>
-            	<input type="checkbox" id="room_damaged" name="room_damaged_stat" value="1">
+            	<input type="checkbox" id="is_damaged" name="room_damaged_stat" value="1">
   				<label for="room_damaged"> My bed/room is damaged</label><br>
             
             </div>
@@ -132,25 +135,20 @@
             <script type="text/javascript">
                 // 全域變數紀錄SQL指令下的次數
                 var sql_num = 0;
-               
-                
+                var email;
+
                 $("#check").click(function () {
                 	var data = {
-                			"user_id": $("#user_id").val(),
-                			"name": $("#name").val(),
-                			"dorm_no": $("#dorm_no").val(),
-                			"room_no": $("#room_no").val(),
-                			"bed_no": $("#bed_no").val(),
-                			"check_in_stat": $("#check_in_stat").val(),
-                			"is_damaged": $("#is_damaged").val(),
-                			//"item": client_cart_obj,
-                			//"quantity": client_cart_amount
-                	}
+                			"email": $('#loginOrNot').val(),
+                			"is_damaged": $('#is_damaged').val(),
+                			"dorm_no": $('#dorm_no').val(),
+                			"room_no": $('#room_no').val(),
+                			"bed_no": $('#bed_no').val()
+                			
+                	};
 
                 	// 驗證輸入的資料
-                	pass_vaild = vaildData(data);
-                	if (pass_vaild) {
-                		var data_string = JSON.stringify(data);
+                	var data_string = JSON.stringify(data);
 
                 		// 發出POST的AJAX請求
                     $.ajax({
@@ -162,7 +160,7 @@
                       dataType: 'json',
                       timeout: 5000,
                       success: function (response) {
-                          if(response.status == 200){
+                          if(response.status == 100){
                           	$.confirm({
                                 theme: 'modern',
                                 icon: 'fa fa-check-circle-o',
@@ -181,12 +179,16 @@
                                 }
                             });
                           }
+                          else if(response.status ==200){
+                        	  
+                          }
                       },
                       error: function () {
-                          alert("無法連線到伺服器！");
+                          alert("DISCONNECTED TO SERVER！");
+                          //無法連線到伺服器
                       }
                     });
-                	}
+                	//}
                 });
 
                 
@@ -208,7 +210,7 @@
                                 console.log(response);
                             },
                             error: function () {
-                                alert("無法連線到伺服器！");
+                                alert("ERROR GET ALL MEMBER");
                             }
                     });
                 }
@@ -261,10 +263,55 @@
                     getAllMember();
                 });
                 
-                function getThisId(){
-                	var thisId  = document.getElementById("username").value;
-                	
-                }
+                
+                function checkLogin(){
+            	    $.ajax({
+            	            type: "GET",
+            	            url: "api/login.do",
+            	            crossDomain: true,
+            	            cache: false,
+            	            dataType: 'json',
+            	            timeout: 5000,
+            	            success: function (response) {
+            	                if(response.status == 200){
+            						let inner_html='';
+            	                	if(response.response.status != "login"){//未登入
+            	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+            	                	}else{//登入
+            	                		//email=response.response.email;
+            	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.email+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
+            	                	}
+            	                	$("#loginOrNot").append(inner_html);
+            	                	
+            	                }
+            	                console.log(response);
+            	            },
+            	            error: function () {
+            	                alert("無法連線到伺服器！");
+            	            }
+            	    });
+              }
+              checkLogin();
+             function Logout() {
+            	    // 發出POST的AJAX請求
+            	    $.ajax({
+            	      type: "POST",
+            	      url: "api/logout.do",
+            	      crossDomain: true,
+            	      cache: false,
+            	      dataType: "json",
+            	      timeout: 5000,
+            	      success: function (response) {
+            	          if(response.status == 200){
+            	          }
+            	          console.log(response);
+            	      },
+            	      error: function () {
+            	        alert("無法連線到伺服器！");
+            	      },
+            	    });
+            	    window.location.reload();
+              };
             </script>
         </div>
         <div id="footer">

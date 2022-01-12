@@ -12,18 +12,18 @@ public class CommentHelper {
     private static CommentHelper oh;
     private Connection conn = null;
     private PreparedStatement pres = null;
-    private OrderItemHelper oph =  OrderItemHelper.getHelper();
     
     private CommentHelper() {
     }
     
     public static CommentHelper getHelper() {
-        if(oh == null) oh = new CommentHelper();
+        if(oh == null) 
+        	oh = new CommentHelper();
         
         return oh;
     }
     
-    public JSONObject create(Order order) {
+    public JSONObject create(Comment comment) {
         /** 記錄實際執行之SQL指令 */
         String exexcute_sql = "";
         long id = -1;
@@ -33,27 +33,24 @@ public class CommentHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "INSERT INTO `missa`.`orders`(`last_name`, `first_name`, `email`, `address`, `phone`, `create`, `modify`)"
-                    + " VALUES(?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `missa`.`comment`(`discussion_id`,`user_id`, `content`, `created_at`, `updated_at`)"
+                    + " VALUES(?,?, ?, ?, ?)";
             
             /** 取得所需之參數 */
-            String first_name = order.getFirstName();
-            String last_name = order.getLastName();
-            String email = order.getEmail();
-            String address = order.getAddress();
-            String phone = order.getPhone();
-            Timestamp create = order.getCreateTime();
-            Timestamp modify = order.getModifyTime();
+            String discussion_id 	= comment.getDiscussionID();
+            int user_id 			= comment.getUserID();
+            String content 			= comment.getContent();
+            Timestamp created_at 	= comment.getCreatedTime();
+            Timestamp updated_at 	= comment.getUpdatedTime();
+            
             
             /** 將參數回填至SQL指令當中 */
             pres = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            pres.setString(1, last_name);
-            pres.setString(2, first_name);
-            pres.setString(3, email);
-            pres.setString(4, address);
-            pres.setString(5, phone);
-            pres.setTimestamp(6, create);
-            pres.setTimestamp(7, modify);
+            pres.setString(1, discussion_id);
+            pres.setInt(2, user_id);
+            pres.setString(3, content);
+            pres.setTimestamp(4, created_at);
+            pres.setTimestamp(5, updated_at);
             
             /** 執行新增之SQL指令並記錄影響之行數 */
             pres.executeUpdate();
@@ -63,12 +60,11 @@ public class CommentHelper {
             System.out.println(exexcute_sql);
             
             ResultSet rs = pres.getGeneratedKeys();
-
+            System.out.println(rs);
             if (rs.next()) {
                 id = rs.getLong(1);
-                ArrayList<OrderItem> opd = order.getOrderProduct();
-                opa = oph.createByList(id, opd);
             }
+
         } catch (SQLException e) {
             /** 印出JDBC SQL指令錯誤 **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
@@ -79,17 +75,75 @@ public class CommentHelper {
             /** 關閉連線並釋放所有資料庫相關之資源 **/
             DBMgr.close(pres, conn);
         }
-
+        System.out.println("id: "+id);
         /** 將SQL指令、花費時間與影響行數，封裝成JSONObject回傳 */
         JSONObject response = new JSONObject();
-        response.put("order_id", id);
-        response.put("order_product_id", opa);
+        response.put("id", id);
+        response.put("data", opa);
 
         return response;
     }
     
-    public JSONObject getAll() {
-        Order o = null;
+    /**
+     * 透過文章編號（ID）刪除文章
+     *
+     * @param id 文章編號
+     * @return the JSONObject 回傳SQL執行結果
+     */
+    public JSONObject deleteByID(int id) {
+        /** 記錄實際執行之SQL指令 */
+        String exexcute_sql = "";
+        /** 紀錄程式開始執行時間 */
+        long start_time = System.nanoTime();
+        /** 紀錄SQL總行數 */
+        int row = 0;
+        /** 儲存JDBC檢索資料庫後回傳之結果，以 pointer 方式移動到下一筆資料 */
+        ResultSet rs = null;
+        
+        try {
+            /** 取得資料庫之連線 */
+            conn = DBMgr.getConnection();
+            
+            /** SQL指令 */
+            String sql = "DELETE FROM `missa`.`comment` WHERE `id` = ? LIMIT 1";
+            
+            /** 將參數回填至SQL指令當中 */
+            pres = conn.prepareStatement(sql);
+            pres.setInt(1, id);
+            /** 執行刪除之SQL指令並記錄影響之行數 */
+            row = pres.executeUpdate();
+
+            /** 紀錄真實執行的SQL指令，並印出 **/
+            exexcute_sql = pres.toString();
+            System.out.println(exexcute_sql);
+            
+        } catch (SQLException e) {
+            /** 印出JDBC SQL指令錯誤 **/
+            System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            /** 若錯誤則印出錯誤訊息 */
+            e.printStackTrace();
+        } finally {
+            /** 關閉連線並釋放所有資料庫相關之資源 **/
+            DBMgr.close(rs, pres, conn);
+        }
+
+        /** 紀錄程式結束執行時間 */
+        long end_time = System.nanoTime();
+        /** 紀錄程式執行時間 */
+        long duration = (end_time - start_time);
+        
+        /** 將SQL指令、花費時間與影響行數，封裝成JSONObject回傳 */
+        JSONObject response = new JSONObject();
+        response.put("sql", exexcute_sql);
+        response.put("row", row);
+        response.put("time", duration);
+
+        return response;
+    }
+    
+    public JSONObject getAll(String discussion_id) {
+        Comment o = null;
         JSONArray jsa = new JSONArray();
         /** 記錄實際執行之SQL指令 */
         String exexcute_sql = "";
@@ -104,13 +158,14 @@ public class CommentHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "SELECT * FROM `missa`.`orders`";
+            String sql = "SELECT * FROM `missa`.`comment` WHERE `discussion_id` = ?";
             
             /** 將參數回填至SQL指令當中，若無則不用只需要執行 prepareStatement */
             pres = conn.prepareStatement(sql);
+            pres.setString(1, discussion_id);
             /** 執行查詢之SQL指令並記錄其回傳之資料 */
             rs = pres.executeQuery();
-
+            System.out.println(rs);
             /** 紀錄真實執行的SQL指令，並印出 **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
@@ -122,18 +177,15 @@ public class CommentHelper {
                 
                 /** 將 ResultSet 之資料取出 */
                 int id = rs.getInt("id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                String email = rs.getString("email");
-                String address = rs.getString("address");
-                String phone = rs.getString("phone");
-                Timestamp create = rs.getTimestamp("create");
-                Timestamp modify = rs.getTimestamp("modify");
+                String content = rs.getString("content");
+                Integer user_id = rs.getInt("user_id");
+                Timestamp created_at = rs.getTimestamp("created_at");
+                Timestamp updated_at = rs.getTimestamp("updated_at");
                 
-                /** 將每一筆商品資料產生一名新Product物件 */
-                o = new Order(id, first_name, last_name, email, address, phone, create, modify);
+                /** 將每一筆商品資料產生一名新Comment物件 */
+                o = new Comment(id,discussion_id, user_id, content, updated_at);
                 /** 取出該項商品之資料並封裝至 JSONsonArray 內 */
-                jsa.put(o.getOrderAllInfo());
+                jsa.put(o.getCommentData());
             }
 
         } catch (SQLException e) {
@@ -162,9 +214,9 @@ public class CommentHelper {
         return response;
     }
     
-    public JSONObject getById(String order_id) {
-        JSONObject data = new JSONObject();
-        Order o = null;
+    public JSONObject getById(String discussion_id) {
+    	JSONArray jsa = new JSONArray();
+        Comment o = null;
         /** 記錄實際執行之SQL指令 */
         String exexcute_sql = "";
         /** 紀錄程式開始執行時間 */
@@ -178,14 +230,14 @@ public class CommentHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "SELECT * FROM `missa`.`orders` WHERE `orders`.`id` = ?";
+            String sql = "SELECT * FROM `missa`.`comment` WHERE `discussion_id` = ?";
             
             /** 將參數回填至SQL指令當中，若無則不用只需要執行 prepareStatement */
             pres = conn.prepareStatement(sql);
-            pres.setString(1, order_id);
+            pres.setString(1, discussion_id);
             /** 執行查詢之SQL指令並記錄其回傳之資料 */
             rs = pres.executeQuery();
-
+            System.out.println(rs);
             /** 紀錄真實執行的SQL指令，並印出 **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
@@ -197,18 +249,15 @@ public class CommentHelper {
                 
                 /** 將 ResultSet 之資料取出 */
                 int id = rs.getInt("id");
-                String first_name = rs.getString("first_name");
-                String last_name = rs.getString("last_name");
-                String email = rs.getString("email");
-                String address = rs.getString("address");
-                String phone = rs.getString("phone");
-                Timestamp create = rs.getTimestamp("create");
-                Timestamp modify = rs.getTimestamp("modify");
+                String content = rs.getString("content");
+                Integer user_id = rs.getInt("user_id");
+                Timestamp created_at = rs.getTimestamp("created_at");
+                Timestamp updated_at = rs.getTimestamp("updated_at");
                 
                 /** 將每一筆商品資料產生一名新Product物件 */
-                o = new Order(id, first_name, last_name, email, address, phone, create, modify);
+                o = new Comment(id, discussion_id, user_id, content, updated_at);
                 /** 取出該項商品之資料並封裝至 JSONsonArray 內 */
-                data = o.getOrderAllInfo();
+                jsa.put(o.getCommentData());
             }
 
         } catch (SQLException e) {
@@ -233,8 +282,61 @@ public class CommentHelper {
         response.put("sql", exexcute_sql);
         response.put("row", row);
         response.put("time", duration);
-        response.put("data", data);
+        response.put("data", jsa);
 
         return response;
     }
+    
+    
+//    public ArrayList<Comment> getCommentByCommentId(int comment_id) {
+//        ArrayList<Comment> result = new ArrayList<Comment>();
+//        /** 記錄實際執行之SQL指令 */
+//        String exexcute_sql = "";
+//        ResultSet rs = null;
+//        Comment op;
+//        
+//        try {
+//            /** 取得資料庫之連線 */
+//            conn = DBMgr.getConnection();
+//            /** SQL指令 */
+//            String sql = "SELECT * FROM `missa`.`comment` WHERE `comment`.`comment_id` = ?";
+//            
+//            /** 將參數回填至SQL指令當中 */
+//            pres = conn.prepareStatement(sql);
+//            pres.setInt(1, comment_id);
+//            
+//            /** 執行新增之SQL指令並記錄影響之行數 */
+//            rs = pres.executeQuery();
+//            
+//            /** 紀錄真實執行的SQL指令，並印出 **/
+//            exexcute_sql = pres.toString();
+//            System.out.println(exexcute_sql);
+//            
+//            while(rs.next()) {
+//                /** 每執行一次迴圈表示有一筆資料 */
+//                
+//                /** 將 ResultSet 之資料取出 */
+//                int ct_id = rs.getInt("comment_id");
+//                int user_id = rs.getInt("user_id");
+//                String content = rs.getString("content");
+//                Timestamp created_at = rs.getTimestamp("created_at");
+//                
+//                /** 將每一筆會員資料產生一名新Member物件 */
+//                op = new Comment(ct_id, user_id, content, created_at);
+//                /** 取出該名會員之資料並封裝至 JSONsonArray 內 */
+//                result.add(op);
+//            }
+//        } catch (SQLException e) {
+//            /** 印出JDBC SQL指令錯誤 **/
+//            System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
+//        } catch (Exception e) {
+//            /** 若錯誤則印出錯誤訊息 */
+//            e.printStackTrace();
+//        } finally {
+//            /** 關閉連線並釋放所有資料庫相關之資源 **/
+//            DBMgr.close(pres, conn);
+//        }
+//        
+//        return result;
+//    }
 }

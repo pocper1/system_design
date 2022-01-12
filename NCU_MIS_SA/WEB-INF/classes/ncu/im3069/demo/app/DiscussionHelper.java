@@ -86,6 +86,7 @@ public class DiscussionHelper {
             /** 紀錄真實執行的SQL指令，並印出 **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
+            
             ResultSet rs = pres.getGeneratedKeys();
             if (rs.next()) {
                 id = rs.getLong(1);
@@ -208,14 +209,14 @@ public class DiscussionHelper {
                 row += 1;
                 
                 /** 將 ResultSet 之資料取出 */
-                int discussion_id 	= rs.getInt("id");
+                int id 				= rs.getInt("id");
                 String title 		= rs.getString("article_title");
                 String content 		= rs.getString("article_content");
                 int author 			= rs.getInt("author");
                 Timestamp updated_at= rs.getTimestamp("updated_at");
                 
                 /** 將每一筆商品資料產生一名新Product物件 */
-                p = new Discussion(discussion_id, title, content, author,updated_at);
+                p = new Discussion(id, title, content, author,updated_at);
                 /** 取出該項商品之資料並封裝至 JSONsonArray 內 */
                 jsa.put(p.getData());
             }

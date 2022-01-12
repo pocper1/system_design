@@ -147,7 +147,7 @@ public class Discussion {
 //     * 從 DB 中取得訂單產品
 //     */
 //    private void getCommentFromDB() {
-//        ArrayList<Comment> data = oph.getOrderProductByOrderId(this.id);
+//        ArrayList<Comment> data = oph.getCommentByCommentId(this.id);
 //        this.list = data;
 //    }
     

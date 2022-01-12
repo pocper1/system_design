@@ -11,6 +11,8 @@ public class CheckIn {
 
     private String name;
     
+    private String email;
+    
     private String dorm;
     
     private String roomNo;
@@ -44,6 +46,15 @@ public class CheckIn {
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
     
 	public String getName() {
 		return name;
@@ -102,42 +113,48 @@ public class CheckIn {
 		this.checkInStat = checkInStat;
 	}
 
+	public Timestamp getCreate() {
+		return create;
+	}
+	
+	public void setCreate() {
+		this.create=Timestamp.valueOf(LocalDateTime.now());
+	}
+	
+	public Timestamp getModify() {
+		return modify;
+	}
+	
+	public void setModify() {
+		this.create=Timestamp.valueOf(LocalDateTime.now());
+	}
 
     
     
     
     private CheckInHelper ch =  CheckInHelper.getHelper();
     
-    public CheckIn(int id,String userID, String name, String dorm, String roomNo, String bedNo,String checkInStat,  boolean isDamaged, Timestamp created, Timestamp modified) {
+    public CheckIn(int id,String userID,String email, String name, String dorm, String roomNo, String bedNo,String checkInStat,  boolean isDamaged, Timestamp created, Timestamp modified) {
     	this.id=id;
     	this.userID=userID;
+    	this.email=email;
         this.name=name;
         this.dorm = dorm;
         this.roomNo=roomNo;
         this.bedNo = bedNo;
         this.checkInStat=checkInStat;
         this.isDamaged = isDamaged;
-        this.create = created;
+        this.create = Timestamp.valueOf(LocalDateTime.now());
         this.modify = Timestamp.valueOf(LocalDateTime.now());
         update();
     }
-    
+     
   //String userID, String name, String dorm, String roomNo, String bedNo, boolean isDamaged
-    
-    public CheckIn(String userID, String name, String dorm, String roomNo, String bedNo, String checkInStat, boolean isDamaged) {
-    	this.userID=userID;
-        this.name=name;
-        this.dorm = dorm;
-        this.roomNo=roomNo;
-        this.bedNo = bedNo;
-        this.checkInStat=checkInStat;
-        this.isDamaged = isDamaged;
-        update();
-    }
 
-    public CheckIn(String userID, String name, String dorm, String roomNo, String bedNo,String checkInStat, boolean isDamaged, Timestamp created, Timestamp updated_at) {
+    public CheckIn(String userID, String name,String email, String dorm, String roomNo, String bedNo,String checkInStat, boolean isDamaged, Timestamp created, Timestamp modified) {
     	this.userID=userID;
         this.name=name;
+        this.email=email;
         this.dorm = dorm;
         this.roomNo=roomNo;
         this.bedNo = bedNo;
@@ -148,24 +165,35 @@ public class CheckIn {
         update();
     }
     
-    public CheckIn(int id,String checkInStat, boolean isDamaged) {
-    	this.id = id;
+    public CheckIn(String userID,String checkInStat, boolean isDamaged, Timestamp modified) {
+    	this.userID=userID;
     	this.checkInStat=checkInStat;
         this.isDamaged = isDamaged;
+        this.modify = Timestamp.valueOf(LocalDateTime.now());
         update();
     }
     
-    public CheckIn(String dorm, String roomNo, String bedNo,String checkInStat, boolean isDamaged) {
-    	this.dorm=dorm;
-    	this.roomNo=roomNo;
-    	this.bedNo=bedNo;
-    	this.checkInStat=checkInStat;
-    	this.isDamaged=isDamaged;
-    	update();
-    }
+//    public CheckIn(String dorm, String roomNo, String bedNo,String checkInStat, boolean isDamaged) {
+//    	this.dorm=dorm;
+//    	this.roomNo=roomNo;
+//    	this.bedNo=bedNo;
+//    	this.checkInStat=checkInStat;
+//    	this.isDamaged=isDamaged;
+//    	update();
+//    }
 
     
-    public JSONObject update() {
+    public CheckIn(String userID, String name, String dorm, String room, String bed, String checkInStat,
+			boolean isDamaged2) {
+    	this.userID=userID;
+    	this.name=name;
+    	this.dorm = dorm;
+    	this.roomNo=room;
+    	this.bedNo = bed;
+    	this.checkInStat= checkInStat;
+	}
+
+	public JSONObject update() {
         JSONObject data = new JSONObject();
         data = ch.update(this);
         return data;
@@ -175,6 +203,7 @@ public class CheckIn {
 		JSONObject jso = new JSONObject();
 		jso.put("id", getId());
 		jso.put("user_id", getUserID());
+		jso.put("email", getEmail());
 		jso.put("name", getName());
 		jso.put("dorm_no", getDormNo());
 		jso.put("room_no", getRoomNo());
@@ -187,6 +216,7 @@ public class CheckIn {
 		return jso;
     	
     }
+
 
 
 

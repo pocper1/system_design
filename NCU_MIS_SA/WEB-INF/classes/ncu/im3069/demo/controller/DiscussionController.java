@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import ncu.im3069.tools.JsonReader;
 
 import ncu.im3069.demo.app.DiscussionHelper;
-import ncu.im3069.demo.app.Order;
 import ncu.im3069.demo.app.Discussion;
 
 /**
@@ -122,36 +121,28 @@ public class DiscussionController extends HttpServlet {
 
 	        /** 透過 JsonReader 物件回傳到前端（以 JSONObject 方式） */
 	        jsr.response(resp, response);
-	        
-	
-	//        /** 建立一個新的訂單物件 */
-	//        Order od = new Order(first_name, last_name, email, address, phone);
-	//
-	//        /** 將每一筆訂單細項取得出來 */
-	//        for(int i=0 ; i < item.length() ; i++) {
-	//            String product_id = item.getString(i);
-	//            int amount = quantity.getInt(i);
-	//
-	//            /** 透過 ProductHelper 物件之 getById()，取得產品的資料並加進訂單物件裡 */
-	//            Product pd = ph.getById(product_id);
-	//            od.addOrderProduct(pd, amount);
-	//        }
-	//
-	//        /** 透過 orderHelper 物件的 create() 方法新建一筆訂單至資料庫 */
-	//        JSONObject result = oh.create(od);
-	//
-	//        /** 設定回傳回來的訂單編號與訂單細項編號 */
-	//        od.setId((int) result.getLong("order_id"));
-	//        od.setOrderProductId(result.getJSONArray("order_product_id"));
-	//
-	//        /** 新建一個 JSONObject 用於將回傳之資料進行封裝 */
-	//        JSONObject resp = new JSONObject();
-	//        resp.put("status", "200");
-	//        resp.put("message", "訂單新增成功！");
-	//        resp.put("response", od.getOrderAllInfo());
-	
-	        /** 透過 JsonReader 物件回傳到前端（以 JSONObject 方式） */
-	//        jsr.response(response);
 	}
 
+	 public void doDelete(HttpServletRequest request, HttpServletResponse response)
+		        throws ServletException, IOException {
+		 		
+		        /** 透過JsonReader類別將Request之JSON格式資料解析並取回 */
+		        JsonReader jsr = new JsonReader(request);
+		        JSONObject jso = jsr.getObject();
+		        
+		        /** 取出經解析到JSONObject之Request參數 */
+		        int id = jso.getInt("id");
+		        
+		        /** 透過MemberHelper物件的deleteByID()方法至資料庫刪除該名會員，回傳之資料為JSONObject物件 */
+		        JSONObject query = ph.deleteByID(id);
+		        
+		        /** 新建一個JSONObject用於將回傳之資料進行封裝 */
+		        JSONObject resp = new JSONObject();
+		        resp.put("status", "200");
+		        resp.put("message", "移除文章成功！");
+		        resp.put("response", query);
+
+		        /** 透過JsonReader物件回傳到前端（以JSONObject方式） */
+		        jsr.response(resp, response);
+		    }
 }

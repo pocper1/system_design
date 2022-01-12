@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>公佈欄</title>
+   <!--以下是 Bootstrap 的文件包-->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="<?=$link;?>css/bootstrap-responsive.min.css" rel="stylesheet">
+   <link href="<?=$link;?>css/bootstrap.min.css" rel="stylesheet" media="screen">
+   
+   <!--bootstrap introduction複製下的-->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+   
+   <script src="<?=$link;?>js/jquery.js"></script>
+   <script src="<?=$link;?>js/bootstrap.min.js"></script>
+   
+   <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+</head>
+
+<style>
+#heig{
+     height:10px;
+}
+#color{
+     background-color: #E5E5E5;
+}
+</style>
+
+<body>
+
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-bed me-1"></i> 宿舍管理系統</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link" href="member.html"><strong>會員管理</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="bulletinboard.html">公告欄</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="discussion_board.html">討論版</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">宿舍繳費</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dormManagement.html">宿舍報修</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">報到手續</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">退宿手續</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fas fa-user me-1"></i>使用者
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="/"><i class="fas fa-sign-out-alt me-1"></i>登出</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+   <!--"container"為固定置中,請參考 http://kkbruce.tw/Bootstrap/Scaffolding 佈局篇-->
+   <div class="container">
+   <!--class="table table-bordered table-condensed"請參考 http://kkbruce.tw/Bootstrap/BaseCSS#tables -->
+   <table width="1200" border="0" class="table table-bordered table-condensed">
+     <tr>
+       <td id="color"><strong>>>>修改公佈欄</strong></td>
+     </tr>
+     <tr>
+       <td><div align="center">
+       <!-- placeholder="標題" 請參考 http://kkbruce.tw/Bootstrap/BaseCSS#forms -->
+         <input type="text" name="topic" id="bulletinboard_topic" placeholder="標題"/>
+       </div>     
+         <label>
+           <div align="center"></div>
+         </label></td>
+     </tr>
+     <tr>
+       <td id="color"><div align="center"><strong>內容</strong></div></td>
+     </tr>
+     <tr>
+       <td><div align="center">
+         <textarea name="content" id="bulletinboard_content"  cols="45" rows="5"></textarea>
+       </div></td>
+     </tr>
+     <tr>
+       <td id="color">
+       <!-- class="btn-group" 請參考 http://kkbruce.tw/Bootstrap/Components#buttonGroups   -->
+       <div class="btn-group">
+      
+       <button class="btn btn-secondary" type="button" onClick="window.location='bulletinboard.html'">回公佈欄</button>
+       </div>
+       
+       <div class="submit"><input type="button" value="修改公佈欄" id="submit"></div>
+       
+       </td>
+     </tr>
+   </table>
+   </div>
+   
+   <script type="text/javascript">
+   
+ //account function
+   function checkLogin(){
+ 	    $.ajax({
+ 	            type: "GET",
+ 	            url: "api/login.do",
+ 	            crossDomain: true,
+ 	            cache: false,
+ 	            dataType: 'json',
+ 	            timeout: 5000,
+ 	            success: function (response) {
+ 	                if(response.status == 200){
+ 						let inner_html='';
+ 	                	if(response.response.status != "login"){//未登入
+ 	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+ 	                	}else{//登入
+ 	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
+ 	                	}
+ 	                	$("#loginOrNot").append(inner_html);
+ 	                }
+ 	                console.log(response);
+ 	            },
+ 	            error: function () {
+ 	                alert("無法連線到伺服器！");
+ 	            }
+ 	    });
+   }
+   checkLogin();
+  function Logout() {
+ 	    // 發出POST的AJAX請求
+ 	    $.ajax({
+ 	      type: "POST",
+ 	      url: "api/logout.do",
+ 	      crossDomain: true,
+ 	      cache: false,
+ 	      dataType: "json",
+ 	      timeout: 5000,
+ 	      success: function (response) {
+ 	          if(response.status == 200){
+ 	          }
+ 	          console.log(response);
+ 	      },
+ 	      error: function () {
+ 	        alert("無法連線到伺服器！");
+ 	      },
+ 	    });
+ 	    window.location.reload();
+   };
+   //end account function
+                // 取得網址參數
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                var id = url.searchParams.get("id");
+                var sql_num = 0;
+
+                function updateBulletinBoard(id) {
+                    var topic = $('#bulletinboard_topic').val();
+                    var content = $('#bulletinboard_content').val();
+
+                    if (true) {
+                        // 將資料組成JSON格式
+                        var data_object = {
+                        	"id" : id,
+                            "topic": topic,
+                            "content": content,
+                        };
+                        
+
+                        // 將JSON格式轉換成字串
+                        var data_string = JSON.stringify(data_object);
+
+                        // 發出POST的PUT請求
+                        $.ajax({
+                                type: "PUT",
+                                url: "api/BulletinBoard.do",
+                                data: data_string,
+                                crossDomain: true,
+                                cache: false,
+                                dataType: 'json',
+                                timeout: 5000,
+                                success: function (response) {
+                                    $('#flashMessage').html(response.message);
+                                    $('#flashMessage').show();
+                                    if(response.status == 200){
+                                        updateSQLTable(response.response);
+                                        getBulletinBoard();
+                                    }
+                                },
+                                error: function () {
+                                    alert("無法連線到伺服器！");
+                                }
+                        });
+                    }
+                }
+
+                // 更新SQL指令歷史表格
+                function updateSQLTable(data) {
+                    var time = (data.time / 1000000).toFixed(2);
+                    var table_html = "";
+                    
+                    sql_num += 1
+
+                    table_html += '<tr>';
+                    table_html += '<td>' + sql_num + '</td>';
+                    table_html += '<td>' + data.sql + '</td>';
+                    table_html += '<td style="text-align: right">' + '0' + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + time + '</td>';
+                    table_html += '</tr>';
+                    $("#sql_log > tbody").append(table_html);
+                    $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                }
+
+                function getBulletinBoard() {
+                    $.ajax({
+                        type: "GET",
+                        url: "api/BulletinBoard.do",
+                        crossDomain: true,
+                        data: "id=" + id,
+                        cache: false,
+                        dataType: 'json',
+                        timeout: 5000,
+                        success: function (response) {
+                            if(response.status == 200){
+                            	updateSQLTable(response.response);
+                            	document.getElementById('bulletinboard_topic').value = response['response']['data'][0]['topic'];
+                            	document.getElementById('bulletinboard_content').value = response['response']['data'][0]['content'];
+                            }
+                            console.log(response);
+                        },
+                        error: function () {
+                            alert("無法連線到伺服器！");
+                        }
+                    });
+                }
+
+                $('#submit').click(function() {
+                    updateBulletinBoard(id)
+                });
+                
+                $(document).ready(function() {
+                	// 發出GET的AJAX請求取得原本該公佈欄的資料
+                 	$("#sql_log > tbody").empty();
+                    getBulletinBoard();
+                });
+            </script>
+   
+  
+    
+</body>
+</html>

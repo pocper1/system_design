@@ -61,7 +61,7 @@
 		    <a class="nav-link" href="index.html">首頁</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="member.html"><strong>會員管理</strong></a>
+            <a class="nav-link" href="member.html" style="display:none" id="member"><strong>會員管理</strong></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">公告欄</a>
@@ -113,7 +113,7 @@
 			    <th scope="col">報修日期</th>
 			    <th scope="col">進度</th>
 			    <th scope="col">詳細資訊</th>
-			    <th scope="col">刪除</th>
+			    <th scope="col" id="del-col" style="display:none">刪除</th>
 			  </tr>
 			</thead>
 		  <tbody id="fix_table">
@@ -167,7 +167,8 @@
 		inner_html+='<td>'+data.created.split(" ",1)+'</td>';
 		inner_html+='<td>'+data.progress+'%</td>';
 		inner_html+='<td><div><a role="button" onclick="detail('+data['id']+')" class="btn btn-warning ml-2">詳細資訊 <i class="fas fa-sort-amount-down"></i></a></div></td>';
-		inner_html+='<td><div><a href="javascript: deleteFix(' + data['id'] + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
+		inner_html+=deleteHTML(data.id);
+		//inner_html+='<td class="del" style=""><div><a href="javascript: deleteFix(' + data['id'] + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
 		inner_html+='<tr id="detail'+data['id']+'" style="display:none"><td colspan="7"><table class="table table-success table-striped text-center"><thead><tr><th scope="col">報修申請人</th><th scope="col">樓層</th><th scope="col">房號</th><th scope="col">項目</th><th scope="col">細項</th><th scope="col">是否同意入寢維修</th><th scope="col">預約時段</th><th scope="col">更新時間</th></tr></thead><tbody><td>'+data.userID+'</td><td>'+data.floor+'</td><td>'+data.roomNo+'</td><td>'+data.item+'</td><td>'+data.detail+'</td><td>';
 		if(data.inRoom==1){
 			inner_html+='是';
@@ -228,10 +229,15 @@
   	            timeout: 5000,
   	            success: function (response) {
   	                if(response.status == 200){
+	  	                  	//$('.del').hide();
   						let inner_html='';
   	                	if(response.response.status != "login"){//未登入
   	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
-  	                	}else{//登入
+  	                	
+	  	                  	}else{//登入
+	                		if(response.response.role=='1'||response.response.role=='2'){
+	                			isAdmin();
+	                		}
   	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
   	                	}
   	                	$("#loginOrNot").append(inner_html);
@@ -295,6 +301,20 @@
     }
     function toAdd(){
     	window.location = "addFix.html";
+    }
+    var admin=0;
+    function isAdmin(){
+    	admin=1;
+    	document.getElementById('member').style.display="";
+    	//$('.del').show();
+    }
+    function deleteHTML(id){
+    	let inner_html='';
+    	if(admin==1){
+    		document.getElementById('del-col').style.display="";
+	    	inner_html+='<td class="del" style=""><div><a href="javascript: deleteFix(' + id + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
+    	}
+    	return inner_html;
     }
   </script>
 

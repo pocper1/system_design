@@ -1,11 +1,13 @@
 package ncu.im3069.demo.controller;
 
 import java.io.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import org.json.*;
-
 import ncu.im3069.demo.app.CheckIn;
 import ncu.im3069.demo.app.CheckInHelper;
 import ncu.im3069.tools.JsonReader;
@@ -36,7 +38,7 @@ public class CheckInController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    /**
+    /**5
      * 處理Http Method請求POST方法（新增資料）
      *
      * @param request Servlet請求之HttpServletRequest之Request物件（前端到後端）
@@ -52,24 +54,23 @@ public class CheckInController extends HttpServlet {
         
         
         /** 取出經解析到JSONObject之Request參數 */
-        String name = jso.getString("name");
-        String userID = jso.getString("user_id");
+        String email = jso.getString("email");
         String dorm = jso.getString("dorm_no");
         String room = jso.getString("room_no");
         String bed = jso.getString("bed_no");
-        String checkInStat = jso.getString("check_in_stat");
+        String checkInStat = "checked in";
         boolean isDamaged=jso.getBoolean("is_damaged");
 
-        
+        Timestamp timeNow = Timestamp.valueOf(LocalDateTime.now());
         /** 建立一個新的會員物件 */
-        CheckIn c = new CheckIn(userID,name, dorm, room, bed,checkInStat,isDamaged);
+        CheckIn c = new CheckIn(email,checkInStat, isDamaged,timeNow);
         
         JSONObject result = ch.create(c);
         System.out.println("response result: "+result);
         //String userID, String name, String dorm, String roomNo, String bedNo, boolean isDamaged
         
         /** 後端檢查是否有欄位為空值，若有則回傳錯誤訊息 */
-        if(dorm.isEmpty() || room.isEmpty() || bed.isEmpty()) {
+        if(email.isEmpty() || checkInStat.isEmpty()) { //|| isDamaged.isEmpty()
             /** 以字串組出JSON格式之資料 */
             String resp = "{\"status\": \'400\', \"message\": \'欄位不能有空值\', \'response\': \'\'}";
             /** 透過JsonReader物件回傳到前端（以字串方式） */
@@ -82,7 +83,7 @@ public class CheckInController extends HttpServlet {
             
             /** 新建一個JSONObject用於將回傳之資料進行封裝 */
             JSONObject resp = new JSONObject();
-            resp.put("status", "200");
+            resp.put("status", "100");
             resp.put("message", "成功! 提交申請表...");
             resp.put("response", data);
             
@@ -108,14 +109,15 @@ public class CheckInController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         /** 透過JsonReader類別將Request之JSON格式資料解析並取回 */
-        JsonReader jsr = new JsonReader(request);
+    	JsonReader jsr = new JsonReader(request);
+        //JSONObject jso = jsr.getObject();
         /** 若直接透過前端AJAX之data以key=value之字串方式進行傳遞參數，可以直接由此方法取回資料 */
-        String id = jsr.getParameter("id");
-        String dormNo = jsr.getParameter("dorm_no");
-        String roomNo = jsr.getParameter("room_no");
+        String userId = jsr.getParameter("email");
+        
+        //String userId = "neishen@gmail.com";
         
         /** 判斷該字串是否存在，若存在代表要取回個別會員之資料，否則代表要取回全部資料庫內會員之資料 */
-        if (id.isEmpty()) {
+        if (userId.isEmpty()) {
             /** 透過MemberHelper物件之getAll()方法取回所有會員之資料，回傳之資料為JSONObject物件 */
             JSONObject query = ch.getAll();
             
@@ -129,16 +131,14 @@ public class CheckInController extends HttpServlet {
         }
         else {
             /** 透過MemberHelper物件的getByID()方法自資料庫取回該名會員之資料，回傳之資料為JSONObject物件 */
-            JSONObject query = ch.getByID(id);
-            
-            
-            
+            JSONObject query = ch.getByUserId(userId);
+
             
             /** 新建一個JSONObject用於將回傳之資料進行封裝 */
             JSONObject resp = new JSONObject();
             resp.put("status", "200");
             resp.put("response", query);
-    
+            
             /** 透過JsonReader物件回傳到前端（以JSONObject方式） */
             jsr.response(resp, response);
         }
@@ -189,15 +189,16 @@ public class CheckInController extends HttpServlet {
         JSONObject jso = jsr.getObject();
         
         /** 取出經解析到JSONObject之Request參數 */
-        int id = jso.getInt("id");
- 
+        String email = jso.getString("email");
+        //String userId = "108403001";
         boolean isDamaged = jso.getBoolean("is_damaged");
         
-        String checkInStat = jso.getString("check_in_stat");
+        String checkInStat = "checked in";
+        
+        Timestamp timeNow = Timestamp.valueOf(LocalDateTime.now());
 
         /** 透過傳入之參數，新建一個以這些參數之會員Member物件 */
-        CheckIn c = new CheckIn(id,checkInStat, isDamaged);
-        
+        CheckIn c = new CheckIn(email,checkInStat, isDamaged,timeNow);
         /** 透過Member物件的update()方法至資料庫更新該名會員資料，回傳之資料為JSONObject物件 */
         JSONObject data = c.update();
         
@@ -210,4 +211,6 @@ public class CheckInController extends HttpServlet {
         jsr.response(resp, response);
     }
     
+
 }
+
