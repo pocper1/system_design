@@ -60,7 +60,7 @@
 		    <a class="nav-link" href="index.html">首頁</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="member.html"><strong>會員管理</strong></a>
+            <a class="nav-link" href="member.html" style='display:none' id="member"><strong>會員管理</strong></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">公告欄</a>
@@ -182,6 +182,9 @@
 	                	if(response.response.status != "login"){//未登入
 	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
 	                	}else{//登入
+	                		if(response.response.role=='1'||response.response.role=='2'){
+	                	    	document.getElementById('member').style.display="";
+	                		}
 	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
 	                	}
 	                	$("#loginOrNot").append(inner_html);

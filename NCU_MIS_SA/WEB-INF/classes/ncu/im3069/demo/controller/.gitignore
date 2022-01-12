@@ -8,3 +8,5 @@
 /FixController.class
 /CheckInController.class
 /BulletinBoardController.class
+/LoginController.class
+/LogoutController.class
