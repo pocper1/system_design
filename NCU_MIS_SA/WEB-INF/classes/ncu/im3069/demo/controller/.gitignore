@@ -1,1 +1,12 @@
-*.class
+/CheckOutController.class
+/MemberController.class
+/OrderController.class
+/ProductController.class
+/DiscussionController.class
+/TestController.class
+/qwqw.class
+/FixController.class
+/CheckInController.class
+/BulletinBoardController.class
+/LoginController.class
+/LogoutController.class
