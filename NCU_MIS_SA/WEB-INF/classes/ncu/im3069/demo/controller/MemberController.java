@@ -46,7 +46,7 @@ public class MemberController extends HttpServlet {
         String email = jso.getString("email");
         String password = jso.getString("password");
         String name = jso.getString("name");
-        String role = jso.getString("role");
+        String role = "0";
         
         /** 建立一個新的會員物件 */
         Member m = new Member(email, password, name,role);
