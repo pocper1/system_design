@@ -6,7 +6,7 @@ import org.json.*;
 /**
  * <p>
  * The Class Member
- * Memberé¡åˆ¥ï¼ˆclassï¼‰å…·æœ‰æœƒå“¡æ‰€éœ€è¦ä¹‹å±¬æ€§èˆ‡æ–¹æ³•ï¼Œä¸¦ä¸”å„²å­˜èˆ‡æœƒå“¡ç›¸é—œä¹‹å•†æ¥­åˆ¤æ–·é‚è¼¯<br>
+ * MemberÃş§O¡]class¡^¨ã¦³·|­û©Ò»İ­n¤§Äİ©Ê»P¤èªk¡A¨Ã¥BÀx¦s»P·|­û¬ÛÃö¤§°Ó·~§PÂ_ÅŞ¿è<br>
  * </p>
  * 
  * @author IPLab
@@ -16,88 +16,90 @@ import org.json.*;
 
 public class CheckOut {
     
-    /** idï¼Œæœƒå“¡ç·¨è™Ÿ */
+
     private int id;
     
-    /** emailï¼Œæœƒå“¡é›»å­éƒµä»¶ä¿¡ç®± */
+    private String name;
+
     private String dorm;
     
-    /** nameï¼Œæœƒå“¡å§“å */
+
     private String room;
     
-    /** passwordï¼Œæœƒå“¡å¯†ç¢¼ */
+
     private String bed;
     
     private String passORnot;
     
     
-    /** mhï¼ŒMemberHelperä¹‹ç‰©ä»¶èˆ‡Memberç›¸é—œä¹‹è³‡æ–™åº«æ–¹æ³•ï¼ˆSigletonï¼‰ */
+    /** mh¡AMemberHelper¤§ª«¥ó»PMember¬ÛÃö¤§¸ê®Æ®w¤èªk¡]Sigleton¡^ */
     private CheckOutHelper ch =  CheckOutHelper.getHelper();
     
     /**
-     * å¯¦ä¾‹åŒ–ï¼ˆInstantiatesï¼‰ä¸€å€‹æ–°çš„ï¼ˆnewï¼‰Memberç‰©ä»¶<br>
-     * æ¡ç”¨å¤šè¼‰ï¼ˆoverloadï¼‰æ–¹æ³•é€²è¡Œï¼Œæ­¤å»ºæ§‹å­ç”¨æ–¼å»ºç«‹æœƒå“¡è³‡æ–™æ™‚ï¼Œç”¢ç”Ÿä¸€åæ–°çš„æœƒå“¡
+     * ¹ê¨Ò¤Æ¡]Instantiates¡^¤@­Ó·sªº¡]new¡^Memberª«¥ó<br>
+     * ±Ä¥Î¦h¸ü¡]overload¡^¤èªk¶i¦æ¡A¦¹«Øºc¤l¥Î©ó«Ø¥ß·|­û¸ê®Æ®É¡A²£¥Í¤@¦W·sªº·|­û
      *
-     * @param email æœƒå“¡é›»å­ä¿¡ç®±
-     * @param password æœƒå“¡å¯†ç¢¼
-     * @param name æœƒå“¡å§“å
+     * @param email ·|­û¹q¤l«H½c
+     * @param password ·|­û±K½X
+     * @param name ·|­û©m¦W
      */
-    public CheckOut(String dorm, String room, String bed,String passORnot) {
+    public CheckOut(String name,String dorm, String room, String bed,String passORnot) {
+    	this.name=name;
         this.dorm = dorm;
         this.room = room;
         this.bed = bed;
         this.passORnot = passORnot;
-        update();
     }
     
-    public CheckOut(int id, String dorm, String room, String bed,String passORnot) {
+    public CheckOut(int id, String name,String dorm, String room, String bed,String passORnot) {
     	this.id = id;
+    	this.name=name;
         this.dorm = dorm;
         this.room = room;
         this.bed = bed;
         this.passORnot = passORnot;
-        update();
     }
 
     public CheckOut(int id,String passORnot) {
     	this.id = id;
         this.passORnot = passORnot;
-        update();
     }
 
     
     
     /**
-     * å–å¾—æœƒå“¡ä¹‹ç·¨è™Ÿ
+     * ¨ú±o·|­û¤§½s¸¹
      *
-     * @return the id å›å‚³æœƒå“¡ç·¨è™Ÿ
+     * @return the id ¦^¶Ç·|­û½s¸¹
      */
     public int getID() {
         return this.id;
     }
-
+    public String getName() {
+    	return this.name;
+    }
     /**
-     * å–å¾—æœƒå“¡ä¹‹é›»å­éƒµä»¶ä¿¡ç®±
+     * ¨ú±o·|­û¤§¹q¤l¶l¥ó«H½c
      *
-     * @return the email å›å‚³æœƒå“¡é›»å­éƒµä»¶ä¿¡ç®±
+     * @return the email ¦^¶Ç·|­û¹q¤l¶l¥ó«H½c
      */
     public String getDorm() {
         return this.dorm;
     }
     
     /**
-     * å–å¾—æœƒå“¡ä¹‹å§“å
+     * ¨ú±o·|­û¤§©m¦W
      *
-     * @return the name å›å‚³æœƒå“¡å§“å
+     * @return the name ¦^¶Ç·|­û©m¦W
      */
     public String getRoom() {
         return this.room;
     }
 
     /**
-     * å–å¾—æœƒå“¡ä¹‹å¯†ç¢¼
+     * ¨ú±o·|­û¤§±K½X
      *
-     * @return the password å›å‚³æœƒå“¡å¯†ç¢¼
+     * @return the password ¦^¶Ç·|­û±K½X
      */
     public String getBed() {
         return this.bed;
@@ -108,26 +110,27 @@ public class CheckOut {
     }
     
     /**
-     * æ›´æ–°æœƒå“¡è³‡æ–™
+     * §ó·s·|­û¸ê®Æ
      *
-     * @return the JSON object å›å‚³SQLæ›´æ–°ä¹‹çµæœèˆ‡ç›¸é—œå°è£ä¹‹è³‡æ–™
+     * @return the JSON object ¦^¶ÇSQL§ó·s¤§µ²ªG»P¬ÛÃö«Ê¸Ë¤§¸ê®Æ
      */
     public JSONObject update() {
-        /** æ–°å»ºä¸€å€‹JSONObjectç”¨ä»¥å„²å­˜æ›´æ–°å¾Œä¹‹è³‡æ–™ */
+        /** ·s«Ø¤@­ÓJSONObject¥Î¥HÀx¦s§ó·s«á¤§¸ê®Æ */
         JSONObject data = new JSONObject();
         data = ch.update(this);
         return data;
     }
     
     /**
-     * å–å¾—è©²åæœƒå“¡æ‰€æœ‰è³‡æ–™
+     * ¨ú±o¸Ó¦W·|­û©Ò¦³¸ê®Æ
      *
-     * @return the data å–å¾—è©²åæœƒå“¡ä¹‹æ‰€æœ‰è³‡æ–™ä¸¦å°è£æ–¼JSONObjectç‰©ä»¶å…§
+     * @return the data ¨ú±o¸Ó¦W·|­û¤§©Ò¦³¸ê®Æ¨Ã«Ê¸Ë©óJSONObjectª«¥ó¤º
      */
     public JSONObject getData() {
-        /** é€éJSONObjectå°‡è©²åæœƒå“¡æ‰€éœ€ä¹‹è³‡æ–™å…¨éƒ¨é€²è¡Œå°è£*/ 
+        /** ³z¹LJSONObject±N¸Ó¦W·|­û©Ò»İ¤§¸ê®Æ¥ş³¡¶i¦æ«Ê¸Ë*/ 
         JSONObject jso = new JSONObject();
         jso.put("id", getID());
+        jso.put("name",getName());
         jso.put("dorm", getDorm());
         jso.put("room", getRoom());
         jso.put("bed", getBed());

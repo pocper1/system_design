@@ -1,11 +1,11 @@
-ul{
+.process ul{
 	text-align:center;
 	position:absolute;
-	top:170px;
+	top:150px;
 	left:620px;
 }
 
-ul li{
+.process ul li{
 	font-family: Work Sans;
 	font-style: normal;
 	font-weight: bold;
@@ -15,7 +15,7 @@ ul li{
 	position:relative;
 }
 
-ul li .fa{
+.process ul li .fa{
 	background:#ccc;
 	width:23px;
 	height:23px;
@@ -24,7 +24,7 @@ ul li .fa{
 	padding:3px;
 }
 
-ul li .fa::after{
+.process ul li .fa::after{
 	content:'';
 	background:#ccc;
 	height:7px;
@@ -36,26 +36,32 @@ ul li .fa::after{
 	z-index:-1;
 }
 
-ul li:nth-child(1) .fa{
+.process ul li:nth-child(1) .fa{
 	background:#148e14;
 }
-ul li:nth-child(1) .fa::after{
+.process ul li:nth-child(1) .fa::after{
 	background:#148e14;
 }
 
-ul li:nth-child(1) .fa.changed:after{ 
+.process ul li:nth-child(1) .fa.changed:after{ 
 	background: #60aa97;
 }
 
-ul li:nth-child(2) .fa.changed:after{ 
+.process ul li:nth-child(2) .fa.changed1:after{ 
+	background: #148e14;
+}
+.process ul li:nth-child(2) .fa.changed2:after{ 
+	background: #60aa97;
+}
+.process ul li:nth-child(3) .fa.changed:after{ 
 	background: #148e14;
 }
 
-ul li:first-child .fa::after{
+.process ul li:first-child .fa::after{
 	width:105px;
 	left:100px;
 }
-ul li:last-child .fa::after{
+.process ul li:last-child .fa::after{
 	width:105px;
 }
 
@@ -64,11 +70,6 @@ form{
 	font-style: normal;
 	font-weight: bold;
 	font-size: 18px;
-	position: absolute;
-	width: 500px;
-	height: 380px;
-	left: 330px;
-	top: 110px;
 }
 
 .process{
@@ -78,11 +79,7 @@ form{
 
 
 .container{
-	position: absolute;
-	width: 960px;
-	height: 650px;
-	left: 480px;
-	top: 330px;
+	height:700px;
 	background:#E4E6C3;
 	border-radius: 20px;
 	box-shadow: 12px 5px 5px #AEB4B1;
@@ -99,17 +96,24 @@ body::after{
 	top:1100px;
 }
 
+#summit_success{
+	font-family: Work Sans;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 30px;
+}
 #success{
 	font-family: Work Sans;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 30px;
 }
-
 body{
 	background:radial-gradient(circle at center,#FFFFFF,#FFFCEC);
 }
-
+#list .listbtn::hover{
+	color:red;
+}
 input[type=submit] {
 	display: inline;
 	font-size: 100%;
