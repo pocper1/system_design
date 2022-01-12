@@ -196,6 +196,7 @@
                 success: function (response) {
                     if(response.status == 200){
                         getAllFix();
+                        adminShow();
                     }
                     console.log(response);
                 },
@@ -207,6 +208,7 @@
         else {
             console.log("You pressed Cancel!");
         }
+  	    window.location.reload();
     }
     function detail(id){
     	if(click[id]==1){
@@ -305,29 +307,23 @@
     var admin=0;
     function isAdmin(){
     	admin=1;
+    	adminShow();
+		//document.getElementById('del-col').style.display="";
     	document.getElementById('member').style.display="";
     	//$('.del').show();
     }
+    function adminShow(){
+		$("#del-col").show();
+		$(".del").show();
+    }
     function deleteHTML(id){
     	let inner_html='';
-    	if(admin==1){
-    		document.getElementById('del-col').style.display="";
-	    	inner_html+='<td class="del" style=""><div><a href="javascript: deleteFix(' + id + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
-    	}
+    	//if(admin==1){
+	    	inner_html+='<td class="del"  style="display:none"><div><a href="javascript: deleteFix(' + id + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
+    	//}
     	return inner_html;
     }
   </script>
-
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-right">
-        <a href="#">Back to top</a>
-      </p>
-      <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a
-          href="/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-  </footer>
 </body>
 
 </html>
