@@ -86,41 +86,41 @@
   
    <!--"container"為固定置中,請參考 http://kkbruce.tw/Bootstrap/Scaffolding 佈局篇-->
    <div class="container">
-      <!--class="table table-bordered table-condensed"請參考 http://kkbruce.tw/Bootstrap/BaseCSS#tables -->
-      <table width="1200" border="0" class="table table-bordered table-condensed">
-        <tr>
-          <td id="color"><strong>>>>新增公告</strong></td>
-        </tr>
-        <tr>
-          <td><div align="center">
-          <!-- placeholder="標題" 請參考 http://kkbruce.tw/Bootstrap/BaseCSS#forms -->
-            <input type="text" name="topic" id="bulletinboard_topic" placeholder="標題"/>
-          </div>     
-            <label>
-              <div align="center"></div>
-            </label></td>
-        </tr>
-        <tr>
-          <td id="color"><div align="center"><strong>內容</strong></div></td>
-        </tr>
-        <tr>
-          <td><div align="center">
-            <textarea name="content" id="bulletinboard_content"  cols="45" rows="5"></textarea>
-          </div></td>
-        </tr>
-        <tr>
-          <td id="color">
-          <!-- class="btn-group" 請參考 http://kkbruce.tw/Bootstrap/Components#buttonGroups   -->
-          <div class="btn-group">
-          <!--<button class="btn" type="reset">重新填寫</button>-->
-          <button class="btn btn-secondary" type="button" onClick="window.location='bulletinboard.html'">回公佈欄</button>
-          </div>
-          
-          <div class="submit"><input type="button" value="新增公告" id="submit"></div>
-          
-          </td>
-        </tr>
-      </table>
+   <!--class="table table-bordered table-condensed"請參考 http://kkbruce.tw/Bootstrap/BaseCSS#tables -->
+   <table width="1200" border="0" class="table table-bordered table-condensed">
+     <tr>
+       <td id="color"><strong>>>>修改公佈欄</strong></td>
+     </tr>
+     <tr>
+       <td><div align="center">
+       <!-- placeholder="標題" 請參考 http://kkbruce.tw/Bootstrap/BaseCSS#forms -->
+         <input type="text" name="topic" id="bulletinboard_topic" placeholder="標題"/>
+       </div>     
+         <label>
+           <div align="center"></div>
+         </label></td>
+     </tr>
+     <tr>
+       <td id="color"><div align="center"><strong>內容</strong></div></td>
+     </tr>
+     <tr>
+       <td><div align="center">
+         <textarea name="content" id="bulletinboard_content"  cols="45" rows="5"></textarea>
+       </div></td>
+     </tr>
+     <tr>
+       <td id="color">
+       <!-- class="btn-group" 請參考 http://kkbruce.tw/Bootstrap/Components#buttonGroups   -->
+       <div class="btn-group">
+      
+       <button class="btn btn-secondary" type="button" onClick="window.location='bulletinboard.html'">回公佈欄</button>
+       </div>
+       
+       <div class="submit"><input type="button" value="修改公佈欄" id="submit"></div>
+       
+       </td>
+     </tr>
+   </table>
    </div>
    
    <script type="text/javascript">
@@ -173,80 +173,104 @@
  	    window.location.reload();
    };
    //end account function
-      $(document).ready(function() {
-                    // 處理表單點擊事件
-                    var $form = $('#submit');
-                    $form.click(function() {
-                        submit();
-                    });
+                // 取得網址參數
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                var id = url.searchParams.get("id");
+                var sql_num = 0;
 
-                    function submit() {
-                    
-                        var data = {
-                               topic: $("#bulletinboard_topic").val(),
-                               content: $("#bulletinboard_content").val(),
-                             };
+                function updateBulletinBoard(id) {
+                    var topic = $('#bulletinboard_topic').val();
+                    var content = $('#bulletinboard_content').val();
 
-                             // 驗證輸入的資料
-                             pass_vaild = vaildData(data);
-                             function vaildData(data) {
-                                 if (
-                                   data["topic"] == "" ||
-                                   data["content"] == "" 
-                                 )
-                                   alert("必填寫欄位不得有空值！");
-                                 else return true;
-
-                                 return false;
-                               }
-                             
-                             if (pass_vaild) {
-                               var data_string = JSON.stringify(data);
-                                             
+                    if (true) {
+                        // 將資料組成JSON格式
+                        var data_object = {
+                        	"id" : id,
+                            "topic": topic,
+                            "content": content,
+                        };
                         
-          
-                            // 發出POST的AJAX請求
-                            $.ajax({
-                                    type: "POST",
-                                    url: "api/BulletinBoard.do",
-                                    data: data_string,
-                                    crossDomain: true,
-                                    cache: false,
-                                    dataType: 'json',
-                                    timeout: 5000,
-                                    success: function (response) {
-                                        $('#flashMessage').html(response.message);
-                                        $('#flashMessage').show();
-                                        if(response.status == 200){
-                                            updateSQLTable(response.response);
-                                        }
-                                    },
-                                    error: function () {
-                                        alert("無法連線到伺服器！");
+
+                        // 將JSON格式轉換成字串
+                        var data_string = JSON.stringify(data_object);
+
+                        // 發出POST的PUT請求
+                        $.ajax({
+                                type: "PUT",
+                                url: "api/BulletinBoard.do",
+                                data: data_string,
+                                crossDomain: true,
+                                cache: false,
+                                dataType: 'json',
+                                timeout: 5000,
+                                success: function (response) {
+                                    $('#flashMessage').html(response.message);
+                                    $('#flashMessage').show();
+                                    if(response.status == 200){
+                                        updateSQLTable(response.response);
+                                        getBulletinBoard();
                                     }
-                            });
+                                },
+                                error: function () {
+                                    alert("無法連線到伺服器！");
+                                }
+                        });
+                    }
+                }
+
+                // 更新SQL指令歷史表格
+                function updateSQLTable(data) {
+                    var time = (data.time / 1000000).toFixed(2);
+                    var table_html = "";
+                    
+                    sql_num += 1
+
+                    table_html += '<tr>';
+                    table_html += '<td>' + sql_num + '</td>';
+                    table_html += '<td>' + data.sql + '</td>';
+                    table_html += '<td style="text-align: right">' + '0' + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + data.row + '</td>';
+                    table_html += '<td style="text-align: right">' + time + '</td>';
+                    table_html += '</tr>';
+                    $("#sql_log > tbody").append(table_html);
+                    $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                }
+
+                function getBulletinBoard() {
+                    $.ajax({
+                        type: "GET",
+                        url: "api/BulletinBoard.do",
+                        crossDomain: true,
+                        data: "id=" + id,
+                        cache: false,
+                        dataType: 'json',
+                        timeout: 5000,
+                        success: function (response) {
+                            if(response.status == 200){
+                            	updateSQLTable(response.response);
+                            	document.getElementById('bulletinboard_topic').value = response['response']['data'][0]['topic'];
+                            	document.getElementById('bulletinboard_content').value = response['response']['data'][0]['content'];
+                            }
+                            console.log(response);
+                        },
+                        error: function () {
+                            alert("無法連線到伺服器！");
                         }
-                    }
+                    });
+                }
 
-                    function updateSQLTable(data) {
-                        $("#sql_log > tbody").empty();
-                        var time = (data.time / 1000000).toFixed(2);
-                        var table_html = "";
-
-                        table_html += '<tr>';
-                        table_html += '<td>' + '1' + '</td>';
-                        table_html += '<td>' + data.sql + '</td>';
-                        table_html += '<td style="text-align: right">' + '0' + '</td>';
-                        table_html += '<td style="text-align: right">' + data.row + '</td>';
-                        table_html += '<td style="text-align: right">' + data.row + '</td>';
-                        table_html += '<td style="text-align: right">' + time + '</td>';
-                        table_html += '</tr>';
-                        $("#sql_log > tbody").append(table_html);
-                        $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
-                    }
+                $('#submit').click(function() {
+                    updateBulletinBoard(id)
                 });
-   </script>
-   
+                
+                $(document).ready(function() {
+                	// 發出GET的AJAX請求取得原本該公佈欄的資料
+                 	$("#sql_log > tbody").empty();
+                    getBulletinBoard();
+                });
+            </script>
    
   
     

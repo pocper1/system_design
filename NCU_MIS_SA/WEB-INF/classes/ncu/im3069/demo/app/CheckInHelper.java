@@ -116,7 +116,7 @@ public class CheckInHelper {
     
     
     
-    public JSONObject getByUserId(String email) {
+    public JSONObject getByUserId(String _email) {
         /** 新建一個 Member 物件之 m 變數，用於紀錄每一位查詢回之會員資料 */
         CheckIn c = null;
         /** 用於儲存所有檢索回之會員，以JSONArray方式儲存 */
@@ -135,12 +135,12 @@ public class CheckInHelper {
             conn = DBMgr.getConnection();
             /** SQL指令 */
            
-            String sql = "SELECT * FROM `missa`.`check_in` WHERE `dorm_no` = (SELECT `dorm_no` FROM `missa`.`check_in` WHERE `email` = ?) AND `room_no` = (SELECT `room_no` FROM `missa`.`check_in` WHERE `email` = ?)";
-            
+            String sql = "SELECT * FROM `missa`.`check_in` WHERE `email` = ?";
+            //"SELECT * FROM `missa`.`check_in` WHERE `dorm_no` = (SELECT `dorm_no` FROM `missa`.`check_in` WHERE `email` = ?) AND `room_no` = (SELECT `room_no` FROM `missa`.`check_in` WHERE `email` = ? LIMIT 1)";
             /** 將參數回填至SQL指令當中 */
             pres = conn.prepareStatement(sql);
-            pres.setString(1, email);
-            pres.setString(2, email);
+            pres.setString(1, _email);
+            //pres.setString(2, _email);
             /** 執行查詢之SQL指令並記錄其回傳之資料 */
             rs = pres.executeQuery();
 
@@ -158,7 +158,7 @@ public class CheckInHelper {
 
                 int ci_id = rs.getInt("id");
                 String userID = rs.getString("user_id");
-                
+                String email = rs.getString("email");
                 String name = rs.getString("name");
                 String dorm = rs.getString("dorm_no");
                 String room = rs.getString("room_no");
@@ -266,7 +266,7 @@ public class CheckInHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "INSERT INTO `missa`.`check_in`(`user_id`,`email`, `name`,`dorm_no`, `room_no`, `bed_no`,`check_in_stat`,`is_damaged`, `create_time` ,`modify_time`)"
+            String sql = "INSERT INTO `missa`.`check_in`(`user_id`,`email`, `name`,`dorm_no`, `room_no`, `bed_no`,`check_in_stat`,`is_damaged`, `create_time` ,`modify_time` )"
                     + " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             /** 取得所需之參數 */
