@@ -99,10 +99,6 @@
 	        新增報修
 	        <i class="fas fa-plus"></i>
 	      </a>
-	      <a href="addFixQuestion.html" class="btn btn-primary ml-2">
-	        問題反映
-	        <i class="fas fa-plus"></i>
-	      </a>
       <div class="pt-3">
 	      <table class="table table-success table-striped text-center">
 			<thead>
@@ -113,6 +109,7 @@
 			    <th scope="col">報修日期</th>
 			    <th scope="col">進度</th>
 			    <th scope="col">詳細資訊</th>
+			    <th scope="col">問題反映</th>
 			    <th scope="col" id="del-col" style="display:none">刪除</th>
 			  </tr>
 			</thead>
@@ -125,7 +122,8 @@
   </div>
 
   <script>   
-    //var [client_cart_obj, client_cart_amount]  = getCartDataFromClient();
+  //接下來要把有被回報的報修紀錄標記給管理者看 點即可以查看
+  //外聘廠商更改progress
     
     function getAllFix() {
       $.ajax({
@@ -167,9 +165,10 @@
 		inner_html+='<td>'+data.created.split(" ",1)+'</td>';
 		inner_html+='<td>'+data.progress+'%</td>';
 		inner_html+='<td><div><a role="button" onclick="detail('+data['id']+')" class="btn btn-warning ml-2">詳細資訊 <i class="fas fa-sort-amount-down"></i></a></div></td>';
+		inner_html+='<td><div><a role="button" onclick="report('+data['id']+')" class="btn btn-info ml-2">反映 <i class="fas fa-wrench"></i></a></div></td>';
 		inner_html+=deleteHTML(data.id);
 		//inner_html+='<td class="del" style=""><div><a href="javascript: deleteFix(' + data['id'] + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
-		inner_html+='<tr id="detail'+data['id']+'" style="display:none"><td colspan="7"><table class="table table-success table-striped text-center"><thead><tr><th scope="col">報修申請人</th><th scope="col">樓層</th><th scope="col">房號</th><th scope="col">項目</th><th scope="col">細項</th><th scope="col">是否同意入寢維修</th><th scope="col">預約時段</th><th scope="col">更新時間</th></tr></thead><tbody><td>'+data.userID+'</td><td>'+data.floor+'</td><td>'+data.roomNo+'</td><td>'+data.item+'</td><td>'+data.detail+'</td><td>';
+		inner_html+='<tr id="detail'+data['id']+'" style="display:none"><td colspan="8"><table class="table table-success table-striped text-center"><thead><tr><th scope="col">報修申請人</th><th scope="col">樓層</th><th scope="col">房號</th><th scope="col">項目</th><th scope="col">細項</th><th scope="col">是否同意入寢維修</th><th scope="col">預約時段</th><th scope="col">更新時間</th></tr></thead><tbody><td>'+data.userID+'</td><td>'+data.floor+'</td><td>'+data.roomNo+'</td><td>'+data.item+'</td><td>'+data.detail+'</td><td>';
 		if(data.inRoom==1){
 			inner_html+='是';
 		}else{
@@ -219,7 +218,9 @@
     		click[id]=1;
     	}
     }
-
+	function report(id){
+	 	window.location = "addFixQuestion.html?id="+id;
+	}
     //account function
     function checkLogin(){
   	    $.ajax({

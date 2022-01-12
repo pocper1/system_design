@@ -96,11 +96,13 @@ public class LoginController extends HttpServlet {
         		System.out.println("成功登入");
         		System.out.println(rs.getJSONArray("data").get(0));
 //        		String a = (JSONObject)rs.getJSONArray("data").get(0).toString();
+        		String id=((JSONObject) rs.getJSONArray("data").get(0)).get("id").toString();
         		String name=((JSONObject) rs.getJSONArray("data").get(0)).get("name").toString();
         		String role=((JSONObject) rs.getJSONArray("data").get(0)).get("role").toString();
 		        System.out.println(name);
 		        System.out.println(role);
 	            HttpSession session1 = request.getSession();
+	            session1.setAttribute("id", id);
 	            session1.setAttribute("name", name);
 	            session1.setAttribute("email", email);
 	            session1.setAttribute("role", role);
@@ -111,10 +113,11 @@ public class LoginController extends HttpServlet {
         	
 	        HttpSession session = request.getSession(false);
 	        if (session != null) {
+	            String Session_id = (String) session.getAttribute("id");
 	            String Session_name = (String) session.getAttribute("name");
 	            String Session_email = (String) session.getAttribute("email");
 	            String Session_role = (String) session.getAttribute("role");
-	            System.out.print("您好, " + Session_name + " 歡迎您來到個人資訊中心！ role:"+Session_role+", email:"+Session_email);
+	            System.out.print(Session_id+"您好, " + Session_name + " 歡迎您來到個人資訊中心！ role:"+Session_role+", email:"+Session_email);
 	        } else {
 	            System.out.print("請登入系統！");
 	            request.getRequestDispatcher("login.html").include(request, response);
@@ -150,10 +153,12 @@ public class LoginController extends HttpServlet {
 
 	        HttpSession session = request.getSession(false);
 	        if (session != null) {
+	            String Session_id = (String) session.getAttribute("id");
 	            String Session_name = (String) session.getAttribute("name");
 	            String Session_email = (String) session.getAttribute("email");
 	            String Session_role = (String) session.getAttribute("role");
 	            if(Session_name!="") {
+		            a.put("id", Session_id);
 		            a.put("name", Session_name);
 		            a.put("email", Session_email);
 		            a.put("role", Session_role);
@@ -161,7 +166,7 @@ public class LoginController extends HttpServlet {
 	            }else {
 	            	a.put("status", "not login");
 	            }
-	            System.out.print(Session_name + "  role:"+Session_role+", email:"+Session_email);
+	            System.out.print(Session_id+": "+Session_name + "  role:"+Session_role+", email:"+Session_email);
 	        } else {
 	            System.out.print("未建立帳號!");
             	a.put("status", "not login");
