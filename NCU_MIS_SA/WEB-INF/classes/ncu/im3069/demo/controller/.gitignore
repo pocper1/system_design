@@ -9,3 +9,6 @@
 /CheckInController.class
 /BulletinBoardController.class
 /Test.class
+/CommentController.class
+/LoginController.class
+/LogoutController.class
