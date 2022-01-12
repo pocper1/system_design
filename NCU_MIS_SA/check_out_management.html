@@ -9,7 +9,53 @@
   <link type="text/css" href="statics/css/check_out_management.css" rel="stylesheet">
   
   <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>  
-  
+      <link href="statics/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon" />
+    <link
+      href="statics/icon/favicon.ico"
+      type="image/x-icon"
+      rel="shortcut icon"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="statics/css/product.css" rel="stylesheet" />
+
+    <script src="statics/js/jquery-3.4.1.min.js"></script>
   <title>退宿</title>
 
 </head>
@@ -18,26 +64,67 @@
 <body>
 
 <div>
-  <nav class="navbar navbar-light fixed-top" style="background-color:#899878">
-    <a class="navbar-brand" href="#" style="color:#F7F7F2"><img src="statics/img/bed.svg" width=5%> 宿舍管理系統</a>
-    <img src="statics/img/profile.svg" width="40" height="40" style="position: absolute; left: 1660px; top: 7px">
-    <a class="btn btn-outline-secondary mb-3 mb-md-0 m1-md-3" style="border-radius: 10px;background-color:#F7F7F2;font-family: Work Sans;font-style: normal;font-weight: bold" href="login.html">登出</a>
-  </nav>
-</div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background:#899878">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html" style="color:#f7f7f2"
+          ><i class="fa fa-bed"></i> 宿舍管理系統</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html" style="color:#f7f7f2">首頁</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="member.html" style="color:#f7f7f2"
+                ><strong>會員管理</strong></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bulletinboard.html" style="color:#f7f7f2">公告欄</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="discussion_board.html" style="color:#f7f7f2">討論版</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" style="color:#f7f7f2">宿舍繳費</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="dormManagement.html" style="color:#f7f7f2">宿舍報修</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="check_in.html" style="color:#f7f7f2">報到手續</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="check_out.html" style="color:#f7f7f2">退宿手續</a>
+            </li>
+            <div id="loginOrNot"></div>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-  <div class="container" style="position:absolute; width:295px; height:76px; left:60px; top:100px;border-radius:50px;background-color: #E4E6C3">
+  <div class="container" style="position:absolute; width:295px; height:76px; left:60px; top:100px;border-radius:50px;background-color: #E4E6C3;box-shadow: 12px 5px 5px #AEB4B1"">
     <img src="statics/img/check_out.svg"  width="95%" height="95%" style="position: absolute;left: -70px;top: 3px;">
     <span style="position: absolute;width: 95px;height: 28px;left: 140px;top: 28px;font-family: Work Sans;font-style: normal;font-weight: bold;font-size: 24px;line-height: 28px;letter-spacing: -0.02em;">退宿系統</span>
   </div>
-  
-  <div id="content">
-  <h2>退宿申請列表</h2>
-  
+  <h2 style="font-family: Work Sans;font-style: normal;font-weight: bold;position: absolute;left:930px;top:120px;">退宿列表</h2>
+  <div id="content">  
 
-  <table id="table">
+  <table id="table" style="position: absolute;left: 450px;top: 180px;">
   	<thead>
   		<tr>
   			<th>編號</th>
+  			<th>姓名</th>
   			<th>宿舍</th>
   			<th>房號</th>
   			<th>床位</th>
@@ -49,7 +136,7 @@
   	</tbody>
   </table>  
 
-  <script type="text/javascript">
+  <script>
   	$(document).ready(function() {
       getAllForm();
   	});
@@ -103,18 +190,68 @@
         $.each(data, function(index, value) {
         	var id = value['id'].toString();
             table_html += '<tr><td scope="row">' + value['id'] + '</td>';
+            table_html += '<td>' + value['name'] + '</td>';
             table_html += '<td>' + value['dorm'] + '</td>';
             table_html += '<td>' + value['room'] + '</td>';
             table_html += '<td>' + value['bed'] + '</td>';
-            table_html += '<td>' + value['passORnot'] + '</td>';
-            table_html += '<td><a href="javascript: pass(' + value['id'] + ');">Pass</a></td></tr>';
+            if(value['passORnot']=='Pass'){table_html += '<td style="color:#02C874">' + value['passORnot'] + '</td>';}
+            else{table_html += '<td style="color:#FF2D2D">' + value['passORnot'] + '</td>';}
+            table_html += '<td><a style="color:#222725;text-decoration:none;" href="javascript: pass(' + value['id'] + ');" >Pass</a></td></tr>';
         })
 
         $("#table > tbody").append(table_html);
     }  	
   
-  
-  
+    function checkLogin(){
+  	    $.ajax({
+  	            type: "GET",
+  	            url: "api/login.do",
+  	            crossDomain: true,
+  	            cache: false,
+  	            dataType: 'json',
+  	            timeout: 5000,
+  	            success: function (response) {
+  	                if(response.status == 200){
+  						let inner_html='';
+  	                	if(response.response.status != "login"){//未登入
+  	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html" style="color:#f7f7f2">登入</a></li>';
+  	                	}else{//登入
+  	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#f7f7f2"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
+  	                	}
+  	                	$("#loginOrNot").append(inner_html);
+  	                }
+  	                console.log(response);
+  	            },
+  	            error: function () {
+  	                alert("無法連線到伺服器！");
+  	            }
+  	    });
+    }
+    checkLogin();
+    function Logout() {
+  	    // 發出POST的AJAX請求
+  	    $.ajax({
+  	      type: "POST",
+  	      url: "api/logout.do",
+  	      crossDomain: true,
+  	      cache: false,
+  	      dataType: "json",
+  	      timeout: 5000,
+  	      success: function (response) {
+  	          if(response.status == 200){
+  	          }
+  	          console.log(response);
+  	      },
+  	      error: function () {
+  	        alert("無法連線到伺服器！");
+  	      },
+  	    });
+  	    window.location.reload();
+    };
+    function notLogin(){
+    	alert("請先登入!");
+   		window.location = "login.html";
+    }
   </script>
 </div>
 

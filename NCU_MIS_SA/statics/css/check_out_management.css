@@ -20,9 +20,7 @@ body{
 	border-radius: 20px;
 	background-color:#E4E6C3;
 	text-align:left;
-	position:absolute;
-	top:170px;
-	left:520px;
+
 }
 
 thead{
@@ -49,7 +47,6 @@ td{
 	padding:0.2rem 1rem;
 	text-align:center;		
 }
-
 
 	
 tr:nth-child(odd){
