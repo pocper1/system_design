@@ -55,16 +55,61 @@
 
   <script src="statics/js/jquery-3.4.1.min.js"></script>
 </head>
-
+<script>
+var name;
+var role;
+function getUserID(){
+	  $.ajax({
+        type: "GET",
+        url: "api/login.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+            if(response.status == 200){
+            	if(response.response.status == "login"){//未登入
+            		name = response.response.name;
+            		role = response.response.role;
+            		if(role == '1'|| role == '2'){
+            		}else{
+            			notAdmin();	
+            		}
+            	}else{
+            		notLogin();
+            	}
+            	console.log(response);
+            }
+        },
+        error: function () {
+            alert("無法連線到伺服器！");
+        }
+	});
+}
+getUserID();
+//alert(name);
+function notLogin(){
+		alert("請先登入!");
+		window.location = "login.html";
+}
+function notAdmin(){
+	alert("你不是管理員!");
+	window.location = "index.html";
+}
+</script>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-bed me-1"></i> 宿舍管理系統</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+		    <a class="nav-link" href="index.html">首頁</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="member.html"><strong>會員管理</strong></a>
           </li>
@@ -86,26 +131,8 @@
           <li class="nav-item">
             <a class="nav-link" href="#">退宿手續</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <i class="fas fa-user me-1"></i>使用者
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li>
-                <a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li>
-                <a class="dropdown-item" href="/"><i class="fas fa-sign-out-alt me-1"></i>登出</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a class="btn btn-outline-primary" href="index.html">首頁</a>
-          </li>
+          <div id="loginOrNot">
+          </div>
         </ul>
       </div>
     </div>
@@ -244,6 +271,55 @@
     $(document).ready(function() {
         getAllMember();
     });
+    
+  //account function
+    function checkLogin(){
+  	    $.ajax({
+  	            type: "GET",
+  	            url: "api/login.do",
+  	            crossDomain: true,
+  	            cache: false,
+  	            dataType: 'json',
+  	            timeout: 5000,
+  	            success: function (response) {
+  	                if(response.status == 200){
+  						let inner_html='';
+  	                	if(response.response.status != "login"){//未登入
+  	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+  	                	}else{//登入
+  	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
+  	                	}
+  	                	$("#loginOrNot").append(inner_html);
+  	                }
+  	                console.log(response);
+  	            },
+  	            error: function () {
+  	                alert("無法連線到伺服器！");
+  	            }
+  	    });
+    }
+    checkLogin();
+   function Logout() {
+  	    // 發出POST的AJAX請求
+  	    $.ajax({
+  	      type: "POST",
+  	      url: "api/logout.do",
+  	      crossDomain: true,
+  	      cache: false,
+  	      dataType: "json",
+  	      timeout: 5000,
+  	      success: function (response) {
+  	          if(response.status == 200){
+  	          }
+  	          console.log(response);
+  	      },
+  	      error: function () {
+  	        alert("無法連線到伺服器！");
+  	      },
+  	    });
+  	    window.location.reload();
+    };
+    //end account function
 </script>
 
     
