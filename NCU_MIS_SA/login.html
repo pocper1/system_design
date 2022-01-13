@@ -131,19 +131,23 @@
                             </div>
                             <div class="form sign-up">
                                 <h2>快來體驗宿舍系統</h2>
-                                <label>
-                                    <span>名稱</span>
-                                    <input type="text" />
-                                </label>
+			                    <label for="member_name">
+			                    <span>姓名</span>
+			                    <input name="name" type="text" id="member_name" required="required">
+			                    </label>
                                 <label>
                                     <span>電子郵件</span>
-                                    <input type="email" />
+                                    <input name="email" maxlength="50" type="email" id="member_email" required="required">               
                                 </label>
                                 <label>
                                     <span>密碼</span>
-                                    <input type="password" />
-                                </label>
-                                <button  id="signup" type="button" class="submit">註冊</button>
+                                    <input name="password" maxlength="30" type="password" id="member_password" required="required">
+               					</label>
+                                <label>
+                                    <span>確認密碼</span>
+                                    <input name="password" maxlength="30" type="password" id="member_password_check" required="required">
+               					</label>
+                                <button  id="submit" type="button" class="submit">註冊</button>
 
                             </div>
                         </div>
@@ -196,7 +200,9 @@
                     dataType: "json",
                     timeout: 5000,
                     success: function (response) {
-                        if (response.status == 200) {}
+                        if (response.status == 200) {
+                        	window.location.reload();
+                        }
                         console.log(response);
                     },
                     error: function () {
@@ -224,7 +230,7 @@
             let inner_html = '';
             if (response.response.status != "login") {
               //未登入
-              inner_html += '<li class="nav-item"><a class="getstarted scrollto" href="login.html">登入</a></li>';
+              inner_html += '<li class="nav-item"><a class="getstarted scrollto" href="login.html">登入 / 註冊</a></li>';
             } else {
               //登入
               if (response.response.role == '1' || response.response.role == '2') {
@@ -270,5 +276,60 @@
             });
         }
         getAll();
+        var $form = $('#submit');
+        $form.click(function() {
+            submit();
+        });
+
+        function submit() {
+            var name = $('#member_name').val();
+            var email = $('#member_email').val();
+            var password = $('#member_password').val();
+            var password_check = $('#member_password_check').val();
+
+            var email_rule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+            var password_rule = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+            if (!email_rule.test(email)) {
+                alert("Email格式不符！");
+            }
+            else if(!password_rule.test(password)) {
+                alert("密碼格式不符，長度至少8，且至少包含一個數字和英文字母！");
+            }
+            else if(password!=password_check){
+            	alert("請輸入同樣的密碼!");
+            }
+            else {
+                // 將資料組成JSON格式
+                var data_object = {
+                    "name": name,
+                    "email": email,
+                    "password": password
+                };
+
+                // 將JSON格式轉換成字串
+                var data_string = JSON.stringify(data_object);
+
+                // 發出POST的AJAX請求
+                $.ajax({
+                        type: "POST",
+                        url: "api/member.do",
+                        data: data_string,
+                        crossDomain: true,
+                        cache: false,
+                        dataType: 'json',
+                        timeout: 5000,
+                        success: function (response) {
+                            alert(response.message);
+                            if(response.status == 200){
+                           		window.location = "login.html";
+                            }
+                        },
+                        error: function () {
+                            alert("無法連線到伺服器！");
+                        }
+                });
+            }
+        }
     </script>
 </body>

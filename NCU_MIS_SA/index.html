@@ -41,6 +41,48 @@
   ======================================================== -->
 </head>
 
+<script>
+var name;
+var role;
+function checkID(){
+	  $.ajax({
+        type: "GET",
+        url: "api/login.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+            if(response.status == 200){
+            	if(response.response.status == "login"){//未登入
+            		name = response.response.name;
+            		role = response.response.role;
+            		if(role == '1'|| role == '2'){
+            		}else{
+            			//notAdmin();	
+            		}
+            	}else{
+            		//notLogin();
+            	}
+            	console.log(response);
+            }
+        },
+        error: function () {
+            alert("無法連線到伺服器！");
+        }
+	});
+}
+checkID();
+//alert(name);
+function notLogin(){
+		alert("請先登入!");
+		window.location = "login.html";
+}
+function notAdmin(){
+	alert("你不是管理員!");
+	window.location = "index.html";
+}
+</script>
 <body>
 
   <!-- ======= Header ======= -->
@@ -56,7 +98,6 @@
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">首頁</a></li>
           <li><a class="nav-link scrollto" href="#services">選單</a></li>
-          <li><a class="nav-link scrollto" href="#bulletin_board">公告欄</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
@@ -65,18 +106,17 @@
 
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-              <li><a class="nav-link dropdown-item scrollto" href="bulletinboard.html">公告欄</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="#bulletin_board">公告欄</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="discussion_board.html">討論版</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="payment.html">宿舍繳費</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="dormManagement.html">宿舍報修</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="check_in.html">報到手續</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="check_out.html">退宿手續</a></li>
-
               <li>
-                <hr class="dropdown-divider">
+                <hr class="dropdown-divider admin">
               </li>
-              <li><a class="nav-link dropdown-item scrollto" href="member.html">會員管理</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="admin.html">管理員管理</a></li>
+              <li><a class="nav-link dropdown-item scrollto admin" href="member.html">會員管理</a></li>
+              <li><a class="nav-link dropdown-item scrollto admin" href="bulletinboard.html">公告欄管理</a></li>
             </ul>
           </li>
 
@@ -134,7 +174,7 @@
             <i class="ri-discuss-line icon"></i>
             <h3>公告欄</h3>
             <p>宿舍公告欄<br />公告宿舍相關事務</p>
-            <a href="bulletinboard.html" class="read-more"><span>查看更多</span> <i class="bi bi-arrow-right"></i></a>
+            <a href="#bulletin_board" class="read-more"><span>查看更多</span> <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
 
@@ -142,7 +182,7 @@
           <div class="service-box red">
             <i class="ri-discuss-line icon"></i>
             <h3>討論板</h3>
-            <p><br>宿民討論版</p>
+            <p><br>宿民討論版<br />宿舍大小事分享</p>
             <a href="discussion_board.html" class="read-more"><span>查看更多</span> <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
@@ -183,7 +223,7 @@
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-8" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-lg-3 col-md-8 admin" data-aos="fade-up" data-aos-delay="200">
           <div class="service-box blue">
             <i class="ri-discuss-line icon"></i>
             <h3>會員管理</h3>
@@ -192,11 +232,11 @@
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-8" data-aos="fade-up" data-aos-delay="700">
+        <div class="col-lg-3 col-md-8 admin" data-aos="fade-up" data-aos-delay="700">
           <div class="service-box pink">
             <i class="ri-discuss-line icon"></i>
-            <h3>管理員管理</h3>
-            <p>切換為管理者介面<br />一般使用者看不到此項目</p>
+            <h3>公告欄管理</h3>
+            <p>管理公告欄項目<br />新增 / 刪除 / 修改公告</p>
             <a href="admin.html" class="read-more"><span>查看更多</span> <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
@@ -417,6 +457,10 @@
   <!-- Template Main JS File -->
   <script src="statics/js/main.js"></script>
   <script>
+  $(".admin").hide();
+  if(role==1||role==2){
+	  $(".admin").show();
+  }
     //account function
     function checkLogin() {
       $.ajax({
@@ -431,15 +475,15 @@
             let inner_html = '';
             if (response.response.status != "login") {
               //未登入
-              inner_html += '<li class="nav-item"><a class="getstarted scrollto" href="login.html">登入</a></li>';
+              inner_html += '<li class="nav-item"><a class="getstarted scrollto" href="login.html" role="button">登入 / 註冊</a></li>';
             } else {
               //登入
               if (response.response.role == '1' || response.response.role == '2') {
-                document.getElementById('member').style.display = "";
+                //document.getElementById('member').style.display = "";
               }
 
               inner_html += '<li class="dropdown"><a href="#"><span>' + response.response.name +
-                '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()">登出</a></li></ul></li>'
+                '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()" role="button">登出</a></li></ul></li>'
             }
             $("#loginOrNot").append(inner_html);
           }

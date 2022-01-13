@@ -81,7 +81,7 @@
   <!-- ======= Hero Section ======= -->
   <section>
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">宿舍報修系統</h1>
+    <h1 class="display-4"><b>宿舍報修系統</b></h1>
     <p class="lead">**以下為報修系統使用者介面**</p>
   </div>
 
@@ -132,10 +132,7 @@
         	$.each(response.response.data, function (){
         		fix_table += addFix(this);
         	})
-        	
         	$("#fix_table").append(fix_table);
-        	//setButtonFunction();
-        	//checkIfExistInCart();
           }
         },
         error: function () {
@@ -144,14 +141,42 @@
       });
     }
 
+    
+    
+	var red=[];
+    function getAllFeedback() {
+      $.ajax({
+        type: "GET",
+        url: "api/feedback.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+          if (response.status == 200) {
+       		console.log(response.response.data);	
+        	$.each(response.response.data, function (){
+        		red.push(this.fixID);
+        	})
+			red.forEach(function(x){
+				$(".report"+x).attr('style','color:red');
+				$(".report"+x).attr('href','addFixQuestion.html?id='+fixID);
+			});
+          }
+        },
+        error: function () {
+          alert("無法連線到伺服器！");
+        }
+      });
+    }
     getAllFix();
-
+	getAllFeedback();
+    
     var click=[];
     function addFix(data) {
-    	
     	document.getElementById('fix_table').innerHTML="";
     	let inner_html = '';
-    	inner_html+='<tr><th scope="row">'+data.id+'</th>';
+    	inner_html+='<tr><th scope="row" class="'+data.id+'"><a class="report'+data.id+'"">'+data.id+'</a></th>';
 		inner_html+='<td>'+data.dorm+'</td>';
 		inner_html+='<td>'+data.category+'</td>';
 		inner_html+='<td>'+data.created.split(" ",1)+'</td>';
@@ -233,8 +258,9 @@
 	                		if(response.response.role=='1'||response.response.role=='2'){
 	                			isAdmin();
 	                		}
-  	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
-  	                	}
+	                		inner_html += '<li class="dropdown"><a href="#"><span>' + response.response.name +
+	                        '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()" role="button">登出</a></li></ul></li>'
+	                    }
   	                	$("#loginOrNot").append(inner_html);
   	                }
   	                console.log(response);

@@ -125,7 +125,7 @@ public class LoginController extends HttpServlet {
 	        
 	        JSONObject resp = new JSONObject();
 	        resp.put("status", "200");
-	        resp.put("message", "報修新增成功！");
+	        resp.put("message", "登入成功！");
             resp.put("response", rs);
 
 	        /** 透過 JsonReader 物件回傳到前端（以 JSONObject 方式） */
