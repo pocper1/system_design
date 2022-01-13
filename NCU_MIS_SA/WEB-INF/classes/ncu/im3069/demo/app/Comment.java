@@ -80,12 +80,12 @@ public class Comment {
      * @param created_at 留言創建時間
      * @param updated_at 留言修改時間
      */
-    public Comment(String discussion_id, int ct_id, int user_id, String content, Timestamp created_at) {
+    public Comment(int ct_id, String discussion_id, int user_id, String content) {
     	this.discussion_id = discussion_id;
     	this.id = ct_id;
     	this.user_id = user_id;
         this.content = content;
-        this.created_at = created_at;
+       
     }
     /**
      * 設定留言編號
