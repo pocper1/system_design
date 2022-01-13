@@ -32,6 +32,48 @@
   ======================================================== -->
 </head>
 
+<script>
+var name;
+var role;
+function checkID(){
+	  $.ajax({
+        type: "GET",
+        url: "api/login.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+            if(response.status == 200){
+            	if(response.response.status == "login"){//未登入
+            		name = response.response.name;
+            		role = response.response.role;
+            		if(role == '1'|| role == '2'){
+            		}else{
+            			//notAdmin();	
+            		}
+            	}else{
+            		//notLogin();
+            	}
+            	console.log(response);
+            }
+        },
+        error: function () {
+            alert("無法連線到伺服器！");
+        }
+	});
+}
+checkID();
+//alert(name);
+function notLogin(){
+		alert("請先登入!");
+		window.location = "login.html";
+}
+function notAdmin(){
+	alert("你不是管理員!");
+	window.location = "index.html";
+}
+</script>
 <body>
    <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top">
@@ -159,8 +201,10 @@
         		red.push(this.fixID);
         	})
 			red.forEach(function(x){
-				$(".report"+x).attr('style','color:red');
-				$(".report"+x).attr('href','addFixQuestion.html?id='+fixID);
+				if(role=='1'||role=='2'){
+					$(".report"+x).attr('style','color:red');
+					$(".report"+x).attr('href','FixQuestion.html?id='+x);
+				}
 			});
           }
         },
@@ -327,9 +371,6 @@
     function isAdmin(){
     	admin=1;
     	adminShow();
-		//document.getElementById('del-col').style.display="";
-    	document.getElementById('member').style.display="";
-    	//$('.del').show();
     }
     function adminShow(){
 		$("#del-col").show();

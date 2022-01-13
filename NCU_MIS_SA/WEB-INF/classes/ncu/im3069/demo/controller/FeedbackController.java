@@ -75,8 +75,9 @@ public class FeedbackController extends HttpServlet {
         }
         else {
             /** 透過MemberHelper物件的getByID()方法自資料庫取回該名會員之資料，回傳之資料為JSONObject物件 */
+        	System.out.println(id);
             JSONObject query = ph.getByFixID(id);
-            
+            System.out.println(query);
             /** 新建一個JSONObject用於將回傳之資料進行封裝 */
             JSONObject resp = new JSONObject();
             resp.put("status", "200");

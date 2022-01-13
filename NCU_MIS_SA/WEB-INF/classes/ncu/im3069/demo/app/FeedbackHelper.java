@@ -204,7 +204,7 @@ public class FeedbackHelper {
             /** 取得資料庫之連線 */
             conn = DBMgr.getConnection();
             /** SQL指令 */
-            String sql = "SELECT * FROM `missa`.`feedbacks` WHERE `feedbacks`.`fixID` = ? LIMIT 1";
+            String sql = "SELECT * FROM `missa`.`feedbacks` WHERE `feedbacks`.`fixID` = ? ";
             
             /** 將參數回填至SQL指令當中，若無則不用只需要執行 prepareStatement */
             pres = conn.prepareStatement(sql);
