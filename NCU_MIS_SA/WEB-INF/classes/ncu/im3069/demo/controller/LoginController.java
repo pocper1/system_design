@@ -90,6 +90,7 @@ public class LoginController extends HttpServlet {
 
 	        JSONObject rs = mh.getByEmail(email,password);
 
+	        JSONObject resp = new JSONObject();
         	System.out.println(rs.get("data"));
         	
         	if(rs.getJSONArray("data").length()!=0) {
@@ -106,8 +107,9 @@ public class LoginController extends HttpServlet {
 	            session1.setAttribute("name", name);
 	            session1.setAttribute("email", email);
 	            session1.setAttribute("role", role);
-            
+	            resp.put("response", rs);
         	}else {
+    	        resp.put("message", "login_fail");
         		System.out.println("沒有帳號");
         	}
         	
@@ -117,17 +119,14 @@ public class LoginController extends HttpServlet {
 	            String Session_name = (String) session.getAttribute("name");
 	            String Session_email = (String) session.getAttribute("email");
 	            String Session_role = (String) session.getAttribute("role");
+		        resp.put("message", "登入成功！");
 	            System.out.print(Session_id+"您好, " + Session_name + " 歡迎您來到個人資訊中心！ role:"+Session_role+", email:"+Session_email);
 	        } else {
 	            System.out.print("請登入系統！");
-	            request.getRequestDispatcher("login.html").include(request, response);
+	            //request.getRequestDispatcher("login.html").include(request, response);
 	        }
 	        
-	        JSONObject resp = new JSONObject();
 	        resp.put("status", "200");
-	        resp.put("message", "登入成功！");
-            resp.put("response", rs);
-
 	        /** 透過 JsonReader 物件回傳到前端（以 JSONObject 方式） */
 	        jsr.response(resp, response);
 	        

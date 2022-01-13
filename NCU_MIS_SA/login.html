@@ -242,7 +242,12 @@ function notAdmin(){
                     timeout: 5000,
                     success: function (response) {
                         if (response.status == 200) {
-                        	window.location.reload();
+                        	console.log(response);
+                        	if(response.message=='login_fail'){
+	                        	alert('登入失敗! 帳號或密碼次錯誤...');
+                        	}else{
+                        		window.location.reload();
+                        	}
                         }
                         console.log(response);
                     },
@@ -306,8 +311,6 @@ function notAdmin(){
                         if (response.response.status == "login") { //登入
                             redirect();
                         }
-                        //                    updateTable(response.response.data);
-                        //                  updateSQLTable(response.response);
                     }
                     console.log(response);
                 },
