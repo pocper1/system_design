@@ -1,6 +1,8 @@
 package ncu.im3069.demo.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -103,7 +105,7 @@ public class CommentController extends HttpServlet {
 	        String discussion_id 		= jso.getString("discussion_id");
 	        int user_id 				= jso.getInt("user_id");
 	        String content 				= jso.getString("content");
-	       
+
 	        /** 建立一個新的討論物件 */
 	        Comment dis = new Comment(discussion_id, user_id, content);
 

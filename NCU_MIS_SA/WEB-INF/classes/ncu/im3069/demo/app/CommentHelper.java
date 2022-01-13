@@ -183,7 +183,7 @@ public class CommentHelper {
                 Timestamp updated_at = rs.getTimestamp("updated_at");
                 
                 /** 將每一筆商品資料產生一名新Comment物件 */
-                o = new Comment(id,discussion_id, user_id, content, updated_at);
+                o = new Comment(id,discussion_id, user_id, content);
                 /** 取出該項商品之資料並封裝至 JSONsonArray 內 */
                 jsa.put(o.getCommentData());
             }
