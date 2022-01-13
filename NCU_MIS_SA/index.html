@@ -384,12 +384,6 @@
     <!-- Template Main JS File -->
     <script src="statics/js/main.js"></script>
     <script>
-    $(document).ready(function(){
-        $(".admin").hide();
-        if (role == 1 || role == 2) {
-          $(".admin").show();
-        }
-    });
     var name;
     var role;
     function checkID() {
@@ -407,7 +401,9 @@
               //未登入
               name = response.response.name;
               role = response.response.role;
+        	  $(".admin").hide();
               if (role == "1" || role == "2") {
+                  $(".admin").show();
             	  addbtn+='<button type="button" class="btn btn-primary"><a href="addbulletinboard.html" style="color:white"><i class="bi bi-person-plus-fill"> 新增公告</i></a></button>';
               } else {
                 //notAdmin();
@@ -416,7 +412,6 @@
               //notLogin();
             }
             $("#addbtn").append(addbtn);
-            console.log(response);
           }
         },
         error: function () {
