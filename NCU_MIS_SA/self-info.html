@@ -72,18 +72,20 @@ function checkID(){
         timeout: 5000,
         success: function (response) {
             if(response.status == 200){
-            	if(response.response.status == "login"){//未登入
-            		name = response.response.name;
-            		role = response.response.role;
-            		if(role == '1'|| role == '2'){
-            		}else{
-            			//notAdmin();	
-            		}
-            	}else{
-            		//notLogin();
-            	}
-            	console.log(response);
-            }
+            	  $(".admin").hide();
+              	if(response.response.status == "login"){//未登入
+              		name = response.response.name;
+              		role = response.response.role;
+              		if(role == '1'|| role == '2'){
+                          $(".admin").show();
+              		}else{
+              			//notAdmin();	
+              		}
+              	}else{
+              		//notLogin();
+              	}
+              	console.log(response);
+              }
         },
         error: function () {
             alert("無法連線到伺服器！");

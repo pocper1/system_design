@@ -68,7 +68,7 @@ public class DiscussionHelper {
             /** 取得所需之參數 */
             String article_title 		= discussion.getTitle();
 	        String article_content 		= discussion.getContent();
-	        int author 					= discussion.getAuthor();
+	        String author 					= discussion.getAuthor();
             Timestamp created_at 		= discussion.getCreatedTime();
             Timestamp updated_at 		= discussion.getUpdatedTime();
             
@@ -76,7 +76,7 @@ public class DiscussionHelper {
             pres = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pres.setString(1, article_title);
             pres.setString(2, article_content);
-            pres.setInt(3, author);
+            pres.setString(3, author);
             pres.setTimestamp(4, created_at);
             pres.setTimestamp(5, updated_at);
      
@@ -212,7 +212,7 @@ public class DiscussionHelper {
                 int id 				= rs.getInt("id");
                 String title 		= rs.getString("article_title");
                 String content 		= rs.getString("article_content");
-                int author 			= rs.getInt("author");
+                String author 			= rs.getString("author");
                 Timestamp updated_at= rs.getTimestamp("updated_at");
                 
                 /** 將每一筆商品資料產生一名新Product物件 */
@@ -300,7 +300,7 @@ public class DiscussionHelper {
               int discussion_id = rs.getInt("id");
               String article_title = rs.getString("article_title");
               String article_content = rs.getString("article_content");
-              int author = rs.getInt("author");
+              String author = rs.getString("author");
               Timestamp updated_at = rs.getTimestamp("updated_at");
               /** 將每一筆商品資料產生一名新Product物件 */
               p = new Discussion(discussion_id, article_title, article_content, author,updated_at);
@@ -380,7 +380,7 @@ public class DiscussionHelper {
             	int discussion_id = rs.getInt("id");
                 String article_title = rs.getString("article_title");
                 String article_content = rs.getString("article_content");
-                int author = rs.getInt("author");
+                String author = rs.getString("author");
                 Timestamp updated_at = rs.getTimestamp("updated_at");
                 /** 將每一筆商品資料產生一名新Product物件 */
                 p = new Discussion(discussion_id, article_title, article_content, author,updated_at);

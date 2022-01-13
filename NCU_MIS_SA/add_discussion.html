@@ -59,15 +59,17 @@ function checkID(){
         timeout: 5000,
         success: function (response) {
             if(response.status == 200){
+          	  $(".admin").hide();
             	if(response.response.status == "login"){//未登入
             		name = response.response.name;
             		role = response.response.role;
             		if(role == '1'|| role == '2'){
+                        $(".admin").show();
             		}else{
             			//notAdmin();	
             		}
             	}else{
-            		//notLogin();
+            		notLogin();
             	}
             	console.log(response);
             }
@@ -87,6 +89,9 @@ function notAdmin(){
 	alert("你不是管理員!");
 	window.location = "index.html";
 }
+$(document).ready(function(){
+	$("#author").val(name);
+});
 </script>
 
 </head>
@@ -231,29 +236,21 @@ function notAdmin(){
          
           
           
-          
-          <button
-            id="post_article"
-            type="submit"
-            class="btn btn-primary text-center"
-          >
-            提交
-          </button>
+          <a id="post_article" role="button" type="submit" style="color: white"
+                class="btn btn-primary text-center me-3">
+          新增
+          </a>
         </form>
       </div>
     </div>
 </section><!-- End Hero -->
     <script>
-    
- 
-    
       $("#post_article").click(function () {
         var data = {
           article_title: $("#article_title").val(),
           article_content: $("#article_content").val(),
           author: $("#author").val(),
         };
-
         // 驗證輸入的資料
         pass_vaild = vaildData(data);
         function vaildData(data) {
@@ -267,12 +264,8 @@ function notAdmin(){
 
             return false;
           }
-        
         if (pass_vaild) {
           var data_string = JSON.stringify(data);
-
-          
-
           // 發出POST的AJAX請求
           $.ajax({
             type: "POST",
@@ -283,12 +276,11 @@ function notAdmin(){
             dataType: "json",
             timeout: 5000,
             success: function (response) {
-            	 if (response.status == 200) {
-                     alert("新增討論文章成功");
-                     redirect();
-                   }
-                             
-              
+	       	 	if (response.status == 200) {
+	                window.location = "discussion_board.html";
+	                alert("新增討論文章成功");
+	              }
+	       	 		console.log(response);
             },
             error: function () {
               alert("無法連線到伺服器！");
@@ -296,9 +288,6 @@ function notAdmin(){
           });
         }
       });
-      function redirect() {
-          window.location = "discussion_board.html";
-        }
     //account function
       function checkLogin() {
       $.ajax({

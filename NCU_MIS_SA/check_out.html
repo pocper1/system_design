@@ -325,12 +325,14 @@
         timeout: 5000,
         success: function (response) {
           if (response.status == 200) {
+        	  $(".admin").hide();
             if (response.response.status == "login") {
               //未登入
               name = response.response.name;
               role = response.response.role;
               updateStatus(name);
               if (role == "1" || role == "2") {
+                  $(".admin").show();
             	  $("#container").hide();
             	  getAllForm();
               } else {

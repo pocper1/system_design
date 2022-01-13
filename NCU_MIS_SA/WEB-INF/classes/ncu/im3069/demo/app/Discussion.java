@@ -18,7 +18,7 @@ public class Discussion {
     private String article_content;
 
     /** id，會員編號 */
-    private int author;
+    private String author;
     
     /** id，建立時間 */
     private Timestamp created_at;
@@ -51,7 +51,7 @@ public class Discussion {
      * @param article_content 文章內容
      * @param author 文章作者
      */
-	public Discussion(String article_title, String article_content, int author) {
+	public Discussion(String article_title, String article_content, String author) {
 		this.article_title = article_title;
 		this.article_content = article_content;
 		this.author = author;
@@ -68,7 +68,7 @@ public class Discussion {
      * @param article_content 文章內容
      * @param author 文章作者
      */
-	public Discussion(int id, String article_title, String article_content, int author, Timestamp updated_at) {
+	public Discussion(int id, String article_title, String article_content, String author, Timestamp updated_at) {
 		this.id = id;
 		this.article_title = article_title;
 		this.article_content = article_content;
@@ -116,7 +116,7 @@ public class Discussion {
      *
      * @return INT 回傳文章作者
      */
-	public int getAuthor() {
+	public String getAuthor() {
 		return this.author;
 	}
 

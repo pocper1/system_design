@@ -59,8 +59,33 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
     <script>
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var id = url.searchParams.get("id");
       var name;
       var role;
+      var author;
+      function getDiscussionData() {
+        $.ajax({
+          type: "GET",
+          url: "api/discussion.do",
+          data: "id=" + id,
+          crossDomain: true,
+          cache: false,
+          dataType: "json",
+          timeout: 5000,
+          success: function (response) {
+            if (response.status == 200) {
+              updateHTML(response.response.data);
+              author=response.response.data[0].author;
+            }
+          },
+          error: function () {
+            alert("無法連線到伺服器！");
+          },
+        });
+      }
+      getDiscussionData();
       function checkID() {
         $.ajax({
           type: "GET",
@@ -70,20 +95,21 @@
           dataType: "json",
           timeout: 5000,
           success: function (response) {
-            if (response.status == 200) {
-              if (response.response.status == "login") {
-                //未登入
-                name = response.response.name;
-                role = response.response.role;
-                if (role == "1" || role == "2") {
-                } else {
-                  //notAdmin();
+              if(response.status == 200){
+              	  $(".admin").hide();
+                	if(response.response.status == "login"){//未登入
+                		name = response.response.name;
+                		role = response.response.role;
+                		if(role == '1'|| role == '2'){
+                            $(".admin").show();
+                		}else{
+                			//notAdmin();	
+                		}
+                	}else{
+                		notLogin();
+                	}
+                	console.log(response);
                 }
-              } else {
-                //notLogin();
-              }
-              console.log(response);
-            }
           },
           error: function () {
             alert("無法連線到伺服器！");
@@ -91,6 +117,13 @@
         });
       }
       checkID();
+      //alert(name);
+      $(document).ready(function(){
+          $('#deletePost').hide(); 
+          if(name==author || role=='1' || role=='2'){
+              $('#deletePost').show(); 
+          }
+      });
       //alert(name);
       function notLogin() {
         alert("請先登入!");
@@ -291,15 +324,16 @@
       var url_string = window.location.href;
       var url = new URL(url_string);
       var id = url.searchParams.get("id");
-      var name = "";
       Message_data = "";
       var comment_author = "";
+      var name;
+      var role;
+      var author;
       $(document).ready(function () {
         getDiscussionData(); //獲得文章資料
         getMessageData(); //獲得留言資料
         checkLogin(); //檢查登入
       });
-
       //get discussion data
       function getDiscussionData() {
         $.ajax({
@@ -539,6 +573,8 @@
                     inner_html +=
                       '<li class="nav-item"><a class="getstarted scrollto" href="login.html" role="button">登入 / 註冊</a></li>';
                   } else {
+                		name = response.response.name;
+                  		role = response.response.role;
                     //登入
                     inner_html +=
                       '<li class="dropdown"><a href="#"><span>' +

@@ -99,7 +99,7 @@ public class DiscussionController extends HttpServlet {
 
 	        String article_title 	= jso.getString("article_title");
 	        String article_content 	= jso.getString("article_content");
-	        int author 				= jso.getInt("author");
+	        String author 				= jso.getString("author");
 	       
 	        /** 建立一個新的討論物件 */
 	        Discussion dis = new Discussion(article_title, article_content, author);

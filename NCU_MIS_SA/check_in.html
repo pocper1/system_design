@@ -64,16 +64,48 @@
   </head>
 
   <script>
-
-    //alert(name);
-    function notLogin() {
-      alert("請先登入!");
-      window.location = "login.html";
-    }
-    function notAdmin() {
-      alert("你不是管理員!");
-      window.location = "index.html";
-    }
+  var name;
+  var role;
+  function checkID() {
+    $.ajax({
+      type: "GET",
+      url: "api/login.do",
+      crossDomain: true,
+      cache: false,
+      dataType: "json",
+      timeout: 5000,
+      success: function (response) {
+          if(response.status == 200){
+          	  $(".admin").hide();
+            	if(response.response.status == "login"){//未登入
+            		name = response.response.name;
+            		role = response.response.role;
+            		if(role == '1'|| role == '2'){
+                        $(".admin").show();
+            		}else{
+            			//notAdmin();	
+            		}
+            	}else{
+            		//notLogin();
+            	}
+            	console.log(response);
+            }
+      },
+      error: function () {
+        alert("無法連線到伺服器！");
+      },
+    });
+  }
+  checkID();
+  //alert(name);
+  function notLogin() {
+    alert("請先登入!");
+    window.location = "login.html";
+  }
+  function notAdmin() {
+    alert("你不是管理員!");
+    window.location = "index.html";
+  }
   </script>
   <body>
     <!-- ======= Header ======= -->
