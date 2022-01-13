@@ -1,349 +1,252 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Jekyll v3.8.5" />
+<html>
 
-    <title>新增討論 ｜ NCU MIS SA</title>
-
-
-
-   <!-- Favicons -->
-  <link href="statics/icon/favicon.ico" rel="icon">
-  <link href="statics/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="statics/vendor/aos/aos.css" rel="stylesheet">
-  <link href="statics/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="statics/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="statics/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="statics/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="statics/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-  <script src="statics/js/jquery-3.4.1.min.js"></script>
-  <!-- Template Main CSS File -->
-  <link href="statics/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: FlexStart - v1.9.0
-  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-    <script>
-var name;
-var role;
-function checkID(){
-	  $.ajax({
-        type: "GET",
-        url: "api/login.do",
-        crossDomain: true,
-        cache: false,
-        dataType: 'json',
-        timeout: 5000,
-        success: function (response) {
-            if(response.status == 200){
-            	if(response.response.status == "login"){//未登入
-            		name = response.response.name;
-            		role = response.response.role;
-            		if(role == '1'|| role == '2'){
-            		}else{
-            			//notAdmin();	
-            		}
-            	}else{
-            		//notLogin();
-            	}
-            	console.log(response);
-            }
-        },
-        error: function () {
-            alert("無法連線到伺服器！");
-        }
-	});
-}
-checkID();
-//alert(name);
-function notLogin(){
-		alert("請先登入!");
-		window.location = "login.html";
-}
-function notAdmin(){
-	alert("你不是管理員!");
-	window.location = "index.html";
-}
-</script>
-
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>公佈欄</title>
+   <!--以下是 Bootstrap 的文件包-->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="<?=$link;?>css/bootstrap-responsive.min.css" rel="stylesheet">
+   <link href="<?=$link;?>css/bootstrap.min.css" rel="stylesheet" media="screen">
+   
+   <!--bootstrap introduction複製下的-->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+   
+   <script src="<?=$link;?>js/jquery.js"></script>
+   <script src="<?=$link;?>js/bootstrap.min.js"></script>
+   
+   <script src="statics/js/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
 </head>
 
+<style>
+#heig{
+     height:10px;
+}
+#color{
+     background-color: #E5E5E5;
+}
+</style>
+
 <body>
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="statics/img/logo.png" alt="">
-        <span>宿舍管理系統</span>
-      </a>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">首頁</a></li>
-          <li><a class="nav-link scrollto" href="#services">選單</a></li>
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-bed me-1"></i> 宿舍管理系統</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link" href="member.html"><strong>會員管理</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="bulletinboard.html">公告欄</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="discussion_board.html">討論版</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">宿舍繳費</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dormManagement.html">宿舍報修</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">報到手續</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">退宿手續</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              其他功能
+              <i class="fas fa-user me-1"></i>使用者
             </a>
-
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-              <li><a class="nav-link dropdown-item scrollto" href="#bulletin_board">公告欄</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="discussion_board.html">討論版</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="payment.html">宿舍繳費</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="dormManagement.html">宿舍報修</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="check_in.html">報到手續</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="check_out.html">退宿手續</a></li>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li>
-                <hr class="dropdown-divider admin">
+                <a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a>
               </li>
-              <li><a class="nav-link dropdown-item scrollto admin" href="member.html">會員管理</a></li>
-              <li><a class="nav-link dropdown-item scrollto admin" href="bulletinboard.html">公告欄管理</a></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="/"><i class="fas fa-sign-out-alt me-1"></i>登出</a>
+              </li>
             </ul>
           </li>
-
-          <div id="loginOrNot"></div>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
+      </div>
     </div>
-  </header><!-- End Header -->
+  </nav>
   
-  <!-- ======= Hero Section ======= -->
-  <section >
-    <div class="container">
-      <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">新增討論</h1>
-        <p class="lead">可以新增文章</p>
-      </div>
-
-      <div class="clearfix"></div>
-      <hr />
-      <div class="discussion_board">
-        <form>
-          <div class="mb-3">
-            <label for="article_title" class="form-label">文章標題</label>
-            <input
-              type="text"
-              class="form-control"
-              id="article_title"
-              aria-describedby="ttile"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="article_content" class="form-label">文章內容</label>
-            <textarea
-              rows="5"
-              type="text"
-              class="form-control"
-              id="article_content"
-            ></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="author" class="form-label">作者</label>
-            <input
-              type="text"
-              class="form-control"
-              id="author"
-              aria-describedby="author"
-            />
-          </div>
-          <button
-            id="post_article"
-            type="submit"
-            class="btn btn-primary text-center"
-          >
-            提交
-          </button>
-        </form>
-      </div>
-    </div>
-</section><!-- End Hero -->
-    <script>
-      $("#post_article").click(function () {
-        var data = {
-          article_title: $("#article_title").val(),
-          article_content: $("#article_content").val(),
-          author: $("#author").val(),
-        };
-
-        // 驗證輸入的資料
-        pass_vaild = vaildData(data);
-        function vaildData(data) {
-            if (
-              data["article_title"] == "" ||
-              data["article_content"] == "" ||
-              data["author"] == ""
-            )
-              alert("必填寫欄位不得有空值！");
-            else return true;
-
-            return false;
-          }
-        
-        if (pass_vaild) {
-          var data_string = JSON.stringify(data);
+   <!--"container"為固定置中,請參考 http://kkbruce.tw/Bootstrap/Scaffolding 佈局篇-->
+   <div class="container">
+      <!--class="table table-bordered table-condensed"請參考 http://kkbruce.tw/Bootstrap/BaseCSS#tables -->
+      <table width="1200" border="0" class="table table-bordered table-condensed">
+        <tr>
+          <td id="color"><strong>>>>新增公告</strong></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+          <!-- placeholder="標題" 請參考 http://kkbruce.tw/Bootstrap/BaseCSS#forms -->
+            <input type="text" name="topic" id="bulletinboard_topic" placeholder="標題"/>
+          </div>     
+            <label>
+              <div align="center"></div>
+            </label></td>
+        </tr>
+        <tr>
+          <td id="color"><div align="center"><strong>內容</strong></div></td>
+        </tr>
+        <tr>
+          <td><div align="center">
+            <textarea name="content" id="bulletinboard_content"  cols="45" rows="5"></textarea>
+          </div></td>
+        </tr>
+        <tr>
+          <td id="color">
+          <!-- class="btn-group" 請參考 http://kkbruce.tw/Bootstrap/Components#buttonGroups   -->
 
           
+          <div class="submit"><input type="button" value="新增公告" id="submit"></div>
+          
+          </td>
+        </tr>
+      </table>
+   </div>
+   
+   <script type="text/javascript">
+   
+ //account function
+   function checkLogin(){
+ 	    $.ajax({
+ 	            type: "GET",
+ 	            url: "api/login.do",
+ 	            crossDomain: true,
+ 	            cache: false,
+ 	            dataType: 'json',
+ 	            timeout: 5000,
+ 	            success: function (response) {
+ 	                if(response.status == 200){
+ 						let inner_html='';
+ 	                	if(response.response.status != "login"){//未登入
+ 	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+ 	                	}else{//登入
+ 	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
+ 	                	}
+ 	                	$("#loginOrNot").append(inner_html);
+ 	                }
+ 	                console.log(response);
+ 	            },
+ 	            error: function () {
+ 	                alert("無法連線到伺服器！");
+ 	            }
+ 	    });
+   }
+   checkLogin();
+  function Logout() {
+ 	    // 發出POST的AJAX請求
+ 	    $.ajax({
+ 	      type: "POST",
+ 	      url: "api/logout.do",
+ 	      crossDomain: true,
+ 	      cache: false,
+ 	      dataType: "json",
+ 	      timeout: 5000,
+ 	      success: function (response) {
+ 	          if(response.status == 200){
+ 	          }
+ 	          console.log(response);
+ 	      },
+ 	      error: function () {
+ 	        alert("無法連線到伺服器！");
+ 	      },
+ 	    });
+ 	    window.location.reload();
+   };
+   //end account function
+      $(document).ready(function() {
+                    // 處理表單點擊事件
+                    var $form = $('#submit');
+                    $form.click(function() {
+                        submit();
+                        window.location.assign("index.html");
+                    });
 
-          // 發出POST的AJAX請求
-          $.ajax({
-            type: "POST",
-            url: "api/discussion.do",
-            data: data_string,
-            crossDomain: true,
-            cache: false,
-            dataType: "json",
-            timeout: 5000,
-            success: function (response) {
-            	
-              if (response.status == 200) {
-            	  $.confirm({
-                      theme: 'modern',
-                      icon: 'fa fa-check-circle-o',
-                      type: 'green',
-                      animation: 'scale',
-                      title: '新增討論',
-                      content: "新增討論成功!",
-                      buttons: {
-                          確定: {
-                              text: '確定',
-                              btnClass: 'btn-blue',
-                              action: function () {
-                            	  
-                                document.location.href = "discussion.html";
-                              }
-                          }
-                      }
-                  });
-              }
-            },
-            error: function () {
-              alert("無法連線到伺服器！");
-            },
-          });
-        }
-      });
-    //account function
-      function checkLogin() {
-      $.ajax({
-        type: "GET",
-        url: "api/login.do",
-        crossDomain: true,
-        cache: false,
-        dataType: 'json',
-        timeout: 5000,
-        success: function (response) {
-          if (response.status == 200) {
-            let inner_html = '';
-            if (response.response.status != "login") {
-              //未登入
-              inner_html += '<li class="nav-item"><a class="getstarted scrollto" href="login.html">登入</a></li>';
-            } else {
-              //登入
-              if (response.response.role == '1' || response.response.role == '2') {
-                document.getElementById('member').style.display = "";
-              }
+                    function submit() {
+                    
+                        var data = {
+                               topic: $("#bulletinboard_topic").val(),
+                               content: $("#bulletinboard_content").val(),
+                             };
 
-              inner_html += '<li class="dropdown"><a href="#"><span>' + response.response.name +
-                '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()">登出</a></li></ul></li>'
-            }
-            $("#loginOrNot").append(inner_html);
-          }
-          console.log(response);
-        },
-        error: function () {
-          alert("無法連線到伺服器！");
-        }
-      });
-    }
-    checkLogin();
-      function Logout() {
-        // 發出POST的AJAX請求
-        $.ajax({
-          type: "POST",
-          url: "api/logout.do",
-          crossDomain: true,
-          cache: false,
-          dataType: "json",
-          timeout: 5000,
-          success: function (response) {
-            if (response.status == 200) {
-            }
-            console.log(response);
-          },
-          error: function () {
-            alert("無法連線到伺服器！");
-          },
-        });
-        window.location.reload();
-      }
-      //end account function
-    </script>
+                             // 驗證輸入的資料
+                             pass_vaild = vaildData(data);
+                             function vaildData(data) {
+                                 if (
+                                   data["topic"] == "" ||
+                                   data["content"] == "" 
+                                 )
+                                   alert("必填寫欄位不得有空值！");
+                                 else return true;
 
-    <footer id="footer" class="footer">
+                                 return false;
+                               }
+                             
+                             if (pass_vaild) {
+                               var data_string = JSON.stringify(data);
+                                             
+                        
+          
+                            // 發出POST的AJAX請求
+                            $.ajax({
+                                    type: "POST",
+                                    url: "api/BulletinBoard.do",
+                                    data: data_string,
+                                    crossDomain: true,
+                                    cache: false,
+                                    dataType: 'json',
+                                    timeout: 5000,
+                                    success: function (response) {
+                                        $('#flashMessage').html(response.message);
+                                        $('#flashMessage').show();
+                                        if(response.status == 200){
+                                        	alert("修改成功!");
+                                        }
+                                    },
+                                    error: function () {
+                                        alert("無法連線到伺服器！");
+                                    }
+                            });
+                        }
+                    }
 
+                    function updateSQLTable(data) {
+                        $("#sql_log > tbody").empty();
+                        var time = (data.time / 1000000).toFixed(2);
+                        var table_html = "";
 
-
-    <div class="footer-top">
-      <div class="container">
-        <div class="copyright">
-          &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved <br>
-          <span class="text-align-center">系統分析與設計_期末專案</span>
-          <span class="text-align-center">第17組</span>
-        </div>
-
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-      </div>
-    </div>
-
-  </footer><!-- End Footer -->
+                        table_html += '<tr>';
+                        table_html += '<td>' + '1' + '</td>';
+                        table_html += '<td>' + data.sql + '</td>';
+                        table_html += '<td style="text-align: right">' + '0' + '</td>';
+                        table_html += '<td style="text-align: right">' + data.row + '</td>';
+                        table_html += '<td style="text-align: right">' + data.row + '</td>';
+                        table_html += '<td style="text-align: right">' + time + '</td>';
+                        table_html += '</tr>';
+                        $("#sql_log > tbody").append(table_html);
+                        $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
+                    }
+                });
+   </script>
+   
+   
   
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="statics/vendor/purecounter/purecounter.js"></script>
-  <script src="statics/vendor/aos/aos.js"></script>
-  <script src="statics/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="statics/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="statics/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="statics/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="statics/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="statics/js/main.js"></script>
-  </body>
+    
+</body>
 </html>
