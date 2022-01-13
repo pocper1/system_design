@@ -95,7 +95,6 @@
   <div class="album py-5 bg-light">
     <div class="container">
       <div class="pt-3">
-      	<div id="fix"></div>
       	<div id="feedback">
       	</div>
       </div>
@@ -215,32 +214,6 @@ function isAdmin(){
   }
 	getFeedback();
   
-	
-
-    function getFix() {
-      $.ajax({
-        type: "GET",
-        url: "api/fix.do?id="+fixID,
-        crossDomain: true,
-        cache: false,
-        dataType: 'json',
-        timeout: 5000,
-        success: function (response) {
-        	
-          if (response.status == 200) {
-        	console.log(response.response.data[0]);
-        	document.getElementById('fix').innerHTML="";
-        	let inner_html='';
-        	inner_html+='';
-        	$('.fix').append(inner_html);
-          }
-        },
-        error: function () {
-          alert("無法連線到伺服器！");
-        }
-      });
-    }
-    getFix();
 });
   </script>
 </body>

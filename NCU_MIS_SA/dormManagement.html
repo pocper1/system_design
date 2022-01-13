@@ -268,8 +268,7 @@ function notAdmin(){
 		inner_html+='<td>'+data.progress+'%</td>';
 		inner_html+='<td><div><a role="button" onclick="detail('+data['id']+')" class="btn btn-warning ml-2">詳細資訊 <i class="fas fa-sort-amount-down"></i></a></div></td>';
 		inner_html+='<td><div><a role="button" onclick="report('+data['id']+')" class="btn btn-info ml-2">反映 <i class="fas fa-wrench"></i></a></div></td>';
-		inner_html+=deleteHTML(data.id);
-		//inner_html+='<td class="del" style=""><div><a href="javascript: deleteFix(' + data['id'] + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
+    	inner_html+='<td class="del"  style="display:none"><div><a href="javascript: deleteFix(' + data['id'] + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
 		inner_html+='<tr id="detail'+data['id']+'" style="display:none"><td colspan="8"><table class="table table-success table-striped text-center"><thead><tr><th scope="col">報修申請人</th><th scope="col">樓層</th><th scope="col">房號</th><th scope="col">項目</th><th scope="col">細項</th><th scope="col">是否同意入寢維修</th><th scope="col">預約時段</th><th scope="col">更新時間</th></tr></thead><tbody><td>'+data.userID+'</td><td>'+data.floor+'</td><td>'+data.roomNo+'</td><td>'+data.item+'</td><td>'+data.detail+'</td><td>';
 		if(data.inRoom==1){
 			inner_html+='是';
@@ -408,21 +407,12 @@ function notAdmin(){
     function toAdd(){
     	window.location = "addFix.html";
     }
-    var admin=0;
     function isAdmin(){
-    	admin=1;
     	adminShow();
     }
     function adminShow(){
 		$("#del-col").show();
 		$(".del").show();
-    }
-    function deleteHTML(id){
-    	let inner_html='';
-    	//if(admin==1){
-	    	inner_html+='<td class="del"  style="display:none"><div><a href="javascript: deleteFix(' + id + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
-    	//}
-    	return inner_html;
     }
   </script>
 
