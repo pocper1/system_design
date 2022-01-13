@@ -13,7 +13,7 @@
     />
     <meta name="generator" content="Jekyll v3.8.5" />
 
-    <title>討論列表 ｜ NCU MIS SA</title>
+    <title>個人檔案 ｜ NCU MIS SA</title>
 
     <!-- Favicons -->
     <link href="statics/icon/favicon.ico" rel="icon" />
@@ -27,6 +27,7 @@
 
     <!-- Vendor CSS Files -->
     <link href="statics/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="statics/css/profile.css" rel="stylesheet" />
     <link
       href="statics/vendor/bootstrap/css/bootstrap.min.css"
       rel="stylesheet"
@@ -164,94 +165,116 @@
       </div>
     </header>
     <!-- End Header -->
-
     <!-- ======= Hero Section ======= -->
     <section>
       <div class="container">
         <div
           class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center"
         >
-          <h1 class="display-4">討論版</h1>
-          <p class="lead">以下是學生討論版</p>
+          <h1 class="display-4">歡迎 - <span class="member_name"></span></h1>
         </div>
 
-        <a href="add_discussion.html" class="btn btn-primary float-end">
-          新增文章
-          <i class="fas fa-plus"></i>
-        </a>
-        <div class="clearfix"></div>
-        <hr />
         <div class="discussion_board">
-          <div
-            id="discussion_panel"
-            class="row m-0 p-0 border rounded overflow-hidden"
-          ></div>
+          <div class="row">
+            <div class="col-md-9">
+              <div class="container content clear-fix">
+                <h2 class="mt-5 mb-5">個人檔案</h2>
+
+                <div class="row" style="height: 100%">
+                  <div class="col-md-3">
+                    <div href="#" class="d-inline">
+                      <img
+                        src="statics/img/people.png"
+                        width="130px"
+                        style="margin: 0"
+                      /><br />
+                    </div>
+                  </div>
+
+                  <div class="col-md-9">
+                    <div class="container">
+                      <div class="row">
+                        <form>
+                        <div class="form-group id">
+                            <div class="col-12">
+                              <label for="member_id">編號</label>
+                            </div>
+                            <div class="col-12 te">
+                              <span id="member_id"></span>
+                            </div>
+                          </div>
+                          <div class="form-group email">
+                            <div class="col-12">
+                              <label for="member_email">電子郵件</label>
+                            </div>
+                            <div class="col-12 te">
+                              <span id="member_email"></span>
+                            </div>
+                          </div>
+                          
+                          <div class="form-group name">
+                            <div class="col-12">
+                              <label for="member_name">成員名稱</label>
+                            </div>
+                            <div class="col-12 te">
+                              <span class="member_name"></span>
+                            </div>
+                          </div>
+                          
+                          
+                          
+                          
+                          <div class="form-group role">
+                            <div class="col-12">
+                              <label for="member_role">成員身分</label>
+                            </div>
+                            <div class="col-12 te">
+                              <span id="member_role"></span>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col">
+                              <a
+                              	href="changePassword.html"
+                                type="button"
+                                class="btn btn-primary btn-block"
+                              >
+                                修改密碼
+                              </a>
+                            </div>
+
+                            <div class="col">
+                              <a
+                                href="index.html"
+                                type="button"
+                                class="btn btn-default btn-block"
+                              >
+                                回首頁
+                              </a>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
     <!-- End Hero -->
     <script>
-      // var [client_cart_obj, client_cart_amount] = getCartDataFromClient();
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var id = url.searchParams.get("id");
+      var name = "";
 
-      function getAllDiscussion() {
-        $.ajax({
-          type: "GET",
-          url: "api/discussion.do",
-          crossDomain: true,
-          cache: false,
-          dataType: "json",
-          timeout: 5000,
-          success: function (response) {
-            if (response.status == 200) {
-              var discussion_panel = "";
-
-              $.each(response.response.data, function () {
-                discussion_panel += addDiscussion(this);
-              });
-
-              $("#discussion_panel").append(discussion_panel);
-              // setButtonFunction();
-              // checkIfExistInCart();
-            }
-          },
-          error: function () {
-            alert("無法連線到伺服器！");
-          },
-        });
-      }
-
-      getAllDiscussion();
-
-      function addDiscussion(data) {
-        let inner_html = "";
-        inner_html += '<div class="col-4 col-md-4 col-lg-4 p-0 m-0">';
-        inner_html += '<div class="card">';
-        inner_html +=
-          '<img src="https://picsum.photos/seed/picsum/200/200" class="card-img-top" alt="..."/>';
-        inner_html += '<div class="card-header">';
-
-        inner_html += '<h4 class="text-center">' + data.article_title + "</h4>";
-        inner_html +=
-          '<span class="float-start">文章作者: ' + data.author + "</span>";
-        inner_html +=
-          '<span class="float-end">文章編號: ' + data.id + "</span>";
-
-        inner_html += "</div>";
-        inner_html += '<div class="card mb-4">';
-        inner_html += '<div class="card-body">';
-        inner_html +=
-          '<p class="card-text p-2">' + data.article_content + "</p>";
-        inner_html +=
-          '<div class="d-flex justify-content-between align-items-center">';
-
-        inner_html +=
-          '<a href="view_discussion.html?id=' +
-          data.id +
-          '"  name="discussion" type="button" class="btn btn-lg btn-block btn-outline-primary">查看此篇文章</a>';
-
-        inner_html += "</div></div></div></div></div>";
-
-        return inner_html;
+      //redirect to parent page
+      function redirect() {
+        window.location.href = "discussion_board.html";
       }
 
       //account function
@@ -273,10 +296,24 @@
               } else {
                 //登入
                 if (
+                  // 0->宿民 1->宿舍負責人 2->宿舍舍監 3->外聘廠商
                   response.response.role == "1" ||
                   response.response.role == "2"
                 ) {
                   document.getElementById("member").style.display = "";
+                }
+
+                $("#member_email").html(response.response.email);
+                $("#member_id").html(response.response.id);
+                $(".member_name").html(response.response.name);
+                if (response.response.role == 0) {
+                  $("#member_role").html("宿民");
+                } else if (response.response.role == 1) {
+                  $("#member_role").html("宿舍負責人");
+                } else if (response.response.role == 2) {
+                  $("#member_role").html("宿舍舍監");
+                } else if (response.response.role == 3) {
+                  $("#member_role").html("外聘廠商");
                 }
 
                 inner_html +=
@@ -294,6 +331,7 @@
         });
       }
       checkLogin();
+
       function Logout() {
         // 發出POST的AJAX請求
         $.ajax({
@@ -306,7 +344,7 @@
           success: function (response) {
             if (response.status == 200) {
             }
-            console.log(response);
+            //console.log(response);
           },
           error: function () {
             alert("無法連線到伺服器！");
