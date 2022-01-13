@@ -1,4 +1,5 @@
 package ncu.im3069.demo.app;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 import org.json.JSONObject;
@@ -30,7 +31,8 @@ public class BulletinBoard {
 	
 	/** login_times，更新時間的分鐘數 */
     private int login_times;
-    
+
+    private Timestamp modified;
     /** bh，BulletinBoardHelper之物件與BulletinBoard相關之資料庫方法（Sigleton） */
     private BulletinBoardHelper bh = BulletinBoardHelper.getHelper();
     
@@ -62,7 +64,13 @@ public class BulletinBoard {
 		/** 取回原有資料庫內該名會員之更新時間分鐘數與組別 */
         getLoginTimesStatus();
 	}
-	
+
+    public BulletinBoard(int id, String topic, String content, int login_times,Timestamp modified) {
+    	this.id=id;
+        this.topic = topic;
+        this.content = content;
+        this.modified=modified;
+    }
 	/**
      * 實例化（Instantiates）一個新的（new）BulletinBoard物件<br>
      * 採用多載（overload）方法進行，此建構子用於查詢公佈欄資料時，將每一筆資料新增為一個公佈欄物件
@@ -73,12 +81,10 @@ public class BulletinBoard {
      * @param login_times 更新時間的分鐘數
      */
     public BulletinBoard(int id, String topic, String content, int login_times) {
-    	this.id = id;
-    	this.topic = topic;
-    	this.content =content;
-    	this.login_times = login_times;
+        this.topic = topic;
+        this.content = content;
+        update();
     }
-	
 	/**
      * 取得公佈欄之編號
      *
@@ -113,6 +119,10 @@ public class BulletinBoard {
      */
     public int getLoginTimes() {
         return this.login_times;
+    }
+
+    public Timestamp getModified() {
+        return this.modified;
     }
     
     /**
@@ -150,7 +160,7 @@ public class BulletinBoard {
         jso.put("topic", getTopic());
         jso.put("content", getContent());
         jso.put("login_times", getLoginTimes());
-        
+        jso.put("modified", getModified());
         return jso;
     }
     

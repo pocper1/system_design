@@ -153,10 +153,11 @@ public class BulletinBoardHelper {
                 int bulletinboard_id = rs.getInt("id");
                 String topic = rs.getString("topic");
                 String content = rs.getString("content");
+                Timestamp modified = rs.getTimestamp("modified");
                 int login_times = rs.getInt("login_times");
                 
                 /** 將每一筆公佈欄資料產生一名新BulletinBoard物件 */
-                b = new BulletinBoard(bulletinboard_id, topic, content, login_times);
+                b = new BulletinBoard(bulletinboard_id, topic, content, login_times,modified);
                 /** 取出該名會員之資料並封裝至 JSONsonArray 內 */
                 jsa.put(b.getData());
             }
