@@ -55,38 +55,7 @@
   </head>
 
   <script>
-    var name;
-    var role;
-    function checkID() {
-      $.ajax({
-        type: "GET",
-        url: "api/login.do",
-        crossDomain: true,
-        cache: false,
-        dataType: "json",
-        timeout: 5000,
-        success: function (response) {
-          if (response.status == 200) {
-            if (response.response.status == "login") {
-              //未登入
-              name = response.response.name;
-              role = response.response.role;
-              if (role == "1" || role == "2") {
-              } else {
-                //notAdmin();
-              }
-            } else {
-              //notLogin();
-            }
-            console.log(response);
-          }
-        },
-        error: function () {
-          alert("無法連線到伺服器！");
-        },
-      });
-    }
-    checkID();
+
     //alert(name);
     function notLogin() {
       alert("請先登入!");
@@ -360,99 +329,21 @@
     </section>
     <!-- End Services Section -->
 
-    <section id="bulletin_board" class="blog">
+     <section id="blog" class="blog">
+    
+    
       <div class="container" data-aos="fade-up">
         <header class="section-header">
-          <h2>公告欄</h2>
-          <p>以下為近期各種消息</p>
-        </header>
+        	<p>公告欄</p>
+      	</header>
+      	<div id="addbtn"></div><br>
 
-        <div class="row align-items-center">
-          <div class="col-lg-12 entries" id="board">
-            <article class="entry">
-              <div class="entry-img">
-              </div>
-
-              <h2 class="entry-title">
-                <a 
-                  >公告標題: title</a
-                >
-              </h2>
-
-              <div class="entry-meta">
-                <ul>
-                  <li class="d-flex align-items-center">
-                    <i class="bi bi-clock"></i>
-                    <a href="blog-single.html"
-                      ><time datetime="2020-01-01">建立日期: Jan 1, 2020</time></a
-                    >
-                  </li>
-                </ul>
-              </div>
-
-              <div class="entry-content">
-                <p>內文:<br>
-                content
-                </p>
-              </div>
-            </article>
-            
-          </div>
-            <!-- End blog entry -->
-            <!-- <article class="entry">
-              <div class="entry-img">
-                <img
-                  src="statics/img/blog/blog-1.jpg"
-                  alt=""
-                  class="img-fluid"
-                />
-              </div>
-
-              <h2 class="entry-title">
-                <a href="blog-single.html"
-                  >Dolorum optio tempore voluptas dignissimos cumque fuga qui
-                  quibusdam quia</a
-                >
-              </h2>
-
-              <div class="entry-meta">
-                <ul>
-                  <li class="d-flex align-items-center">
-                    <i class="bi bi-person"></i>
-                    <a href="blog-single.html">John Doe</a>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <i class="bi bi-clock"></i>
-                    <a href="blog-single.html"
-                      ><time datetime="2020-01-01">Jan 1, 2020</time></a
-                    >
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <i class="bi bi-chat-dots"></i>
-                    <a href="blog-single.html">12 Comments</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="entry-content">
-                <p>
-                  Similique neque nam consequuntur ad non maxime aliquam quas.
-                  Quibusdam animi praesentium. Aliquam et laboriosam eius aut
-                  nostrum quidem aliquid dicta. Et eveniet enim. Qui velit est
-                  ea dolorem doloremque deleniti aperiam unde soluta. Est cum et
-                  quod quos aut ut et sit sunt. Voluptate porro consequatur
-                  assumenda perferendis dolore.
-                </p>
-                <div class="read-more">
-                  <a href="blog-single.html">Read More</a>
-                </div>
-              </div>
-            </article> -->
-          <!-- End blog entries list -->
+        <div class="row">
+		  <div id="allcontent"></div>
         </div>
+
       </div>
-    </section>
-    <!-- End Blog Section -->
+    </section><!-- End Blog Section -->
     <footer id="footer" class="footer">
       <div class="footer-top">
         <div class="container">
@@ -499,6 +390,41 @@
           $(".admin").show();
         }
     });
+    var name;
+    var role;
+    function checkID() {
+      $.ajax({
+        type: "GET",
+        url: "api/login.do",
+        crossDomain: true,
+        cache: false,
+        dataType: "json",
+        timeout: 5000,
+        success: function (response) {
+          if (response.status == 200) {
+        	  let addbtn='';
+            if (response.response.status == "login") {
+              //未登入
+              name = response.response.name;
+              role = response.response.role;
+              if (role == "1" || role == "2") {
+            	  addbtn+='<button type="button" class="btn btn-primary"><a href="addbulletinboard.html" style="color:white"><i class="bi bi-person-plus-fill"> 新增公告</i></a></button>';
+              } else {
+                //notAdmin();
+              }
+            } else {
+              //notLogin();
+            }
+            $("#addbtn").append(addbtn);
+            console.log(response);
+          }
+        },
+        error: function () {
+          alert("無法連線到伺服器！");
+        },
+      });
+    }
+    checkID();
       //account function
       function checkLogin() {
         $.ajax({
@@ -554,38 +480,76 @@
         window.location.reload();
       }
       //end account function
-      function getBoard(){
-          $.ajax({
-            type: "GET",
-            url: "api/BulletinBoard.do",
-            crossDomain: true,
-            cache: false,
-            dataType: 'json',
-            timeout: 5000,
-            success: function (response) {
-              if (response.status == 200) {
-            	  var board='';
-            	  
-            		console.log(response.response.data);
-            	  	$.each(response.response.data, function (){
-            			board += addBoard(this);
-            		})
-            		$('#board').append(board);
-              }
-            },
-            error: function () {
-              alert("無法連線到伺服器！");
-            }
-          });
-      }
-      function addBoard(data) {
-      	document.getElementById('board').innerHTML="";
-      	let inner_html = '';
-      	inner_html+='<article class="entry"><div class="entry-img"></div><h2 class="entry-title"><a>公告標題: '+data.topic+'</a></h2>';
-		inner_html+='<div class="entry-meta"><ul><li class="d-flex align-items-center"><i class="bi bi-clock"></i><a><time datetime="2020-01-01">建立日期: '+data.modified.split(" ",1)+'</time></a></li></ul></div> <div class="entry-content"><p>內文:<br>'+data.content+'</p></div></article>';
-  		return inner_html;
-      }
-      getBoard();
+    function getAllBulletinBoard() {
+        // 發出POST的GET請求取得所有公佈欄列表
+        $.ajax({
+                type: "GET",
+                url: "api/BulletinBoard.do",
+                crossDomain: true,
+                cache: false,
+                dataType: 'json',
+                timeout: 5000,
+                success: function (response) {
+                    if(response.status == 200){
+                        updateTable(response.response.data);
+                    }
+                    console.log(response);
+                },
+                error: function () {
+                    alert("無法連線到伺服器！");
+                }
+        });
+    }
+    getAllBulletinBoard();
+    function deleteBulletinBoard(id) {
+        var check = window.confirm("確認刪除公佈欄？");
+        if (check == true) {
+            console.log("You pressed OK!");
+            var request = {'id': id};
+            var data_string = JSON.stringify(request);
+            $.ajax({
+                type: "DELETE",
+                url: "api/BulletinBoard.do",
+                crossDomain: true,
+                data: data_string,
+                cache: false,
+                dataType: 'json',
+                timeout: 5000,
+                success: function (response) {
+                    if(response.status == 200){
+                        $("#flashMessage").html("成功! 已經成功刪除公佈欄...");
+                        $("#flashMessage").show();
+                        getAllBulletinBoard();
+                    }
+                    console.log(response);
+                },
+                error: function () {
+                    alert("無法連線到伺服器！");
+                }
+            });
+        }
+        else {
+            console.log("You pressed Cancel!");
+        }
+    }
+          // 更新公佈欄列表表格
+          function updateTable(data) {
+              $("#allcontent").empty();
+              var table_html = '';
+              $.each(data, function(index, value) {
+ 					table_html+='<div class="col-lg-12 entries"><article class="entry"><h2 class="entry-title"><a href="blog-single.html">'+ value['topic']+'</a></h2>';
+					table_html+='<div class="entry-meta"><ul><li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">'+ value['id'] +'</a></li>';
+					table_html+='<li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html">'+ value['modify_times'] +'</time></a></li></ul></div>';
+					table_html+='<div class="entry-content"><p>'+ value['content'] +'</p>';
+					if(role=='1' || role=='2'){
+						table_html+='<div class="read-more"><a href="edit_bulletinboard.html?id=' + value['id'] + '" style="position:absolute;left:1120px;">編輯</a>';
+						table_html+='<a href="javascript: deleteBulletinBoard(' + value['id'] + ');">刪除</a></div>'; 
+					}
+					table_html+='</div></article>';
+              })
+
+              $("#allcontent").append(table_html);
+          }
     </script>
   </body>
 </html>

@@ -111,10 +111,6 @@
      <tr>
        <td id="color">
        <!-- class="btn-group" 請參考 http://kkbruce.tw/Bootstrap/Components#buttonGroups   -->
-       <div class="btn-group">
-      
-       <button class="btn btn-secondary" type="button" onClick="window.location='bulletinboard.html'">回公佈欄</button>
-       </div>
        
        <div class="submit"><input type="button" value="修改公佈欄" id="submit"></div>
        
@@ -208,8 +204,7 @@
                                     $('#flashMessage').html(response.message);
                                     $('#flashMessage').show();
                                     if(response.status == 200){
-                                        updateSQLTable(response.response);
-                                        getBulletinBoard();
+                                    	alert("修改成功!");
                                     }
                                 },
                                 error: function () {
@@ -219,24 +214,7 @@
                     }
                 }
 
-                // 更新SQL指令歷史表格
-                function updateSQLTable(data) {
-                    var time = (data.time / 1000000).toFixed(2);
-                    var table_html = "";
-                    
-                    sql_num += 1
 
-                    table_html += '<tr>';
-                    table_html += '<td>' + sql_num + '</td>';
-                    table_html += '<td>' + data.sql + '</td>';
-                    table_html += '<td style="text-align: right">' + '0' + '</td>';
-                    table_html += '<td style="text-align: right">' + data.row + '</td>';
-                    table_html += '<td style="text-align: right">' + data.row + '</td>';
-                    table_html += '<td style="text-align: right">' + time + '</td>';
-                    table_html += '</tr>';
-                    $("#sql_log > tbody").append(table_html);
-                    $("#sql_summary").html("(default) " + data.row + " queries took " + time + " ms");
-                }
 
                 function getBulletinBoard() {
                     $.ajax({
@@ -249,7 +227,6 @@
                         timeout: 5000,
                         success: function (response) {
                             if(response.status == 200){
-                            	updateSQLTable(response.response);
                             	document.getElementById('bulletinboard_topic').value = response['response']['data'][0]['topic'];
                             	document.getElementById('bulletinboard_content').value = response['response']['data'][0]['content'];
                             }
@@ -260,16 +237,16 @@
                         }
                     });
                 }
-
-                $('#submit').click(function() {
-                    updateBulletinBoard(id)
-                });
                 
                 $(document).ready(function() {
-                	// 發出GET的AJAX請求取得原本該公佈欄的資料
-                 	$("#sql_log > tbody").empty();
-                    getBulletinBoard();
+                	getBulletinBoard();
                 });
+                $('#submit').click(function() {
+                    updateBulletinBoard(id);
+                    window.location.assign("index.html");
+                    
+                });
+                
             </script>
    
   

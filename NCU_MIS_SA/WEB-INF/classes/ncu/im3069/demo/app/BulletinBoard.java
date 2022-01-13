@@ -1,5 +1,4 @@
 package ncu.im3069.demo.app;
-import java.sql.Timestamp;
 import java.util.Calendar;
 
 import org.json.JSONObject;
@@ -8,7 +7,7 @@ import org.json.JSONObject;
 /**
 * <p>
 * The Class Member
-* Memberé¡åˆ¥ï¼ˆclassï¼‰å…·æœ‰æœƒå“¡æ‰€éœ€è¦ä¹‹å±¬æ€§èˆ‡æ–¹æ³•ï¼Œä¸¦ä¸”å„²å­˜èˆ‡æœƒå“¡ç›¸é—œä¹‹å•†æ¥­åˆ¤æ–·é‚è¼¯<br>
+* MemberÃş§O¡]class¡^¨ã¦³·|­û©Ò»İ­n¤§Äİ©Ê»P¤èªk¡A¨Ã¥BÀx¦s»P·|­û¬ÛÃö¤§°Ó·~§PÂ_ÅŞ¿è<br>
 * </p>
 * 
 * @author IPLab
@@ -18,30 +17,30 @@ import org.json.JSONObject;
 
 public class BulletinBoard {
 	
-	/**ä¹‹å¾Œå¯èƒ½æœƒå†å®£å‘Šä¸€å€‹è®Šæ•¸æ˜¯ç”¨ä¾†å„²å­˜å‰µé€ å…¬ä½ˆæ¬„çš„äººæ˜¯èª°ï¼Œè€Œå‰›å¥½å¯¦å‹™ä¸Šæˆ‘å€‘é™åˆ¶åªæœ‰ç®¡ç†å“¡å¯ä»¥å‰µå»ºå…¬ä½ˆæ¬„ï¼Œæ‰€ä»¥é€™å€‹è®Šæ•¸æ‡‰è©²å°±æ˜¯ç”¨ä¾†å„²å­˜ å‰µå»ºå…¬ä½ˆæ¬„çš„ç®¡ç†å“¡**/
+	/**¤§«á¥i¯à·|¦A«Å§i¤@­ÓÅÜ¼Æ¬O¥Î¨ÓÀx¦s³Ğ³y¤½§GÄæªº¤H¬O½Ö¡A¦Ó­è¦n¹ê°È¤W§Ú­Ì­­¨î¥u¦³ºŞ²z­û¥i¥H³Ğ«Ø¤½§GÄæ¡A©Ò¥H³o­ÓÅÜ¼ÆÀ³¸Ó´N¬O¥Î¨ÓÀx¦s ³Ğ«Ø¤½§GÄæªººŞ²z­û**/
 	
-	/** id å…¬ä½ˆæ¬„ç·¨è™Ÿ */
+	/** id ¤½§GÄæ½s¸¹ */
 	private int id;
 	
-	/** titleï¼Œå…¬å‘Šæ¬„æ¨™é¡Œ */
+	/** title¡A¤½§iÄæ¼ĞÃD */
 	private String topic;
 	
-	/**contentï¼Œå…¬å‘Šæ¬„å…§å®¹ */
+	/**content¡A¤½§iÄæ¤º®e */
 	private String content;
 	
-	/** login_timesï¼Œæ›´æ–°æ™‚é–“çš„åˆ†é˜æ•¸ */
+	/** login_times¡A§ó·s®É¶¡ªº¤ÀÄÁ¼Æ */
     private int login_times;
-
-    private Timestamp modified;
-    /** bhï¼ŒBulletinBoardHelperä¹‹ç‰©ä»¶èˆ‡BulletinBoardç›¸é—œä¹‹è³‡æ–™åº«æ–¹æ³•ï¼ˆSigletonï¼‰ */
+    private String modify_times;
+    
+    /** bh¡ABulletinBoardHelper¤§ª«¥ó»PBulletinBoard¬ÛÃö¤§¸ê®Æ®w¤èªk¡]Sigleton¡^ */
     private BulletinBoardHelper bh = BulletinBoardHelper.getHelper();
     
     /**
-     * å¯¦ä¾‹åŒ–ï¼ˆInstantiatesï¼‰ä¸€å€‹æ–°çš„ï¼ˆnewï¼‰BulletinBoardç‰©ä»¶<br>
-     * æ¡ç”¨å¤šè¼‰ï¼ˆoverloadï¼‰æ–¹æ³•é€²è¡Œï¼Œæ­¤å»ºæ§‹å­ç”¨æ–¼å»ºç«‹æœƒå“¡è³‡æ–™æ™‚ï¼Œç”¢ç”Ÿä¸€åæ–°çš„æœƒå“¡
+     * ¹ê¨Ò¤Æ¡]Instantiates¡^¤@­Ó·sªº¡]new¡^BulletinBoardª«¥ó<br>
+     * ±Ä¥Î¦h¸ü¡]overload¡^¤èªk¶i¦æ¡A¦¹«Øºc¤l¥Î©ó«Ø¥ß·|­û¸ê®Æ®É¡A²£¥Í¤@¦W·sªº·|­û
      *
-     * @param topic å…¬ä½ˆæ¬„æ¨™é¡Œ
-     * @param content å…¬ä½ˆæ¬„å…§å®¹
+     * @param topic ¤½§GÄæ¼ĞÃD
+     * @param content ¤½§GÄæ¤º®e
      */
     public BulletinBoard(String topic, String content) {
         this.topic = topic;
@@ -50,98 +49,101 @@ public class BulletinBoard {
     }
 	
 	/**
-     * å¯¦ä¾‹åŒ–ï¼ˆInstantiatesï¼‰ä¸€å€‹æ–°çš„ï¼ˆnewï¼‰BulletinBoardç‰©ä»¶<br>
-     * æ¡ç”¨å¤šè¼‰ï¼ˆoverloadï¼‰æ–¹æ³•é€²è¡Œï¼Œæ­¤å»ºæ§‹å­ç”¨æ–¼æ›´æ–°å…¬ä½ˆæ¬„è³‡æ–™æ™‚ï¼Œç”¢ç”Ÿä¸€å€‹å…¬ä½ˆæ¬„åŒæ™‚éœ€è¦å»è³‡æ–™åº«æª¢ç´¢åŸæœ‰æ›´æ–°æ™‚é–“åˆ†é˜æ•¸
+     * ¹ê¨Ò¤Æ¡]Instantiates¡^¤@­Ó·sªº¡]new¡^BulletinBoardª«¥ó<br>
+     * ±Ä¥Î¦h¸ü¡]overload¡^¤èªk¶i¦æ¡A¦¹«Øºc¤l¥Î©ó§ó·s¤½§GÄæ¸ê®Æ®É¡A²£¥Í¤@­Ó¤½§GÄæ¦P®É»İ­n¥h¸ê®Æ®wÀË¯Á­ì¦³§ó·s®É¶¡¤ÀÄÁ¼Æ
      *
-     * @param id å…¬ä½ˆæ¬„ç·¨è™Ÿ
-     * @param topic å…¬å‘Šæ¬„æ¨™é¡Œ
-     * @param content å…¬å‘Šæ¬„å…§å®¹
+     * @param id ¤½§GÄæ½s¸¹
+     * @param topic ¤½§iÄæ¼ĞÃD
+     * @param content ¤½§iÄæ¤º®e
      */
 	public BulletinBoard(int id, String topic, String content){
 		this.id = id;
 		this.topic = topic;
 		this.content = content;
-		/** å–å›åŸæœ‰è³‡æ–™åº«å…§è©²åæœƒå“¡ä¹‹æ›´æ–°æ™‚é–“åˆ†é˜æ•¸èˆ‡çµ„åˆ¥ */
+		/** ¨ú¦^­ì¦³¸ê®Æ®w¤º¸Ó¦W·|­û¤§§ó·s®É¶¡¤ÀÄÁ¼Æ»P²Õ§O */
         getLoginTimesStatus();
 	}
-
-    public BulletinBoard(int id, String topic, String content, int login_times,Timestamp modified) {
-    	this.id=id;
-        this.topic = topic;
-        this.content = content;
-        this.modified=modified;
-    }
+	
 	/**
-     * å¯¦ä¾‹åŒ–ï¼ˆInstantiatesï¼‰ä¸€å€‹æ–°çš„ï¼ˆnewï¼‰BulletinBoardç‰©ä»¶<br>
-     * æ¡ç”¨å¤šè¼‰ï¼ˆoverloadï¼‰æ–¹æ³•é€²è¡Œï¼Œæ­¤å»ºæ§‹å­ç”¨æ–¼æŸ¥è©¢å…¬ä½ˆæ¬„è³‡æ–™æ™‚ï¼Œå°‡æ¯ä¸€ç­†è³‡æ–™æ–°å¢ç‚ºä¸€å€‹å…¬ä½ˆæ¬„ç‰©ä»¶
+     * ¹ê¨Ò¤Æ¡]Instantiates¡^¤@­Ó·sªº¡]new¡^BulletinBoardª«¥ó<br>
+     * ±Ä¥Î¦h¸ü¡]overload¡^¤èªk¶i¦æ¡A¦¹«Øºc¤l¥Î©ó¬d¸ß¤½§GÄæ¸ê®Æ®É¡A±N¨C¤@µ§¸ê®Æ·s¼W¬°¤@­Ó¤½§GÄæª«¥ó
      *
-     * @param id å…¬ä½ˆæ¬„ç·¨è™Ÿ
-     * @param topic å…¬å‘Šæ¬„æ¨™é¡Œ
-     * @param content å…¬å‘Šæ¬„å…§å®¹
-     * @param login_times æ›´æ–°æ™‚é–“çš„åˆ†é˜æ•¸
+     * @param id ¤½§GÄæ½s¸¹
+     * @param topic ¤½§iÄæ¼ĞÃD
+     * @param content ¤½§iÄæ¤º®e
+     * @param login_times §ó·s®É¶¡ªº¤ÀÄÁ¼Æ
      */
     public BulletinBoard(int id, String topic, String content, int login_times) {
-        this.topic = topic;
-        this.content = content;
-        update();
+    	this.id = id;
+    	this.topic = topic;
+    	this.content =content;
+    	this.login_times = login_times;
     }
+    public BulletinBoard(int id, String topic, String content, int login_times,String modify_times) {
+    	this.id = id;
+    	this.topic = topic;
+    	this.content =content;
+    	this.login_times = login_times;
+    	this.modify_times=modify_times;
+    }
+	
 	/**
-     * å–å¾—å…¬ä½ˆæ¬„ä¹‹ç·¨è™Ÿ
+     * ¨ú±o¤½§GÄæ¤§½s¸¹
      *
-     * @return the id å›å‚³å…¬ä½ˆæ¬„ç·¨è™Ÿ
+     * @return the id ¦^¶Ç¤½§GÄæ½s¸¹
      */
     public int getID() {
         return this.id;
     }
 	
 	/**
-     * å–å¾—ç®¡ç†å“¡çš„å…¬å‘Šæ¬„æ¨™é¡Œ
+     * ¨ú±oºŞ²z­ûªº¤½§iÄæ¼ĞÃD
      *
-     * @return the title å›å‚³ç®¡ç†å“¡çš„å…¬å‘Šæ¬„æ¨™é¡Œ
+     * @return the title ¦^¶ÇºŞ²z­ûªº¤½§iÄæ¼ĞÃD
      */
 	public String getTopic() {
 		return this.topic;
 	}
+	public String getModifyTimes() {
+		return this.modify_times;
+	}
 	
 	/**
-     * å–å¾—ç®¡ç†å“¡çš„å…¬å‘Šæ¬„å…§å®¹
+     * ¨ú±oºŞ²z­ûªº¤½§iÄæ¤º®e
      *
-     * @return the content å›å‚³ç®¡ç†å“¡çš„å…¬å‘Šæ¬„å…§å®¹
+     * @return the content ¦^¶ÇºŞ²z­ûªº¤½§iÄæ¤º®e
      */
 	public String getContent() {
 		return this.content;
 	}
 	
 	/**
-     * å–å¾—æ›´æ–°è³‡æ–™æ™‚é–“ä¹‹åˆ†é˜æ•¸
+     * ¨ú±o§ó·s¸ê®Æ®É¶¡¤§¤ÀÄÁ¼Æ
      *
-     * @return the login times å›å‚³æ›´æ–°è³‡æ–™æ™‚é–“ä¹‹åˆ†é˜æ•¸
+     * @return the login times ¦^¶Ç§ó·s¸ê®Æ®É¶¡¤§¤ÀÄÁ¼Æ
      */
+
     public int getLoginTimes() {
         return this.login_times;
     }
-
-    public Timestamp getModified() {
-        return this.modified;
-    }
     
     /**
-     * æ›´æ–°å…¬ä½ˆæ¬„è³‡æ–™
+     * §ó·s¤½§GÄæ¸ê®Æ
      *
-     * @return the JSON object å›å‚³SQLæ›´æ–°ä¹‹çµæœèˆ‡ç›¸é—œå°è£ä¹‹è³‡æ–™
+     * @return the JSON object ¦^¶ÇSQL§ó·s¤§µ²ªG»P¬ÛÃö«Ê¸Ë¤§¸ê®Æ
      */
     public JSONObject update() {
-        /** æ–°å»ºä¸€å€‹JSONObjectç”¨ä»¥å„²å­˜æ›´æ–°å¾Œä¹‹è³‡æ–™ */
+        /** ·s«Ø¤@­ÓJSONObject¥Î¥HÀx¦s§ó·s«á¤§¸ê®Æ */
         JSONObject data = new JSONObject();
-        /** å–å¾—æ›´æ–°è³‡æ–™æ™‚é–“ï¼ˆå³ç¾åœ¨ä¹‹æ™‚é–“ï¼‰ä¹‹åˆ†é˜æ•¸ */
+        /** ¨ú±o§ó·s¸ê®Æ®É¶¡¡]§Y²{¦b¤§®É¶¡¡^¤§¤ÀÄÁ¼Æ */
         Calendar calendar = Calendar.getInstance();
         this.login_times = calendar.get(Calendar.MINUTE);
         
-        /** æª¢æŸ¥è©²å…¬ä½ˆæ¬„æ˜¯å¦å·²ç¶“åœ¨è³‡æ–™åº« */
+        /** ÀË¬d¸Ó¤½§GÄæ¬O§_¤w¸g¦b¸ê®Æ®w */
         if(this.id != 0) {
-            /** è‹¥æœ‰å‰‡å°‡ç›®å‰æ›´æ–°å¾Œä¹‹è³‡æ–™æ›´æ–°è‡³è³‡æ–™åº«ä¸­ */
+            /** ­Y¦³«h±N¥Ø«e§ó·s«á¤§¸ê®Æ§ó·s¦Ü¸ê®Æ®w¤¤ */
             bh.updateLoginTimes(this);
-            /** é€éMemberHelperç‰©ä»¶ï¼Œæ›´æ–°ç›®å‰ä¹‹æœƒå“¡è³‡æ–™ç½®è³‡æ–™åº«ä¸­ */
+            /** ³z¹LMemberHelperª«¥ó¡A§ó·s¥Ø«e¤§·|­û¸ê®Æ¸m¸ê®Æ®w¤¤ */
             data = bh.update(this);
         }
         
@@ -149,29 +151,30 @@ public class BulletinBoard {
     }
     
     /**
-     * å–å¾—è©²å…¬ä½ˆæ¬„æ‰€æœ‰è³‡æ–™
+     * ¨ú±o¸Ó¤½§GÄæ©Ò¦³¸ê®Æ
      *
-     * @return the data å–å¾—è©²å¸ƒå‘Šæ¬„ä¹‹æ‰€æœ‰è³‡æ–™ä¸¦å°è£æ–¼JSONObjectç‰©ä»¶å…§
+     * @return the data ¨ú±o¸Ó¥¬§iÄæ¤§©Ò¦³¸ê®Æ¨Ã«Ê¸Ë©óJSONObjectª«¥ó¤º
      */
     public JSONObject getData() {
-        /** é€éJSONObjectå°‡è©²åæœƒå“¡æ‰€éœ€ä¹‹è³‡æ–™å…¨éƒ¨é€²è¡Œå°è£*/ 
+        /** ³z¹LJSONObject±N¸Ó¦W·|­û©Ò»İ¤§¸ê®Æ¥ş³¡¶i¦æ«Ê¸Ë*/ 
         JSONObject jso = new JSONObject();
         jso.put("id", getID());
         jso.put("topic", getTopic());
         jso.put("content", getContent());
         jso.put("login_times", getLoginTimes());
-        jso.put("modified", getModified());
+        jso.put("modify_times", getModifyTimes());
+        
         return jso;
     }
     
     /**
-     * å–å¾—è³‡æ–™åº«å…§ä¹‹æ›´æ–°è³‡æ–™æ™‚é–“åˆ†é˜æ•¸
+     * ¨ú±o¸ê®Æ®w¤º¤§§ó·s¸ê®Æ®É¶¡¤ÀÄÁ¼Æ
      *
      */
     private void getLoginTimesStatus() {
-        /** é€éBulletinBoardHelperç‰©ä»¶ï¼Œå–å¾—å„²å­˜æ–¼è³‡æ–™åº«çš„æ›´æ–°æ™‚é–“åˆ†é˜æ•¸èˆ‡æœƒå“¡çµ„åˆ¥ */
+        /** ³z¹LBulletinBoardHelperª«¥ó¡A¨ú±oÀx¦s©ó¸ê®Æ®wªº§ó·s®É¶¡¤ÀÄÁ¼Æ»P·|­û²Õ§O */
         JSONObject data = bh.getLoginTimesStatus(this);
-        /** å°‡è³‡æ–™åº«æ‰€å„²å­˜è©²å…¬ä½ˆæ¬„ä¹‹ç›¸é—œè³‡æ–™æŒ‡æ´¾è‡³BulletinBoardç‰©ä»¶ä¹‹å±¬æ€§ */
+        /** ±N¸ê®Æ®w©ÒÀx¦s¸Ó¤½§GÄæ¤§¬ÛÃö¸ê®Æ«ü¬£¦ÜBulletinBoardª«¥ó¤§Äİ©Ê */
         this.login_times = data.getInt("login_times");
     }
 }

@@ -10,7 +10,7 @@ import ncu.im3069.demo.util.DBMgr;
 /**
 * <p>
 * The Class BulletinBoardHelper<br>
-* BulletinBoardHelperé¡åˆ¥ï¼ˆclassï¼‰ä¸»è¦ç®¡ç†æ‰€æœ‰èˆ‡BulletinBoardç›¸é—œèˆ‡è³‡æ–™åº«ä¹‹æ–¹æ³•ï¼ˆmethodï¼‰
+* BulletinBoardHelperÃş§O¡]class¡^¥D­nºŞ²z©Ò¦³»PBulletinBoard¬ÛÃö»P¸ê®Æ®w¤§¤èªk¡]method¡^
 * </p>
 * 
 * @author IPLab
@@ -21,87 +21,87 @@ import ncu.im3069.demo.util.DBMgr;
 public class BulletinBoardHelper {
 	
 	/**
-     * å¯¦ä¾‹åŒ–ï¼ˆInstantiatesï¼‰ä¸€å€‹æ–°çš„ï¼ˆnewï¼‰BulletinBoardHelperç‰©ä»¶<br>
-     * æ¡ç”¨Singletonä¸éœ€è¦é€énew
+     * ¹ê¨Ò¤Æ¡]Instantiates¡^¤@­Ó·sªº¡]new¡^BulletinBoardHelperª«¥ó<br>
+     * ±Ä¥ÎSingleton¤£»İ­n³z¹Lnew
      */
     private BulletinBoardHelper() {
         
     }
     
-    /** éœæ…‹è®Šæ•¸ï¼Œå„²å­˜MemberHelperç‰©ä»¶ */
+    /** ÀRºAÅÜ¼Æ¡AÀx¦sMemberHelperª«¥ó */
     private static BulletinBoardHelper bh;
     
-    /** å„²å­˜JDBCè³‡æ–™åº«é€£ç·š */
+    /** Àx¦sJDBC¸ê®Æ®w³s½u */
     private Connection conn = null;
     
-    /** å„²å­˜JDBCé æº–å‚™ä¹‹SQLæŒ‡ä»¤ */
+    /** Àx¦sJDBC¹w·Ç³Æ¤§SQL«ü¥O */
     private PreparedStatement pres = null;
     
     /**
-     * éœæ…‹æ–¹æ³•<br>
-     * å¯¦ä½œSingletonï¼ˆå–®ä¾‹æ¨¡å¼ï¼‰ï¼Œåƒ…å…è¨±å»ºç«‹ä¸€å€‹MemberHelperç‰©ä»¶
+     * ÀRºA¤èªk<br>
+     * ¹ê§@Singleton¡]³æ¨Ò¼Ò¦¡¡^¡A¶È¤¹³\«Ø¥ß¤@­ÓMemberHelperª«¥ó
      *
-     * @return the helper å›å‚³MemberHelperç‰©ä»¶
+     * @return the helper ¦^¶ÇMemberHelperª«¥ó
      */
     public static BulletinBoardHelper getHelper() {
-        /** Singletonæª¢æŸ¥æ˜¯å¦å·²ç¶“æœ‰MemberHelperç‰©ä»¶ï¼Œè‹¥ç„¡å‰‡newä¸€å€‹ï¼Œè‹¥æœ‰å‰‡ç›´æ¥å›å‚³ */
+        /** SingletonÀË¬d¬O§_¤w¸g¦³MemberHelperª«¥ó¡A­YµL«hnew¤@­Ó¡A­Y¦³«hª½±µ¦^¶Ç */
         if(bh == null) bh = new BulletinBoardHelper();
         
         return bh;
     }
     
     /**
-     * é€éå…¬ä½ˆæ¬„ç·¨è™Ÿï¼ˆIDï¼‰åˆªé™¤å…¬ä½ˆæ¬„
+     * ³z¹L¤½§GÄæ½s¸¹¡]ID¡^§R°£¤½§GÄæ
      *
-     * å°æ‡‰çš„åŠŸèƒ½ -> åˆªé™¤å…¬ä½ˆæ¬„
+     * ¹ïÀ³ªº¥\¯à -> §R°£¤½§GÄæ
      *
-     * @param id å…¬ä½ˆæ¬„ç·¨è™Ÿ
-     * @return the JSONObject å›å‚³SQLåŸ·è¡Œçµæœ
+     * @param id ¤½§GÄæ½s¸¹
+     * @return the JSONObject ¦^¶ÇSQL°õ¦æµ²ªG
      */
     public JSONObject deleteByID(int id) {
-        /** è¨˜éŒ„å¯¦éš›åŸ·è¡Œä¹‹SQLæŒ‡ä»¤ */
+        /** °O¿ı¹ê»Ú°õ¦æ¤§SQL«ü¥O */
         String exexcute_sql = "";
-        /** ç´€éŒ„ç¨‹å¼é–‹å§‹åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡¶}©l°õ¦æ®É¶¡ */
         long start_time = System.nanoTime();
-        /** ç´€éŒ„SQLç¸½è¡Œæ•¸ */
+        /** ¬ö¿ıSQLÁ`¦æ¼Æ */
         int row = 0;
-        /** å„²å­˜JDBCæª¢ç´¢è³‡æ–™åº«å¾Œå›å‚³ä¹‹çµæœï¼Œä»¥ pointer æ–¹å¼ç§»å‹•åˆ°ä¸‹ä¸€ç­†è³‡æ–™ */
+        /** Àx¦sJDBCÀË¯Á¸ê®Æ®w«á¦^¶Ç¤§µ²ªG¡A¥H pointer ¤è¦¡²¾°Ê¨ì¤U¤@µ§¸ê®Æ */
         ResultSet rs = null;
         
         try {
-            /** å–å¾—è³‡æ–™åº«ä¹‹é€£ç·š */
+            /** ¨ú±o¸ê®Æ®w¤§³s½u */
             conn = DBMgr.getConnection();
             
-            /** SQLæŒ‡ä»¤ */
+            /** SQL«ü¥O */
             String sql = "DELETE FROM `missa`.`bulletinboard` WHERE `id` = ? LIMIT 1";
             
-            /** å°‡åƒæ•¸å›å¡«è‡³SQLæŒ‡ä»¤ç•¶ä¸­ */
+            /** ±N°Ñ¼Æ¦^¶ñ¦ÜSQL«ü¥O·í¤¤ */
             pres = conn.prepareStatement(sql);
             pres.setInt(1, id);
-            /** åŸ·è¡Œåˆªé™¤ä¹‹SQLæŒ‡ä»¤ä¸¦è¨˜éŒ„å½±éŸ¿ä¹‹è¡Œæ•¸ */
+            /** °õ¦æ§R°£¤§SQL«ü¥O¨Ã°O¿ı¼vÅT¤§¦æ¼Æ */
             row = pres.executeUpdate();
 
-            /** ç´€éŒ„çœŸå¯¦åŸ·è¡Œçš„SQLæŒ‡ä»¤ï¼Œä¸¦å°å‡º **/
+            /** ¬ö¿ı¯u¹ê°õ¦æªºSQL«ü¥O¡A¨Ã¦L¥X **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
             
         } catch (SQLException e) {
-            /** å°å‡ºJDBC SQLæŒ‡ä»¤éŒ¯èª¤ **/
+            /** ¦L¥XJDBC SQL«ü¥O¿ù»~ **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** è‹¥éŒ¯èª¤å‰‡å°å‡ºéŒ¯èª¤è¨Šæ¯ */
+            /** ­Y¿ù»~«h¦L¥X¿ù»~°T®§ */
             e.printStackTrace();
         } finally {
-            /** é—œé–‰é€£ç·šä¸¦é‡‹æ”¾æ‰€æœ‰è³‡æ–™åº«ç›¸é—œä¹‹è³‡æº **/
+            /** Ãö³¬³s½u¨ÃÄÀ©ñ©Ò¦³¸ê®Æ®w¬ÛÃö¤§¸ê·½ **/
             DBMgr.close(rs, pres, conn);
         }
 
-        /** ç´€éŒ„ç¨‹å¼çµæŸåŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡µ²§ô°õ¦æ®É¶¡ */
         long end_time = System.nanoTime();
-        /** ç´€éŒ„ç¨‹å¼åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡°õ¦æ®É¶¡ */
         long duration = (end_time - start_time);
         
-        /** å°‡SQLæŒ‡ä»¤ã€èŠ±è²»æ™‚é–“èˆ‡å½±éŸ¿è¡Œæ•¸ï¼Œå°è£æˆJSONObjectå›å‚³ */
+        /** ±NSQL«ü¥O¡Bªá¶O®É¶¡»P¼vÅT¦æ¼Æ¡A«Ê¸Ë¦¨JSONObject¦^¶Ç */
         JSONObject response = new JSONObject();
         response.put("sql", exexcute_sql);
         response.put("row", row);
@@ -111,74 +111,73 @@ public class BulletinBoardHelper {
     }
     
     /**
-     * å–å›æ‰€æœ‰å…¬ä½ˆæ¬„è³‡æ–™
+     * ¨ú¦^©Ò¦³¤½§GÄæ¸ê®Æ
      *
-     * @return the JSONObject å›å‚³SQLåŸ·è¡Œçµæœèˆ‡è‡ªè³‡æ–™åº«å–å›ä¹‹æ‰€æœ‰è³‡æ–™
+     * @return the JSONObject ¦^¶ÇSQL°õ¦æµ²ªG»P¦Û¸ê®Æ®w¨ú¦^¤§©Ò¦³¸ê®Æ
      */
     public JSONObject getAll() {
-        /** æ–°å»ºä¸€å€‹ BulletinBoard ç‰©ä»¶ä¹‹ b è®Šæ•¸ï¼Œç”¨æ–¼ç´€éŒ„æ¯ä¸€ä½æŸ¥è©¢å›ä¹‹æœƒå“¡è³‡æ–™ */
+        /** ·s«Ø¤@­Ó BulletinBoard ª«¥ó¤§ b ÅÜ¼Æ¡A¥Î©ó¬ö¿ı¨C¤@¦ì¬d¸ß¦^¤§·|­û¸ê®Æ */
         BulletinBoard b  = null;
-        /** ç”¨æ–¼å„²å­˜æ‰€æœ‰æª¢ç´¢å›ä¹‹æœƒå“¡ï¼Œä»¥JSONArrayæ–¹å¼å„²å­˜ */
+        /** ¥Î©óÀx¦s©Ò¦³ÀË¯Á¦^¤§·|­û¡A¥HJSONArray¤è¦¡Àx¦s */
         JSONArray jsa = new JSONArray();
-        /** è¨˜éŒ„å¯¦éš›åŸ·è¡Œä¹‹SQLæŒ‡ä»¤ */
+        /** °O¿ı¹ê»Ú°õ¦æ¤§SQL«ü¥O */
         String exexcute_sql = "";
-        /** ç´€éŒ„ç¨‹å¼é–‹å§‹åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡¶}©l°õ¦æ®É¶¡ */
         long start_time = System.nanoTime();
-        /** ç´€éŒ„SQLç¸½è¡Œæ•¸ */
+        /** ¬ö¿ıSQLÁ`¦æ¼Æ */
         int row = 0;
-        /** å„²å­˜JDBCæª¢ç´¢è³‡æ–™åº«å¾Œå›å‚³ä¹‹çµæœï¼Œä»¥ pointer æ–¹å¼ç§»å‹•åˆ°ä¸‹ä¸€ç­†è³‡æ–™ */
+        /** Àx¦sJDBCÀË¯Á¸ê®Æ®w«á¦^¶Ç¤§µ²ªG¡A¥H pointer ¤è¦¡²¾°Ê¨ì¤U¤@µ§¸ê®Æ */
         ResultSet rs = null;
         
         try {
-            /** å–å¾—è³‡æ–™åº«ä¹‹é€£ç·š */
+            /** ¨ú±o¸ê®Æ®w¤§³s½u */
             conn = DBMgr.getConnection();
-            /** SQLæŒ‡ä»¤ */
+            /** SQL«ü¥O */
             String sql = "SELECT * FROM `missa`.`bulletinboard`";
             
-            /** å°‡åƒæ•¸å›å¡«è‡³SQLæŒ‡ä»¤ç•¶ä¸­ï¼Œè‹¥ç„¡å‰‡ä¸ç”¨åªéœ€è¦åŸ·è¡Œ prepareStatement */
+            /** ±N°Ñ¼Æ¦^¶ñ¦ÜSQL«ü¥O·í¤¤¡A­YµL«h¤£¥Î¥u»İ­n°õ¦æ prepareStatement */
             pres = conn.prepareStatement(sql);
-            /** åŸ·è¡ŒæŸ¥è©¢ä¹‹SQLæŒ‡ä»¤ä¸¦è¨˜éŒ„å…¶å›å‚³ä¹‹è³‡æ–™ */
+            /** °õ¦æ¬d¸ß¤§SQL«ü¥O¨Ã°O¿ı¨ä¦^¶Ç¤§¸ê®Æ */
             rs = pres.executeQuery();
 
-            /** ç´€éŒ„çœŸå¯¦åŸ·è¡Œçš„SQLæŒ‡ä»¤ï¼Œä¸¦å°å‡º **/
+            /** ¬ö¿ı¯u¹ê°õ¦æªºSQL«ü¥O¡A¨Ã¦L¥X **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
             
-            /** é€é while è¿´åœˆç§»å‹•pointerï¼Œå–å¾—æ¯ä¸€ç­†å›å‚³è³‡æ–™ */
+            /** ³z¹L while °j°é²¾°Êpointer¡A¨ú±o¨C¤@µ§¦^¶Ç¸ê®Æ */
             while(rs.next()) {
-                /** æ¯åŸ·è¡Œä¸€æ¬¡è¿´åœˆè¡¨ç¤ºæœ‰ä¸€ç­†è³‡æ–™ */
+                /** ¨C°õ¦æ¤@¦¸°j°éªí¥Ü¦³¤@µ§¸ê®Æ */
                 row += 1;
                 
-                /** å°‡ ResultSet ä¹‹è³‡æ–™å–å‡º */
+                /** ±N ResultSet ¤§¸ê®Æ¨ú¥X */
                 int bulletinboard_id = rs.getInt("id");
                 String topic = rs.getString("topic");
                 String content = rs.getString("content");
-                Timestamp modified = rs.getTimestamp("modified");
                 int login_times = rs.getInt("login_times");
-                
-                /** å°‡æ¯ä¸€ç­†å…¬ä½ˆæ¬„è³‡æ–™ç”¢ç”Ÿä¸€åæ–°BulletinBoardç‰©ä»¶ */
-                b = new BulletinBoard(bulletinboard_id, topic, content, login_times,modified);
-                /** å–å‡ºè©²åæœƒå“¡ä¹‹è³‡æ–™ä¸¦å°è£è‡³ JSONsonArray å…§ */
+                String modify_times = rs.getString("modified");
+                /** ±N¨C¤@µ§¤½§GÄæ¸ê®Æ²£¥Í¤@¦W·sBulletinBoardª«¥ó */
+                b = new BulletinBoard(bulletinboard_id, topic, content, login_times,modify_times);
+                /** ¨ú¥X¸Ó¦W·|­û¤§¸ê®Æ¨Ã«Ê¸Ë¦Ü JSONsonArray ¤º */
                 jsa.put(b.getData());
             }
 
         } catch (SQLException e) {
-            /** å°å‡ºJDBC SQLæŒ‡ä»¤éŒ¯èª¤ **/
+            /** ¦L¥XJDBC SQL«ü¥O¿ù»~ **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** è‹¥éŒ¯èª¤å‰‡å°å‡ºéŒ¯èª¤è¨Šæ¯ */
+            /** ­Y¿ù»~«h¦L¥X¿ù»~°T®§ */
             e.printStackTrace();
         } finally {
-            /** é—œé–‰é€£ç·šä¸¦é‡‹æ”¾æ‰€æœ‰è³‡æ–™åº«ç›¸é—œä¹‹è³‡æº **/
+            /** Ãö³¬³s½u¨ÃÄÀ©ñ©Ò¦³¸ê®Æ®w¬ÛÃö¤§¸ê·½ **/
             DBMgr.close(rs, pres, conn);
         }
         
-        /** ç´€éŒ„ç¨‹å¼çµæŸåŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡µ²§ô°õ¦æ®É¶¡ */
         long end_time = System.nanoTime();
-        /** ç´€éŒ„ç¨‹å¼åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡°õ¦æ®É¶¡ */
         long duration = (end_time - start_time);
         
-        /** å°‡SQLæŒ‡ä»¤ã€èŠ±è²»æ™‚é–“ã€å½±éŸ¿è¡Œæ•¸èˆ‡æ‰€æœ‰æœƒå“¡è³‡æ–™ä¹‹JSONArrayï¼Œå°è£æˆJSONObjectå›å‚³ */
+        /** ±NSQL«ü¥O¡Bªá¶O®É¶¡¡B¼vÅT¦æ¼Æ»P©Ò¦³·|­û¸ê®Æ¤§JSONArray¡A«Ê¸Ë¦¨JSONObject¦^¶Ç */
         JSONObject response = new JSONObject();
         response.put("sql", exexcute_sql);
         response.put("row", row);
@@ -189,76 +188,76 @@ public class BulletinBoardHelper {
     }
     
     /**
-     * é€éå…¬ä½ˆæ¬„ç·¨è™Ÿï¼ˆIDï¼‰å–å¾—å…¬ä½ˆæ¬„è³‡æ–™
+     * ³z¹L¤½§GÄæ½s¸¹¡]ID¡^¨ú±o¤½§GÄæ¸ê®Æ
      *
-     * @param id å…¬ä½ˆæ¬„ç·¨è™Ÿ
-     * @return the JSON object å›å‚³SQLåŸ·è¡Œçµæœèˆ‡è©²æœƒå“¡ç·¨è™Ÿä¹‹æœƒå“¡è³‡æ–™
+     * @param id ¤½§GÄæ½s¸¹
+     * @return the JSON object ¦^¶ÇSQL°õ¦æµ²ªG»P¸Ó·|­û½s¸¹¤§·|­û¸ê®Æ
      */
     public JSONObject getByID(String id) {
-        /** æ–°å»ºä¸€å€‹ BulletinBoard ç‰©ä»¶ä¹‹ b è®Šæ•¸ï¼Œç”¨æ–¼ç´€éŒ„æ¯ä¸€ä½æŸ¥è©¢å›ä¹‹æœƒå“¡è³‡æ–™ */
+        /** ·s«Ø¤@­Ó BulletinBoard ª«¥ó¤§ b ÅÜ¼Æ¡A¥Î©ó¬ö¿ı¨C¤@¦ì¬d¸ß¦^¤§·|­û¸ê®Æ */
         BulletinBoard b = null;
-        /** ç”¨æ–¼å„²å­˜æ‰€æœ‰æª¢ç´¢å›ä¹‹æœƒå“¡ï¼Œä»¥JSONArrayæ–¹å¼å„²å­˜ */
+        /** ¥Î©óÀx¦s©Ò¦³ÀË¯Á¦^¤§·|­û¡A¥HJSONArray¤è¦¡Àx¦s */
         JSONArray jsa = new JSONArray();
-        /** è¨˜éŒ„å¯¦éš›åŸ·è¡Œä¹‹SQLæŒ‡ä»¤ */
+        /** °O¿ı¹ê»Ú°õ¦æ¤§SQL«ü¥O */
         String exexcute_sql = "";
-        /** ç´€éŒ„ç¨‹å¼é–‹å§‹åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡¶}©l°õ¦æ®É¶¡ */
         long start_time = System.nanoTime();
-        /** ç´€éŒ„SQLç¸½è¡Œæ•¸ */
+        /** ¬ö¿ıSQLÁ`¦æ¼Æ */
         int row = 0;
-        /** å„²å­˜JDBCæª¢ç´¢è³‡æ–™åº«å¾Œå›å‚³ä¹‹çµæœï¼Œä»¥ pointer æ–¹å¼ç§»å‹•åˆ°ä¸‹ä¸€ç­†è³‡æ–™ */
+        /** Àx¦sJDBCÀË¯Á¸ê®Æ®w«á¦^¶Ç¤§µ²ªG¡A¥H pointer ¤è¦¡²¾°Ê¨ì¤U¤@µ§¸ê®Æ */
         ResultSet rs = null;
         
         try {
-            /** å–å¾—è³‡æ–™åº«ä¹‹é€£ç·š */
+            /** ¨ú±o¸ê®Æ®w¤§³s½u */
             conn = DBMgr.getConnection();
-            /** SQLæŒ‡ä»¤ */
+            /** SQL«ü¥O */
             String sql = "SELECT * FROM `missa`.`bulletinboard` WHERE `id` = ? LIMIT 1";
             
-            /** å°‡åƒæ•¸å›å¡«è‡³SQLæŒ‡ä»¤ç•¶ä¸­ */
+            /** ±N°Ñ¼Æ¦^¶ñ¦ÜSQL«ü¥O·í¤¤ */
             pres = conn.prepareStatement(sql);
             pres.setString(1, id);
-            /** åŸ·è¡ŒæŸ¥è©¢ä¹‹SQLæŒ‡ä»¤ä¸¦è¨˜éŒ„å…¶å›å‚³ä¹‹è³‡æ–™ */
+            /** °õ¦æ¬d¸ß¤§SQL«ü¥O¨Ã°O¿ı¨ä¦^¶Ç¤§¸ê®Æ */
             rs = pres.executeQuery();
 
-            /** ç´€éŒ„çœŸå¯¦åŸ·è¡Œçš„SQLæŒ‡ä»¤ï¼Œä¸¦å°å‡º **/
+            /** ¬ö¿ı¯u¹ê°õ¦æªºSQL«ü¥O¡A¨Ã¦L¥X **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
             
-            /** é€é while è¿´åœˆç§»å‹•pointerï¼Œå–å¾—æ¯ä¸€ç­†å›å‚³è³‡æ–™ */
-            /** æ­£ç¢ºä¾†èªªè³‡æ–™åº«åªæœƒæœ‰ä¸€ç­†è©²æœƒå“¡ç·¨è™Ÿä¹‹è³‡æ–™ï¼Œå› æ­¤å…¶å¯¦å¯ä»¥ä¸ç”¨ä½¿ç”¨ while è¿´åœˆ */
+            /** ³z¹L while °j°é²¾°Êpointer¡A¨ú±o¨C¤@µ§¦^¶Ç¸ê®Æ */
+            /** ¥¿½T¨Ó»¡¸ê®Æ®w¥u·|¦³¤@µ§¸Ó·|­û½s¸¹¤§¸ê®Æ¡A¦]¦¹¨ä¹ê¥i¥H¤£¥Î¨Ï¥Î while °j°é */
             while(rs.next()) {
-                /** æ¯åŸ·è¡Œä¸€æ¬¡è¿´åœˆè¡¨ç¤ºæœ‰ä¸€ç­†è³‡æ–™ */
+                /** ¨C°õ¦æ¤@¦¸°j°éªí¥Ü¦³¤@µ§¸ê®Æ */
                 row += 1;
                 
-                /** å°‡ ResultSet ä¹‹è³‡æ–™å–å‡º */
+                /** ±N ResultSet ¤§¸ê®Æ¨ú¥X */
                 int bulletinboard_id = rs.getInt("id");
                 String topic = rs.getString("topic");
                 String content = rs.getString("content");
                 int login_times = rs.getInt("login_times");
                 
-                /** å°‡æ¯ä¸€ç­†æœƒå“¡è³‡æ–™ç”¢ç”Ÿä¸€åæ–°Memberç‰©ä»¶ */
+                /** ±N¨C¤@µ§·|­û¸ê®Æ²£¥Í¤@¦W·sMemberª«¥ó */
                 b = new BulletinBoard(bulletinboard_id, topic, content, login_times);
-                /** å–å‡ºè©²åæœƒå“¡ä¹‹è³‡æ–™ä¸¦å°è£è‡³ JSONsonArray å…§ */
+                /** ¨ú¥X¸Ó¦W·|­û¤§¸ê®Æ¨Ã«Ê¸Ë¦Ü JSONsonArray ¤º */
                 jsa.put(b.getData());
             }
             
         } catch (SQLException e) {
-            /** å°å‡ºJDBC SQLæŒ‡ä»¤éŒ¯èª¤ **/
+            /** ¦L¥XJDBC SQL«ü¥O¿ù»~ **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** è‹¥éŒ¯èª¤å‰‡å°å‡ºéŒ¯èª¤è¨Šæ¯ */
+            /** ­Y¿ù»~«h¦L¥X¿ù»~°T®§ */
             e.printStackTrace();
         } finally {
-            /** é—œé–‰é€£ç·šä¸¦é‡‹æ”¾æ‰€æœ‰è³‡æ–™åº«ç›¸é—œä¹‹è³‡æº **/
+            /** Ãö³¬³s½u¨ÃÄÀ©ñ©Ò¦³¸ê®Æ®w¬ÛÃö¤§¸ê·½ **/
             DBMgr.close(rs, pres, conn);
         }
         
-        /** ç´€éŒ„ç¨‹å¼çµæŸåŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡µ²§ô°õ¦æ®É¶¡ */
         long end_time = System.nanoTime();
-        /** ç´€éŒ„ç¨‹å¼åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡°õ¦æ®É¶¡ */
         long duration = (end_time - start_time);
         
-        /** å°‡SQLæŒ‡ä»¤ã€èŠ±è²»æ™‚é–“ã€å½±éŸ¿è¡Œæ•¸èˆ‡æ‰€æœ‰æœƒå“¡è³‡æ–™ä¹‹JSONArrayï¼Œå°è£æˆJSONObjectå›å‚³ */
+        /** ±NSQL«ü¥O¡Bªá¶O®É¶¡¡B¼vÅT¦æ¼Æ»P©Ò¦³·|­û¸ê®Æ¤§JSONArray¡A«Ê¸Ë¦¨JSONObject¦^¶Ç */
         JSONObject response = new JSONObject();
         response.put("sql", exexcute_sql);
         response.put("row", row);
@@ -269,47 +268,47 @@ public class BulletinBoardHelper {
     }
     
     /**
-     * å–å¾—è©²å…¬ä½ˆæ¬„ä¹‹æ›´æ–°æ™‚é–“
+     * ¨ú±o¸Ó¤½§GÄæ¤§§ó·s®É¶¡
      *
-     * @param b ä¸€åæœƒå“¡ä¹‹BulletinBoardç‰©ä»¶
-     * @return the JSON object å›å‚³è©²å…¬ä½ˆæ¬„ä¹‹æ›´æ–°æ™‚é–“ï¼ˆä»¥JSONObjecté€²è¡Œå°è£ï¼‰
+     * @param b ¤@¦W·|­û¤§BulletinBoardª«¥ó
+     * @return the JSON object ¦^¶Ç¸Ó¤½§GÄæ¤§§ó·s®É¶¡¡]¥HJSONObject¶i¦æ«Ê¸Ë¡^
      */
     public JSONObject getLoginTimesStatus(BulletinBoard b) {
-        /** ç”¨æ–¼å„²å­˜è©²åæœƒå“¡æ‰€æª¢ç´¢ä¹‹æ›´æ–°æ™‚é–“åˆ†é˜æ•¸èˆ‡æœƒå“¡çµ„åˆ¥ä¹‹è³‡æ–™ */
+        /** ¥Î©óÀx¦s¸Ó¦W·|­û©ÒÀË¯Á¤§§ó·s®É¶¡¤ÀÄÁ¼Æ»P·|­û²Õ§O¤§¸ê®Æ */
         JSONObject jso = new JSONObject();
-        /** å„²å­˜JDBCæª¢ç´¢è³‡æ–™åº«å¾Œå›å‚³ä¹‹çµæœï¼Œä»¥ pointer æ–¹å¼ç§»å‹•åˆ°ä¸‹ä¸€ç­†è³‡æ–™ */
+        /** Àx¦sJDBCÀË¯Á¸ê®Æ®w«á¦^¶Ç¤§µ²ªG¡A¥H pointer ¤è¦¡²¾°Ê¨ì¤U¤@µ§¸ê®Æ */
         ResultSet rs = null;
 
         try {
-            /** å–å¾—è³‡æ–™åº«ä¹‹é€£ç·š */
+            /** ¨ú±o¸ê®Æ®w¤§³s½u */
             conn = DBMgr.getConnection();
-            /** SQLæŒ‡ä»¤ */
+            /** SQL«ü¥O */
             String sql = "SELECT * FROM `missa`.`bulletinboard` WHERE `id` = ? LIMIT 1";
             
-            /** å°‡åƒæ•¸å›å¡«è‡³SQLæŒ‡ä»¤ç•¶ä¸­ */
+            /** ±N°Ñ¼Æ¦^¶ñ¦ÜSQL«ü¥O·í¤¤ */
             pres = conn.prepareStatement(sql);
             pres.setInt(1, b.getID());
-            /** åŸ·è¡ŒæŸ¥è©¢ä¹‹SQLæŒ‡ä»¤ä¸¦è¨˜éŒ„å…¶å›å‚³ä¹‹è³‡æ–™ */
+            /** °õ¦æ¬d¸ß¤§SQL«ü¥O¨Ã°O¿ı¨ä¦^¶Ç¤§¸ê®Æ */
             rs = pres.executeQuery();
             
-            /** é€é while è¿´åœˆç§»å‹•pointerï¼Œå–å¾—æ¯ä¸€ç­†å›å‚³è³‡æ–™ */
-            /** æ­£ç¢ºä¾†èªªè³‡æ–™åº«åªæœƒæœ‰ä¸€ç­†è©²é›»å­éƒµä»¶ä¹‹è³‡æ–™ï¼Œå› æ­¤å…¶å¯¦å¯ä»¥ä¸ç”¨ä½¿ç”¨ whileè¿´åœˆ */
+            /** ³z¹L while °j°é²¾°Êpointer¡A¨ú±o¨C¤@µ§¦^¶Ç¸ê®Æ */
+            /** ¥¿½T¨Ó»¡¸ê®Æ®w¥u·|¦³¤@µ§¸Ó¹q¤l¶l¥ó¤§¸ê®Æ¡A¦]¦¹¨ä¹ê¥i¥H¤£¥Î¨Ï¥Î while°j°é */
             while(rs.next()) {
-                /** å°‡ ResultSet ä¹‹è³‡æ–™å–å‡º */
+                /** ±N ResultSet ¤§¸ê®Æ¨ú¥X */
                 int login_times = rs.getInt("login_times");
-                /** å°‡å…¶å°è£è‡³JSONObjectè³‡æ–™ */
+                /** ±N¨ä«Ê¸Ë¦ÜJSONObject¸ê®Æ */
                 jso.put("login_times", login_times);
-                // jso.put("status", status); å› ç‚ºæ²’æœ‰statusæ‰€ä»¥ä¸ç”¨é€™ä¸€è¡Œï¼Œå…ˆè¨»è§£æ‰ï¼Œä¹‹å¾Œå†ä¾†æ›´æ”¹
+                // jso.put("status", status); ¦]¬°¨S¦³status©Ò¥H¤£¥Î³o¤@¦æ¡A¥ıµù¸Ñ±¼¡A¤§«á¦A¨Ó§ó§ï
             }
             
         } catch (SQLException e) {
-            /** å°å‡ºJDBC SQLæŒ‡ä»¤éŒ¯èª¤ **/
+            /** ¦L¥XJDBC SQL«ü¥O¿ù»~ **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** è‹¥éŒ¯èª¤å‰‡å°å‡ºéŒ¯èª¤è¨Šæ¯ */
+            /** ­Y¿ù»~«h¦L¥X¿ù»~°T®§ */
             e.printStackTrace();
         } finally {
-            /** é—œé–‰é€£ç·šä¸¦é‡‹æ”¾æ‰€æœ‰è³‡æ–™åº«ç›¸é—œä¹‹è³‡æº **/
+            /** Ãö³¬³s½u¨ÃÄÀ©ñ©Ò¦³¸ê®Æ®w¬ÛÃö¤§¸ê·½ **/
             DBMgr.close(rs, pres, conn);
         }
 
@@ -317,32 +316,32 @@ public class BulletinBoardHelper {
     }
     
     /**
-     * å»ºç«‹è©²å…¬ä½ˆæ¬„è‡³è³‡æ–™åº«	(å°æ‡‰çš„åŠŸèƒ½ -> æ–°å¢å…¬ä½ˆæ¬„)
+     * «Ø¥ß¸Ó¤½§GÄæ¦Ü¸ê®Æ®w	(¹ïÀ³ªº¥\¯à -> ·s¼W¤½§GÄæ)
      *
-     * @param b ä¸€å€‹å…¬ä½ˆæ¬„ä¹‹BulletinBoardç‰©ä»¶
-     * @return the JSON object å›å‚³SQLæŒ‡ä»¤åŸ·è¡Œä¹‹çµæœ
+     * @param b ¤@­Ó¤½§GÄæ¤§BulletinBoardª«¥ó
+     * @return the JSON object ¦^¶ÇSQL«ü¥O°õ¦æ¤§µ²ªG
      */
     public JSONObject create(BulletinBoard b) {
-        /** è¨˜éŒ„å¯¦éš›åŸ·è¡Œä¹‹SQLæŒ‡ä»¤ */
+        /** °O¿ı¹ê»Ú°õ¦æ¤§SQL«ü¥O */
         String exexcute_sql = "";
-        /** ç´€éŒ„ç¨‹å¼é–‹å§‹åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡¶}©l°õ¦æ®É¶¡ */
         long start_time = System.nanoTime();
-        /** ç´€éŒ„SQLç¸½è¡Œæ•¸ */
+        /** ¬ö¿ıSQLÁ`¦æ¼Æ */
         int row = 0;
         
         try {
-            /** å–å¾—è³‡æ–™åº«ä¹‹é€£ç·š */
+            /** ¨ú±o¸ê®Æ®w¤§³s½u */
             conn = DBMgr.getConnection();
-            /** SQLæŒ‡ä»¤ */
+            /** SQL«ü¥O */
             String sql = "INSERT INTO `missa`.`bulletinboard`(`topic`, `content`, `modified`, `created`, `login_times`)"
                     + " VALUES(?, ?, ?, ?, ?)";
             
-            /** å–å¾—æ‰€éœ€ä¹‹åƒæ•¸ */
+            /** ¨ú±o©Ò»İ¤§°Ñ¼Æ */
             String topic = b.getTopic();
             String content = b.getContent();
             int login_times = b.getLoginTimes();
             
-            /** å°‡åƒæ•¸å›å¡«è‡³SQLæŒ‡ä»¤ç•¶ä¸­ */
+            /** ±N°Ñ¼Æ¦^¶ñ¦ÜSQL«ü¥O·í¤¤ */
             pres = conn.prepareStatement(sql);
             pres.setString(1, topic);
             pres.setString(2, content);
@@ -350,30 +349,30 @@ public class BulletinBoardHelper {
             pres.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
             pres.setInt(5, login_times);
             
-            /** åŸ·è¡Œæ–°å¢ä¹‹SQLæŒ‡ä»¤ä¸¦è¨˜éŒ„å½±éŸ¿ä¹‹è¡Œæ•¸ */
+            /** °õ¦æ·s¼W¤§SQL«ü¥O¨Ã°O¿ı¼vÅT¤§¦æ¼Æ */
             row = pres.executeUpdate();
             
-            /** ç´€éŒ„çœŸå¯¦åŸ·è¡Œçš„SQLæŒ‡ä»¤ï¼Œä¸¦å°å‡º **/
+            /** ¬ö¿ı¯u¹ê°õ¦æªºSQL«ü¥O¡A¨Ã¦L¥X **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
 
         } catch (SQLException e) {
-            /** å°å‡ºJDBC SQLæŒ‡ä»¤éŒ¯èª¤ **/
+            /** ¦L¥XJDBC SQL«ü¥O¿ù»~ **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** è‹¥éŒ¯èª¤å‰‡å°å‡ºéŒ¯èª¤è¨Šæ¯ */
+            /** ­Y¿ù»~«h¦L¥X¿ù»~°T®§ */
             e.printStackTrace();
         } finally {
-            /** é—œé–‰é€£ç·šä¸¦é‡‹æ”¾æ‰€æœ‰è³‡æ–™åº«ç›¸é—œä¹‹è³‡æº **/
+            /** Ãö³¬³s½u¨ÃÄÀ©ñ©Ò¦³¸ê®Æ®w¬ÛÃö¤§¸ê·½ **/
             DBMgr.close(pres, conn);
         }
 
-        /** ç´€éŒ„ç¨‹å¼çµæŸåŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡µ²§ô°õ¦æ®É¶¡ */
         long end_time = System.nanoTime();
-        /** ç´€éŒ„ç¨‹å¼åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡°õ¦æ®É¶¡ */
         long duration = (end_time - start_time);
 
-        /** å°‡SQLæŒ‡ä»¤ã€èŠ±è²»æ™‚é–“èˆ‡å½±éŸ¿è¡Œæ•¸ï¼Œå°è£æˆJSONObjectå›å‚³ */
+        /** ±NSQL«ü¥O¡Bªá¶O®É¶¡»P¼vÅT¦æ¼Æ¡A«Ê¸Ë¦¨JSONObject¦^¶Ç */
         JSONObject response = new JSONObject();
         response.put("sql", exexcute_sql);
         response.put("time", duration);
@@ -383,111 +382,110 @@ public class BulletinBoardHelper {
     }
     
     /**
-     * æ›´æ–°ä¸€å…¬ä½ˆæ¬„ä¹‹å…¬ä½ˆæ¬„è³‡æ–™   ç„¶å¾Œæ˜¯ç”¨å…¬ä½ˆæ¬„ç·¨è™Ÿå»æ‰¾çš„(WHERE 'id' = ?)->åƒè€ƒline139
+     * §ó·s¤@¤½§GÄæ¤§¤½§GÄæ¸ê®Æ   µM«á¬O¥Î¤½§GÄæ½s¸¹¥h§äªº(WHERE 'id' = ?)->°Ñ¦Òline139
      *
-     * å°æ‡‰çš„åŠŸèƒ½ -> ä¿®æ”¹å…¬ä½ˆæ¬„ (å¯ä»¥æ›´æ–°æ¨™é¡Œï¼Œä¹Ÿå¯ä»¥æ›´æ–°å…§å®¹)
+     * ¹ïÀ³ªº¥\¯à -> ­×§ï¤½§GÄæ (¥i¥H§ó·s¼ĞÃD¡A¤]¥i¥H§ó·s¤º®e)
      *
-     * @param b ä¸€åå…¬ä½ˆæ¬„ä¹‹BulletinBoardç‰©ä»¶
-     * @return the JSONObject å›å‚³SQLæŒ‡ä»¤åŸ·è¡Œçµæœèˆ‡åŸ·è¡Œä¹‹è³‡æ–™
+     * @param b ¤@¦W¤½§GÄæ¤§BulletinBoardª«¥ó
+     * @return the JSONObject ¦^¶ÇSQL«ü¥O°õ¦æµ²ªG»P°õ¦æ¤§¸ê®Æ
      */
     public JSONObject update(BulletinBoard b) {
-        /** ç´€éŒ„å›å‚³ä¹‹è³‡æ–™ */
+        /** ¬ö¿ı¦^¶Ç¤§¸ê®Æ */
         JSONArray jsa = new JSONArray();
-        /** è¨˜éŒ„å¯¦éš›åŸ·è¡Œä¹‹SQLæŒ‡ä»¤ */
+        /** °O¿ı¹ê»Ú°õ¦æ¤§SQL«ü¥O */
         String exexcute_sql = "";
-        /** ç´€éŒ„ç¨‹å¼é–‹å§‹åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡¶}©l°õ¦æ®É¶¡ */
         long start_time = System.nanoTime();
-        /** ç´€éŒ„SQLç¸½è¡Œæ•¸ */
+        /** ¬ö¿ıSQLÁ`¦æ¼Æ */
         int row = 0;
-        
         try {
-            /** å–å¾—è³‡æ–™åº«ä¹‹é€£ç·š */
+            /** ¨ú±o¸ê®Æ®w¤§³s½u */
             conn = DBMgr.getConnection();
-            /** SQLæŒ‡ä»¤ */
+            /** SQL«ü¥O */
             String sql = "Update `missa`.`bulletinboard` SET `topic` = ? ,`content` = ? , `modified` = ? WHERE `id` = ?";
-            /** å–å¾—æ‰€éœ€ä¹‹åƒæ•¸ */
+            /** ¨ú±o©Ò»İ¤§°Ñ¼Æ */
             int id = b.getID();
             String topic = b.getTopic();
             String content = b.getContent();
             
-            /** å°‡åƒæ•¸å›å¡«è‡³SQLæŒ‡ä»¤ç•¶ä¸­ */
+            /** ±N°Ñ¼Æ¦^¶ñ¦ÜSQL«ü¥O·í¤¤ */
             pres = conn.prepareStatement(sql);
             pres.setString(1, topic);
             pres.setString(2, content);
             pres.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             pres.setInt(4, id);
-            /** åŸ·è¡Œæ›´æ–°ä¹‹SQLæŒ‡ä»¤ä¸¦è¨˜éŒ„å½±éŸ¿ä¹‹è¡Œæ•¸ */
+            /** °õ¦æ§ó·s¤§SQL«ü¥O¨Ã°O¿ı¼vÅT¤§¦æ¼Æ */
             row = pres.executeUpdate();
 
-            /** ç´€éŒ„çœŸå¯¦åŸ·è¡Œçš„SQLæŒ‡ä»¤ï¼Œä¸¦å°å‡º **/
+            /** ¬ö¿ı¯u¹ê°õ¦æªºSQL«ü¥O¡A¨Ã¦L¥X **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
 
         } catch (SQLException e) {
-            /** å°å‡ºJDBC SQLæŒ‡ä»¤éŒ¯èª¤ **/
+            /** ¦L¥XJDBC SQL«ü¥O¿ù»~ **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** è‹¥éŒ¯èª¤å‰‡å°å‡ºéŒ¯èª¤è¨Šæ¯ */
+            /** ­Y¿ù»~«h¦L¥X¿ù»~°T®§ */
             e.printStackTrace();
         } finally {
-            /** é—œé–‰é€£ç·šä¸¦é‡‹æ”¾æ‰€æœ‰è³‡æ–™åº«ç›¸é—œä¹‹è³‡æº **/
+            /** Ãö³¬³s½u¨ÃÄÀ©ñ©Ò¦³¸ê®Æ®w¬ÛÃö¤§¸ê·½ **/
             DBMgr.close(pres, conn);
         }
         
-        /** ç´€éŒ„ç¨‹å¼çµæŸåŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡µ²§ô°õ¦æ®É¶¡ */
         long end_time = System.nanoTime();
-        /** ç´€éŒ„ç¨‹å¼åŸ·è¡Œæ™‚é–“ */
+        /** ¬ö¿ıµ{¦¡°õ¦æ®É¶¡ */
         long duration = (end_time - start_time);
         
-        /** å°‡SQLæŒ‡ä»¤ã€èŠ±è²»æ™‚é–“èˆ‡å½±éŸ¿è¡Œæ•¸ï¼Œå°è£æˆJSONObjectå›å‚³ */
+        /** ±NSQL«ü¥O¡Bªá¶O®É¶¡»P¼vÅT¦æ¼Æ¡A«Ê¸Ë¦¨JSONObject¦^¶Ç */
         JSONObject response = new JSONObject();
         response.put("sql", exexcute_sql);
         response.put("row", row);
         response.put("time", duration);
         response.put("data", jsa);
-
+        
         return response;
     }
     
     /**
-     * æ›´æ–°å…¬ä½ˆæ¬„æ›´æ–°è³‡æ–™ä¹‹åˆ†é˜æ•¸
+     * §ó·s¤½§GÄæ§ó·s¸ê®Æ¤§¤ÀÄÁ¼Æ
      *
-     * @param b ä¸€åæœƒå“¡ä¹‹BulletinBoardç‰©ä»¶
+     * @param b ¤@¦W·|­û¤§BulletinBoardª«¥ó
      */
     public void updateLoginTimes(BulletinBoard b) {
-        /** æ›´æ–°æ™‚é–“ä¹‹åˆ†é˜æ•¸ */
+        /** §ó·s®É¶¡¤§¤ÀÄÁ¼Æ */
         int new_times = b.getLoginTimes();
         
-        /** è¨˜éŒ„å¯¦éš›åŸ·è¡Œä¹‹SQLæŒ‡ä»¤ */
+        /** °O¿ı¹ê»Ú°õ¦æ¤§SQL«ü¥O */
         String exexcute_sql = "";
         
         try {
-            /** å–å¾—è³‡æ–™åº«ä¹‹é€£ç·š */
+            /** ¨ú±o¸ê®Æ®w¤§³s½u */
             conn = DBMgr.getConnection();
-            /** SQLæŒ‡ä»¤ */
+            /** SQL«ü¥O */
             String sql = "Update `missa`.`bulletinboard` SET `login_times` = ? WHERE `id` = ?";
-            /** å–å¾—æœƒå“¡ç·¨è™Ÿ */
+            /** ¨ú±o·|­û½s¸¹ */
             int id = b.getID();
             
-            /** å°‡åƒæ•¸å›å¡«è‡³SQLæŒ‡ä»¤ç•¶ä¸­ */
+            /** ±N°Ñ¼Æ¦^¶ñ¦ÜSQL«ü¥O·í¤¤ */
             pres = conn.prepareStatement(sql);
             pres.setInt(1, new_times);
             pres.setInt(2, id);
-            /** åŸ·è¡Œæ›´æ–°ä¹‹SQLæŒ‡ä»¤ */
+            /** °õ¦æ§ó·s¤§SQL«ü¥O */
             pres.executeUpdate();
 
-            /** ç´€éŒ„çœŸå¯¦åŸ·è¡Œçš„SQLæŒ‡ä»¤ï¼Œä¸¦å°å‡º **/
+            /** ¬ö¿ı¯u¹ê°õ¦æªºSQL«ü¥O¡A¨Ã¦L¥X **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
 
         } catch (SQLException e) {
-            /** å°å‡ºJDBC SQLæŒ‡ä»¤éŒ¯èª¤ **/
+            /** ¦L¥XJDBC SQL«ü¥O¿ù»~ **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** è‹¥éŒ¯èª¤å‰‡å°å‡ºéŒ¯èª¤è¨Šæ¯ */
+            /** ­Y¿ù»~«h¦L¥X¿ù»~°T®§ */
             e.printStackTrace();
         } finally {
-            /** é—œé–‰é€£ç·šä¸¦é‡‹æ”¾æ‰€æœ‰è³‡æ–™åº«ç›¸é—œä¹‹è³‡æº **/
+            /** Ãö³¬³s½u¨ÃÄÀ©ñ©Ò¦³¸ê®Æ®w¬ÛÃö¤§¸ê·½ **/
             DBMgr.close(pres, conn);
         }
     }
