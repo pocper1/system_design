@@ -46,11 +46,54 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
     <script src="statics/js/jquery-3.4.1.min.js"></script>
+ <script>
+var name;
+var role;
+function checkID(){
+	  $.ajax({
+        type: "GET",
+        url: "api/login.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+            if(response.status == 200){
+            	if(response.response.status == "login"){//未登入
+            		name = response.response.name;
+            		role = response.response.role;
+            		if(role == '1'|| role == '2'){
+            		}else{
+            			//notAdmin();	
+            		}
+            	}else{
+            		//notLogin();
+            	}
+            	console.log(response);
+            }
+        },
+        error: function () {
+            alert("無法連線到伺服器！");
+        }
+	});
+}
+checkID();
+//alert(name);
+function notLogin(){
+		alert("請先登入!");
+		window.location = "login.html";
+}
+function notAdmin(){
+	alert("你不是管理員!");
+	window.location = "index.html";
+}
+</script>
+
 </head>
 
 <body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top">
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center">
@@ -60,9 +103,8 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="index.html#hero">首頁</a></li>
-          <li><a class="nav-link scrollto" href="index.html#services">選單</a></li>
-          <li><a class="nav-link scrollto" href="index.html#bulletin_board">公告欄</a></li>
+          <li><a class="nav-link scrollto active" href="#hero">首頁</a></li>
+          <li><a class="nav-link scrollto" href="#services">選單</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
@@ -71,18 +113,17 @@
 
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-              <li><a class="nav-link dropdown-item scrollto" href="bulletinboard.html">公告欄</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="#bulletin_board">公告欄</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="discussion_board.html">討論版</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="payment.html">宿舍繳費</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="dormManagement.html">宿舍報修</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="check_in.html">報到手續</a></li>
               <li><a class="nav-link dropdown-item scrollto" href="check_out.html">退宿手續</a></li>
-
               <li>
-                <hr class="dropdown-divider">
+                <hr class="dropdown-divider admin">
               </li>
-              <li><a class="nav-link dropdown-item scrollto" href="member.html">會員管理</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="admin.html">管理員管理</a></li>
+              <li><a class="nav-link dropdown-item scrollto admin" href="member.html">會員管理</a></li>
+              <li><a class="nav-link dropdown-item scrollto admin" href="bulletinboard.html">公告欄管理</a></li>
             </ul>
           </li>
 
