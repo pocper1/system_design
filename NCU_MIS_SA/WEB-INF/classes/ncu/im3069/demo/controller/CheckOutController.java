@@ -13,7 +13,7 @@ import ncu.im3069.tools.JsonReader;
 /**
  * <p>
  * The Class MemberController<br>
- * MemberControllerÃþ§O¡]class¡^¥D­n¥Î©ó³B²zMember¬ÛÃö¤§Http½Ð¨D¡]Request¡^¡AÄ~©ÓHttpServlet
+ * MemberControllerï¿½ï¿½ï¿½Oï¿½]classï¿½^ï¿½Dï¿½nï¿½Î©ï¿½Bï¿½zMemberï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Httpï¿½Ð¨Dï¿½]Requestï¿½^ï¿½Aï¿½~ï¿½ï¿½HttpServlet
  * </p>
  * 
  * @author IPLab
@@ -26,130 +26,134 @@ public class CheckOutController extends HttpServlet {
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
     
-    /** mh¡AMemberHelper¤§ª«¥ó»PMember¬ÛÃö¤§¸ê®Æ®w¤èªk¡]Sigleton¡^ */
+    /** mhï¿½AMemberHelperï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PMemberï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®wï¿½ï¿½kï¿½]Sigletonï¿½^ */
     private CheckOutHelper ch =  CheckOutHelper.getHelper();
     
     /**
-     * ³B²zHttp Method½Ð¨DPOST¤èªk¡]·s¼W¸ê®Æ¡^
+     * ï¿½Bï¿½zHttp Methodï¿½Ð¨DPOSTï¿½ï¿½kï¿½]ï¿½sï¿½Wï¿½ï¿½Æ¡^
      *
-     * @param request Servlet½Ð¨D¤§HttpServletRequest¤§Requestª«¥ó¡]«eºÝ¨ì«áºÝ¡^
-     * @param response Servlet¦^¶Ç¤§HttpServletResponse¤§Responseª«¥ó¡]«áºÝ¨ì«eºÝ¡^
+     * @param request Servletï¿½Ð¨Dï¿½ï¿½HttpServletRequestï¿½ï¿½Requestï¿½ï¿½ï¿½ï¿½]ï¿½eï¿½Ý¨ï¿½ï¿½Ý¡^
+     * @param response Servletï¿½^ï¿½Ç¤ï¿½HttpServletResponseï¿½ï¿½Responseï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Ý¨ï¿½eï¿½Ý¡^
      * @throws ServletException the servlet exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        /** ³z¹LJsonReaderÃþ§O±NRequest¤§JSON®æ¦¡¸ê®Æ¸ÑªR¨Ã¨ú¦^ */
+        /** ï¿½zï¿½LJsonReaderï¿½ï¿½ï¿½Oï¿½NRequestï¿½ï¿½JSONï¿½æ¦¡ï¿½ï¿½Æ¸ÑªRï¿½Ã¨ï¿½ï¿½^ */
         JsonReader jsr = new JsonReader(request);
         JSONObject jso = jsr.getObject();
         
         String passORnot="NotPass";
-        /** ¨ú¥X¸g¸ÑªR¨ìJSONObject¤§Request°Ñ¼Æ */
+        /** ï¿½ï¿½ï¿½Xï¿½gï¿½ÑªRï¿½ï¿½JSONObjectï¿½ï¿½Requestï¿½Ñ¼ï¿½ */
         String name = jso.getString("UserId");
         String dorm = jso.getString("dorm");
         String room = jso.getString("room");
         String bed = jso.getString("bed");
 
         
-        /** «Ø¥ß¤@­Ó·sªº·|­ûª«¥ó */
+        /** ï¿½Ø¥ß¤@ï¿½Ó·sï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         CheckOut c = new CheckOut(name, dorm, room, bed, passORnot);
         
-        /** «áºÝÀË¬d¬O§_¦³Äæ¦ì¬°ªÅ­È¡A­Y¦³«h¦^¶Ç¿ù»~°T®§ */
-	
-         ch.create(c);
+        /** ï¿½ï¿½ï¿½ï¿½Ë¬dï¿½Oï¿½_ï¿½ï¿½ï¿½ï¿½ì¬°ï¿½Å­È¡Aï¿½Yï¿½ï¿½ï¿½hï¿½^ï¿½Ç¿ï¿½ï¿½~ï¿½Tï¿½ï¿½ */
+        JSONObject resp = new JSONObject();
+        if(!ch.checkDuplicate(c)) {
+        	ch.create(c);
+        	resp.put("status", "250");}
+        else {resp.put("status", "250");}
          
-            /** ·s«Ø¤@­ÓJSONObject¥Î©ó±N¦^¶Ç¤§¸ê®Æ¶i¦æ«Ê¸Ë */
-         JSONObject resp = new JSONObject();
-         resp.put("status", "200");
+         
+            /** ï¿½sï¿½Ø¤@ï¿½ï¿½JSONObjectï¿½Î©ï¿½Nï¿½^ï¿½Ç¤ï¿½ï¿½ï¿½Æ¶iï¿½ï¿½Ê¸ï¿½ */
+
+         
             
-            /** ³z¹LJsonReaderª«¥ó¦^¶Ç¨ì«eºÝ¡]¥HJSONObject¤è¦¡¡^ */
+            /** ï¿½zï¿½LJsonReaderï¿½ï¿½ï¿½ï¿½^ï¿½Ç¨ï¿½eï¿½Ý¡]ï¿½HJSONObjectï¿½è¦¡ï¿½^ */
          jsr.response(resp, response);
         
 
     }
 
     /**
-     * ³B²zHttp Method½Ð¨DGET¤èªk¡]¨ú±o¸ê®Æ¡^
+     * ï¿½Bï¿½zHttp Methodï¿½Ð¨DGETï¿½ï¿½kï¿½]ï¿½ï¿½ï¿½oï¿½ï¿½Æ¡^
      *
-     * @param request Servlet½Ð¨D¤§HttpServletRequest¤§Requestª«¥ó¡]«eºÝ¨ì«áºÝ¡^
-     * @param response Servlet¦^¶Ç¤§HttpServletResponse¤§Responseª«¥ó¡]«áºÝ¨ì«eºÝ¡^
+     * @param request Servletï¿½Ð¨Dï¿½ï¿½HttpServletRequestï¿½ï¿½Requestï¿½ï¿½ï¿½ï¿½]ï¿½eï¿½Ý¨ï¿½ï¿½Ý¡^
+     * @param response Servletï¿½^ï¿½Ç¤ï¿½HttpServletResponseï¿½ï¿½Responseï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Ý¨ï¿½eï¿½Ý¡^
      * @throws ServletException the servlet exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        /** ³z¹LJsonReaderÃþ§O±NRequest¤§JSON®æ¦¡¸ê®Æ¸ÑªR¨Ã¨ú¦^ */
+        /** ï¿½zï¿½LJsonReaderï¿½ï¿½ï¿½Oï¿½NRequestï¿½ï¿½JSONï¿½æ¦¡ï¿½ï¿½Æ¸ÑªRï¿½Ã¨ï¿½ï¿½^ */
         JsonReader jsr = new JsonReader(request);
-        /** ­Yª½±µ³z¹L«eºÝAJAX¤§data¥Hkey=value¤§¦r¦ê¤è¦¡¶i¦æ¶Ç»¼°Ñ¼Æ¡A¥i¥Hª½±µ¥Ñ¦¹¤èªk¨ú¦^¸ê®Æ */
+        /** ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½zï¿½Lï¿½eï¿½ï¿½AJAXï¿½ï¿½dataï¿½Hkey=valueï¿½ï¿½ï¿½rï¿½ï¿½è¦¡ï¿½iï¿½ï¿½Ç»ï¿½ï¿½Ñ¼Æ¡Aï¿½iï¿½Hï¿½ï¿½ï¿½ï¿½ï¿½Ñ¦ï¿½ï¿½ï¿½kï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½ */
         String name = jsr.getParameter("UserId");
         System.out.println(name);
-        /** §PÂ_¸Ó¦r¦ê¬O§_¦s¦b¡A­Y¦s¦b¥Nªí­n¨ú¦^­Ó§O·|­û¤§¸ê®Æ¡A§_«h¥Nªí­n¨ú¦^¥þ³¡¸ê®Æ®w¤º·|­û¤§¸ê®Æ */
+        /** ï¿½Pï¿½_ï¿½Ó¦rï¿½ï¿½Oï¿½_ï¿½sï¿½bï¿½Aï¿½Yï¿½sï¿½bï¿½Nï¿½ï¿½nï¿½ï¿½ï¿½^ï¿½Ó§Oï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¡Aï¿½_ï¿½hï¿½Nï¿½ï¿½nï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®wï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
         if (name.isEmpty()) {
-            /** ³z¹LMemberHelperª«¥ó¤§getAll()¤èªk¨ú¦^©Ò¦³·|­û¤§¸ê®Æ¡A¦^¶Ç¤§¸ê®Æ¬°JSONObjectª«¥ó */
+            /** ï¿½zï¿½LMemberHelperï¿½ï¿½ï¿½ï¿½getAll()ï¿½ï¿½kï¿½ï¿½ï¿½^ï¿½Ò¦ï¿½ï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¡Aï¿½^ï¿½Ç¤ï¿½ï¿½ï¿½Æ¬ï¿½JSONObjectï¿½ï¿½ï¿½ï¿½ */
             JSONObject query = ch.getAll();
             System.out.println("2");
-            /** ·s«Ø¤@­ÓJSONObject¥Î©ó±N¦^¶Ç¤§¸ê®Æ¶i¦æ«Ê¸Ë */
+            /** ï¿½sï¿½Ø¤@ï¿½ï¿½JSONObjectï¿½Î©ï¿½Nï¿½^ï¿½Ç¤ï¿½ï¿½ï¿½Æ¶iï¿½ï¿½Ê¸ï¿½ */
             JSONObject resp = new JSONObject();
             resp.put("status", "200");
             resp.put("response", query);
-            /** ³z¹LJsonReaderª«¥ó¦^¶Ç¨ì«eºÝ¡]¥HJSONObject¤è¦¡¡^ */
+            /** ï¿½zï¿½LJsonReaderï¿½ï¿½ï¿½ï¿½^ï¿½Ç¨ï¿½eï¿½Ý¡]ï¿½HJSONObjectï¿½è¦¡ï¿½^ */
             jsr.response(resp, response);
         }
         else {
-            /** ³z¹LMemberHelperª«¥óªºgetByID()¤èªk¦Û¸ê®Æ®w¨ú¦^¸Ó¦W·|­û¤§¸ê®Æ¡A¦^¶Ç¤§¸ê®Æ¬°JSONObjectª«¥ó */
+            /** ï¿½zï¿½LMemberHelperï¿½ï¿½ï¿½ï¿½getByID()ï¿½ï¿½kï¿½Û¸ï¿½Æ®wï¿½ï¿½ï¿½^ï¿½Ó¦Wï¿½|ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¡Aï¿½^ï¿½Ç¤ï¿½ï¿½ï¿½Æ¬ï¿½JSONObjectï¿½ï¿½ï¿½ï¿½ */
             JSONObject query = ch.getByname(name);
-            /** ·s«Ø¤@­ÓJSONObject¥Î©ó±N¦^¶Ç¤§¸ê®Æ¶i¦æ«Ê¸Ë */
+            /** ï¿½sï¿½Ø¤@ï¿½ï¿½JSONObjectï¿½Î©ï¿½Nï¿½^ï¿½Ç¤ï¿½ï¿½ï¿½Æ¶iï¿½ï¿½Ê¸ï¿½ */
             JSONObject resp = new JSONObject();
             resp.put("status", "200");
             resp.put("response", query);
             System.out.println(query);
             System.out.println("3");
-            /** ³z¹LJsonReaderª«¥ó¦^¶Ç¨ì«eºÝ¡]¥HJSONObject¤è¦¡¡^ */
+            /** ï¿½zï¿½LJsonReaderï¿½ï¿½ï¿½ï¿½^ï¿½Ç¨ï¿½eï¿½Ý¡]ï¿½HJSONObjectï¿½è¦¡ï¿½^ */
             jsr.response(resp, response);
         }
     }
 
     /**
-     * ³B²zHttp Method½Ð¨DDELETE¤èªk¡]§R°£¡^
+     * ï¿½Bï¿½zHttp Methodï¿½Ð¨DDELETEï¿½ï¿½kï¿½]ï¿½Rï¿½ï¿½ï¿½^
      *
-     * @param request Servlet½Ð¨D¤§HttpServletRequest¤§Requestª«¥ó¡]«eºÝ¨ì«áºÝ¡^
-     * @param response Servlet¦^¶Ç¤§HttpServletResponse¤§Responseª«¥ó¡]«áºÝ¨ì«eºÝ¡^
+     * @param request Servletï¿½Ð¨Dï¿½ï¿½HttpServletRequestï¿½ï¿½Requestï¿½ï¿½ï¿½ï¿½]ï¿½eï¿½Ý¨ï¿½ï¿½Ý¡^
+     * @param response Servletï¿½^ï¿½Ç¤ï¿½HttpServletResponseï¿½ï¿½Responseï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Ý¨ï¿½eï¿½Ý¡^
      * @throws ServletException the servlet exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
 
 
     /**
-     * ³B²zHttp Method½Ð¨DPUT¤èªk¡]§ó·s¡^
+     * ï¿½Bï¿½zHttp Methodï¿½Ð¨DPUTï¿½ï¿½kï¿½]ï¿½ï¿½sï¿½^
      *
-     * @param request Servlet½Ð¨D¤§HttpServletRequest¤§Requestª«¥ó¡]«eºÝ¨ì«áºÝ¡^
-     * @param response Servlet¦^¶Ç¤§HttpServletResponse¤§Responseª«¥ó¡]«áºÝ¨ì«eºÝ¡^
+     * @param request Servletï¿½Ð¨Dï¿½ï¿½HttpServletRequestï¿½ï¿½Requestï¿½ï¿½ï¿½ï¿½]ï¿½eï¿½Ý¨ï¿½ï¿½Ý¡^
+     * @param response Servletï¿½^ï¿½Ç¤ï¿½HttpServletResponseï¿½ï¿½Responseï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Ý¨ï¿½eï¿½Ý¡^
      * @throws ServletException the servlet exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public void doPut(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        /** ³z¹LJsonReaderÃþ§O±NRequest¤§JSON®æ¦¡¸ê®Æ¸ÑªR¨Ã¨ú¦^ */
+        /** ï¿½zï¿½LJsonReaderï¿½ï¿½ï¿½Oï¿½NRequestï¿½ï¿½JSONï¿½æ¦¡ï¿½ï¿½Æ¸ÑªRï¿½Ã¨ï¿½ï¿½^ */
         JsonReader jsr = new JsonReader(request);
         JSONObject jso = jsr.getObject();
         
-        /** ¨ú¥X¸g¸ÑªR¨ìJSONObject¤§Request°Ñ¼Æ */
+        /** ï¿½ï¿½ï¿½Xï¿½gï¿½ÑªRï¿½ï¿½JSONObjectï¿½ï¿½Requestï¿½Ñ¼ï¿½ */
         int id = jso.getInt("id");
  
         String passORnot = "Pass";
 
-        /** ³z¹L¶Ç¤J¤§°Ñ¼Æ¡A·s«Ø¤@­Ó¥H³o¨Ç°Ñ¼Æ¤§·|­ûMemberª«¥ó */
+        /** ï¿½zï¿½Lï¿½Ç¤Jï¿½ï¿½ï¿½Ñ¼Æ¡Aï¿½sï¿½Ø¤@ï¿½Ó¥Hï¿½oï¿½Ç°Ñ¼Æ¤ï¿½ï¿½|ï¿½ï¿½Memberï¿½ï¿½ï¿½ï¿½ */
         CheckOut c = new CheckOut(id, passORnot);
         
-        /** ³z¹LMemberª«¥óªºupdate()¤èªk¦Ü¸ê®Æ®w§ó·s¸Ó¦W·|­û¸ê®Æ¡A¦^¶Ç¤§¸ê®Æ¬°JSONObjectª«¥ó */
+        /** ï¿½zï¿½LMemberï¿½ï¿½ï¿½ï¿½update()ï¿½ï¿½kï¿½Ü¸ï¿½Æ®wï¿½ï¿½sï¿½Ó¦Wï¿½|ï¿½ï¿½ï¿½ï¿½Æ¡Aï¿½^ï¿½Ç¤ï¿½ï¿½ï¿½Æ¬ï¿½JSONObjectï¿½ï¿½ï¿½ï¿½ */
         JSONObject data = c.update();
         
-        /** ·s«Ø¤@­ÓJSONObject¥Î©ó±N¦^¶Ç¤§¸ê®Æ¶i¦æ«Ê¸Ë */
+        /** ï¿½sï¿½Ø¤@ï¿½ï¿½JSONObjectï¿½Î©ï¿½Nï¿½^ï¿½Ç¤ï¿½ï¿½ï¿½Æ¶iï¿½ï¿½Ê¸ï¿½ */
         JSONObject resp = new JSONObject();
         resp.put("status", "200");
         resp.put("response", data);
         
-        /** ³z¹LJsonReaderª«¥ó¦^¶Ç¨ì«eºÝ¡]¥HJSONObject¤è¦¡¡^ */
+        /** ï¿½zï¿½LJsonReaderï¿½ï¿½ï¿½ï¿½^ï¿½Ç¨ï¿½eï¿½Ý¡]ï¿½HJSONObjectï¿½è¦¡ï¿½^ */
         jsr.response(resp, response);
     }
     

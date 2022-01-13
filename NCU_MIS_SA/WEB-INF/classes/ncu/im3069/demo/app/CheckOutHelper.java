@@ -10,7 +10,7 @@ import ncu.im3069.demo.util.DBMgr;
 /**
  * <p>
  * The Class MemberHelper<br>
- * MemberHelper���O�]class�^�D�n�޲z�Ҧ��PMember�����P��Ʈw����k�]method�^
+ * MemberHelper嚙踝蕭嚙瞌嚙稽class嚙稷嚙瘩嚙緯嚙豬理嚙課佗蕭嚙瞑Member嚙踝蕭嚙踝蕭嚙瞑嚙踝蕭w嚙踝蕭嚙踝蕭k嚙稽method嚙稷
  * </p>
  * 
  * @author IPLab
@@ -21,77 +21,77 @@ import ncu.im3069.demo.util.DBMgr;
 public class CheckOutHelper {
     
     /**
-     * ��Ҥơ]Instantiates�^�@�ӷs���]new�^MemberHelper����<br>
-     * �ĥ�Singleton���ݭn�z�Lnew
+     * 嚙踝蕭狺]Instantiates嚙稷嚙瑾嚙諉新嚙踝蕭嚙稽new嚙稷MemberHelper嚙踝蕭嚙踝蕭<br>
+     * 嚙衝伐蕭Singleton嚙踝蕭嚙豎要嚙緲嚙盤new
      */
     private CheckOutHelper() {
         
     }
     
-    /** �R�A�ܼơA�x�sMemberHelper���� */
+    /** 嚙磋嚙璀嚙豌數，嚙綞嚙編MemberHelper嚙踝蕭嚙踝蕭 */
     private static CheckOutHelper ch;
     
-    /** �x�sJDBC��Ʈw�s�u */
+    /** 嚙綞嚙編JDBC嚙踝蕭w嚙編嚙線 */
     private Connection conn = null;
     
-    /** �x�sJDBC�w�ǳƤ�SQL���O */
+    /** 嚙綞嚙編JDBC嚙緩嚙褒備歹蕭SQL嚙踝蕭嚙瞌 */
     private PreparedStatement pres = null;
     
     /**
-     * �R�A��k<br>
-     * ��@Singleton�]��ҼҦ��^�A�Ȥ��\�إߤ@��MemberHelper����
+     * 嚙磋嚙璀嚙踝蕭k<br>
+     * 嚙踝蕭@Singleton嚙稽嚙踝蕭瓞狾嚙踝蕭^嚙璀嚙褓歹蕭嚙穀嚙諍立一嚙踝蕭MemberHelper嚙踝蕭嚙踝蕭
      *
-     * @return the helper �^��MemberHelper����
+     * @return the helper 嚙稷嚙踝蕭MemberHelper嚙踝蕭嚙踝蕭
      */
     public static CheckOutHelper getHelper() {
-        /** Singleton�ˬd�O�_�w�g��MemberHelper����A�Y�L�hnew�@�ӡA�Y���h�����^�� */
+        /** Singleton嚙誼查嚙瞌嚙稻嚙緩嚙篇嚙踝蕭MemberHelper嚙踝蕭嚙踝蕭A嚙磐嚙盤嚙篁new嚙瑾嚙諉，嚙磐嚙踝蕭嚙篁嚙踝蕭嚙踝蕭嚙稷嚙踝蕭 */
         if(ch == null) ch = new CheckOutHelper();
         
         return ch;
     }
     
     /**
-     * �z�L�|���s���]ID�^�R���|��
+     * 嚙緲嚙盤嚙罵嚙踝蕭嚙編嚙踝蕭嚙稽ID嚙稷嚙磋嚙踝蕭嚙罵嚙踝蕭
      *
-     * @param id �|���s��
-     * @return the JSONObject �^��SQL���浲�G
+     * @param id 嚙罵嚙踝蕭嚙編嚙踝蕭
+     * @return the JSONObject 嚙稷嚙踝蕭SQL嚙踝蕭嚙賣結嚙瘦
      */
 
     public JSONObject getAll() {
-        /** �s�ؤ@�� Member ���� m �ܼơA�Ω�����C�@��d�ߦ^���|����� */
+        /** 嚙編嚙諍一嚙踝蕭 Member 嚙踝蕭嚙踝蕭 m 嚙豌數，嚙諄抬蕭嚙踝蕭嚙踝蕭C嚙瑾嚙踝蕭d嚙賠回嚙踝蕭嚙罵嚙踝蕭嚙踝蕭嚙� */
         CheckOut c = null;
-        /** �Ω��x�s�Ҧ��˯��^���|���A�HJSONArray�覡�x�s */
+        /** 嚙諄抬蕭嚙綞嚙編嚙課佗蕭嚙誼荔蕭嚙稷嚙踝蕭嚙罵嚙踝蕭嚙璀嚙瘡JSONArray嚙質式嚙綞嚙編 */
         JSONArray jsa = new JSONArray();
-        /** �O����ڰ��椧SQL���O */
+        /** 嚙瞌嚙踝蕭嚙踝蕭痚嚙踝蕭璊刨QL嚙踝蕭嚙瞌 */
         String exexcute_sql = "";
-        /** �����{���}�l����ɶ� */
+        /** 嚙踝蕭嚙踝蕭嚙緹嚙踝蕭嚙罷嚙締嚙踝蕭嚙踝蕭伅嚙� */
         long start_time = System.nanoTime();
-        /** ����SQL�`��� */
+        /** 嚙踝蕭嚙踝蕭SQL嚙窯嚙踝蕭嚙� */
         int row = 0;
-        /** �x�sJDBC�˯���Ʈw��^�Ǥ����G�A�H pointer �覡���ʨ�U�@����� */
+        /** 嚙綞嚙編JDBC嚙誼荔蕭嚙踝蕭w嚙踝蕭^嚙褒歹蕭嚙踝蕭嚙瘦嚙璀嚙瘡 pointer 嚙質式嚙踝蕭嚙褊剁蕭U嚙瑾嚙踝蕭嚙踝蕭嚙� */
         ResultSet rs = null;
         
         try {
-            /** ���o��Ʈw���s�u */
+            /** 嚙踝蕭嚙緻嚙踝蕭w嚙踝蕭嚙編嚙線 */
             conn = DBMgr.getConnection();
-            /** SQL���O */
+            /** SQL嚙踝蕭嚙瞌 */
             String sql = "SELECT * FROM `missa`.`check_out`";
             
-            /** �N�ѼƦ^���SQL���O�����A�Y�L�h���Υu�ݭn���� prepareStatement */
+            /** 嚙瞇嚙諸數回嚙踝蕭嚙磅QL嚙踝蕭嚙瞌嚙踝蕭嚙璀嚙磐嚙盤嚙篁嚙踝蕭嚙諄只嚙豎要嚙踝蕭嚙踝蕭 prepareStatement */
             pres = conn.prepareStatement(sql);
-            /** ����d�ߤ�SQL���O�ðO����^�Ǥ���� */
+            /** 嚙踝蕭嚙踝蕭d嚙賠歹蕭SQL嚙踝蕭嚙瞌嚙衛記嚙踝蕭嚙踝蕭^嚙褒歹蕭嚙踝蕭嚙� */
             rs = pres.executeQuery();
 
-            /** �����u����檺SQL���O�A�æL�X **/
+            /** 嚙踝蕭嚙踝蕭嚙線嚙踝蕭嚙踝蕭瑼搴QL嚙踝蕭嚙瞌嚙璀嚙衛印嚙碼 **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
             
-            /** �z�L while �j�鲾��pointer�A���o�C�@���^�Ǹ�� */
+            /** 嚙緲嚙盤 while 嚙篌嚙賡移嚙踝蕭pointer嚙璀嚙踝蕭嚙緻嚙瘠嚙瑾嚙踝蕭嚙稷嚙褒賂蕭嚙� */
             while(rs.next()) {
-                /** �C����@���j����ܦ��@����� */
+                /** 嚙瘠嚙踝蕭嚙踝蕭@嚙踝蕭嚙篌嚙踝蕭嚙豌佗蕭嚙瑾嚙踝蕭嚙踝蕭嚙� */
                 row += 1;
                 
-                /** �N ResultSet ����ƨ��X */
+                /** 嚙瞇 ResultSet 嚙踝蕭嚙踝蕭嚙踝蕭X */
                 int id = rs.getInt("id");
                 String name=rs.getString("name");
                 String dorm = rs.getString("dorm");
@@ -99,29 +99,29 @@ public class CheckOutHelper {
                 String bed = rs.getString("bed");
                 String passORnot = rs.getString("passORnot");
                 
-                /** �N�C�@���|����Ʋ��ͤ@�W�sMember���� */
+                /** 嚙瞇嚙瘠嚙瑾嚙踝蕭嚙罵嚙踝蕭嚙踝蕭嚙踝蕭秅@嚙磕嚙編Member嚙踝蕭嚙踝蕭 */
                 c = new CheckOut(id, name,dorm, room, bed ,passORnot);
-                /** ���X�ӦW�|������ƨëʸ˦� JSONsonArray �� */
+                /** 嚙踝蕭嚙碼嚙諉名嚙罵嚙踝蕭嚙踝蕭嚙踝蕭禱妐辿嚙� JSONsonArray 嚙踝蕭 */
                 jsa.put(c.getData());
             }
 
         } catch (SQLException e) {
-            /** �L�XJDBC SQL���O���~ **/
+            /** 嚙盤嚙碼JDBC SQL嚙踝蕭嚙瞌嚙踝蕭嚙羯 **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** �Y���~�h�L�X���~�T�� */
+            /** 嚙磐嚙踝蕭嚙羯嚙篁嚙盤嚙碼嚙踝蕭嚙羯嚙確嚙踝蕭 */
             e.printStackTrace();
         } finally {
-            /** �����s�u������Ҧ���Ʈw�������귽 **/
+            /** 嚙踝蕭嚙踝蕭嚙編嚙線嚙踝蕭嚙踝蕭嚙踝蕭狾嚙踝蕭嚙複庫嚙踝蕭嚙踝蕭嚙踝蕭嚙赭源 **/
             DBMgr.close(rs, pres, conn);
         }
         
-        /** �����{����������ɶ� */
+        /** 嚙踝蕭嚙踝蕭嚙緹嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭伅嚙� */
         long end_time = System.nanoTime();
-        /** �����{������ɶ� */
+        /** 嚙踝蕭嚙踝蕭嚙緹嚙踝蕭嚙踝蕭嚙踝蕭伅嚙� */
         long duration = (end_time - start_time);
         
-        /** �NSQL���O�B��O�ɶ��B�v�T��ƻP�Ҧ��|����Ƥ�JSONArray�A�ʸ˦�JSONObject�^�� */
+        /** 嚙瞇SQL嚙踝蕭嚙瞌嚙畿嚙踝蕭O嚙褕塚蕭嚙畿嚙緞嚙確嚙踝蕭P嚙課佗蕭嚙罵嚙踝蕭嚙踝蕭嚙皚SONArray嚙璀嚙褊裝佗蕭JSONObject嚙稷嚙踝蕭 */
         JSONObject response = new JSONObject();
         response.put("sql", exexcute_sql);
         response.put("row", row);
@@ -132,49 +132,49 @@ public class CheckOutHelper {
     }
     
     /**
-     * �z�L�|���s���]ID�^���o�|�����
+     * 嚙緲嚙盤嚙罵嚙踝蕭嚙編嚙踝蕭嚙稽ID嚙稷嚙踝蕭嚙緻嚙罵嚙踝蕭嚙踝蕭嚙�
      *
-     * @param id �|���s��
-     * @return the JSON object �^��SQL���浲�G�P�ӷ|���s�����|�����
+     * @param id 嚙罵嚙踝蕭嚙編嚙踝蕭
+     * @return the JSON object 嚙稷嚙踝蕭SQL嚙踝蕭嚙賣結嚙瘦嚙瞑嚙諉會嚙踝蕭嚙編嚙踝蕭嚙踝蕭嚙罵嚙踝蕭嚙踝蕭嚙�
      */
     public JSONObject getByname(String name) {
-        /** �s�ؤ@�� Member ���� m �ܼơA�Ω�����C�@��d�ߦ^���|����� */
+        /** 嚙編嚙諍一嚙踝蕭 Member 嚙踝蕭嚙踝蕭 m 嚙豌數，嚙諄抬蕭嚙踝蕭嚙踝蕭C嚙瑾嚙踝蕭d嚙賠回嚙踝蕭嚙罵嚙踝蕭嚙踝蕭嚙� */
         String status="notfound";
-        /** �x�sJDBC�˯���Ʈw��^�Ǥ����G�A�H pointer �覡���ʨ�U�@����� */
+        /** 嚙綞嚙編JDBC嚙誼荔蕭嚙踝蕭w嚙踝蕭^嚙褒歹蕭嚙踝蕭嚙瘦嚙璀嚙瘡 pointer 嚙質式嚙踝蕭嚙褊剁蕭U嚙瑾嚙踝蕭嚙踝蕭嚙� */
         ResultSet rs = null;
         
         try {
-            /** ���o��Ʈw���s�u */
+            /** 嚙踝蕭嚙緻嚙踝蕭w嚙踝蕭嚙編嚙線 */
             conn = DBMgr.getConnection();
-            /** SQL���O */
+            /** SQL嚙踝蕭嚙瞌 */
             String sql = "SELECT `passORnot` FROM `missa`.`check_out` WHERE `name` = ? LIMIT 1";
             
-            /** �N�ѼƦ^���SQL���O���� */
+            /** 嚙瞇嚙諸數回嚙踝蕭嚙磅QL嚙踝蕭嚙瞌嚙踝蕭 */
             pres = conn.prepareStatement(sql);
             pres.setString(1, name);
-            /** ����d�ߤ�SQL���O�ðO����^�Ǥ���� */
+            /** 嚙踝蕭嚙踝蕭d嚙賠歹蕭SQL嚙踝蕭嚙瞌嚙衛記嚙踝蕭嚙踝蕭^嚙褒歹蕭嚙踝蕭嚙� */
             rs = pres.executeQuery();
             if(rs.next()) {
             	status = rs.getString("passORnot");
             }
             
         } catch (SQLException e) {
-            /** �L�XJDBC SQL���O���~ **/
+            /** 嚙盤嚙碼JDBC SQL嚙踝蕭嚙瞌嚙踝蕭嚙羯 **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** �Y���~�h�L�X���~�T�� */
+            /** 嚙磐嚙踝蕭嚙羯嚙篁嚙盤嚙碼嚙踝蕭嚙羯嚙確嚙踝蕭 */
             e.printStackTrace();
         } finally {
-            /** �����s�u������Ҧ���Ʈw�������귽 **/
+            /** 嚙踝蕭嚙踝蕭嚙編嚙線嚙踝蕭嚙踝蕭嚙踝蕭狾嚙踝蕭嚙複庫嚙踝蕭嚙踝蕭嚙踝蕭嚙赭源 **/
             DBMgr.close(rs, pres, conn);
         }
         
-        /** �����{����������ɶ� */
+        /** 嚙踝蕭嚙踝蕭嚙緹嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭伅嚙� */
 
-        /** �����{������ɶ� */
+        /** 嚙踝蕭嚙踝蕭嚙緹嚙踝蕭嚙踝蕭嚙踝蕭伅嚙� */
 
         
-        /** �NSQL���O�B��O�ɶ��B�v�T��ƻP�Ҧ��|����Ƥ�JSONArray�A�ʸ˦�JSONObject�^�� */
+        /** 嚙瞇SQL嚙踝蕭嚙瞌嚙畿嚙踝蕭O嚙褕塚蕭嚙畿嚙緞嚙確嚙踝蕭P嚙課佗蕭嚙罵嚙踝蕭嚙踝蕭嚙皚SONArray嚙璀嚙褊裝佗蕭JSONObject嚙稷嚙踝蕭 */
         JSONObject response = new JSONObject();
         response.put("passORnot", status);
         System.out.println("4");
@@ -183,96 +183,91 @@ public class CheckOutHelper {
     }
     
     /**
-     * ���o�ӦW�|������s�ɶ��P���ݤ��|���էO
+     * 嚙踝蕭嚙緻嚙諉名嚙罵嚙踝蕭嚙踝蕭嚙踝蕭s嚙褕塚蕭嚙瞑嚙踝蕭嚙豎歹蕭嚙罵嚙踝蕭嚙調別
      *
-     * @param m �@�W�|����Member����
-     * @return the JSON object �^�ǸӦW�|������s�ɶ��P���ݲէO�]�HJSONObject�i��ʸˡ^
+     * @param m 嚙瑾嚙磕嚙罵嚙踝蕭嚙踝蕭Member嚙踝蕭嚙踝蕭
+     * @return the JSON object 嚙稷嚙褒該名嚙罵嚙踝蕭嚙踝蕭嚙踝蕭s嚙褕塚蕭嚙瞑嚙踝蕭嚙豎組別嚙稽嚙瘡JSONObject嚙箠嚙踝蕭妐芊^
      */
 
     /**
-     * �ˬd�ӦW�|�����q�l�l��H�c�O�_���Ƶ��U
+     * 嚙誼查嚙諉名嚙罵嚙踝蕭嚙踝蕭嚙緬嚙締嚙締嚙踝蕭H嚙箱嚙瞌嚙稻嚙踝蕭嚙複蛛蕭嚙磊
      *
-     * @param m �@�W�|����Member����
-     * @return boolean �Y���Ƶ��U�^��False�A�Y�ӫH�c���s�b�h�^��True
+     * @param m 嚙瑾嚙磕嚙罵嚙踝蕭嚙踝蕭Member嚙踝蕭嚙踝蕭
+     * @return boolean 嚙磐嚙踝蕭嚙複蛛蕭嚙磊嚙稷嚙踝蕭False嚙璀嚙磐嚙諉信嚙箱嚙踝蕭嚙編嚙箭嚙篁嚙稷嚙踝蕭True
      */
     public boolean checkDuplicate(CheckOut c){
-        /** ����SQL�`��ơA�Y���u-1�v�N����Ʈw�˯��|������ */
+        /** 嚙踝蕭嚙踝蕭SQL嚙窯嚙踝蕭A嚙磐嚙踝蕭嚙線-1嚙緞嚙瞇嚙踝蕭嚙複庫嚙誼荔蕭嚙罵嚙踝蕭嚙踝蕭嚙踝蕭 */
         int row = -1;
-        /** �x�sJDBC�˯���Ʈw��^�Ǥ����G�A�H pointer �覡���ʨ�U�@����� */
+        /** 嚙綞嚙編JDBC嚙誼荔蕭嚙踝蕭w嚙踝蕭^嚙褒歹蕭嚙踝蕭嚙瘦嚙璀嚙瘡 pointer 嚙質式嚙踝蕭嚙褊剁蕭U嚙瑾嚙踝蕭嚙踝蕭嚙� */
         ResultSet rs = null;
         
         try {
-            /** ���o��Ʈw���s�u */
+            /** 嚙踝蕭嚙緻嚙踝蕭w嚙踝蕭嚙編嚙線 */
             conn = DBMgr.getConnection();
-            /** SQL���O */
-            String sql = "SELECT count(*) FROM `missa`.`check_out` WHERE `name` = ? AND `dorm` = ? AND `room` = ? AND `bed` = ?";
+            /** SQL嚙踝蕭嚙瞌 */
+            String sql = "SELECT count(*) FROM `missa`.`check_out` WHERE `name` = ? ";
             
-            /** ���o�һݤ��Ѽ� */
+            /** 嚙踝蕭嚙緻嚙課需歹蕭嚙諸潘蕭 */
             String name=c.getName();
-            String dorm = c.getDorm();
-            String room = c.getRoom();
-            String bed = c.getBed();
+
             
-            /** �N�ѼƦ^���SQL���O���� */
+            /** 嚙瞇嚙諸數回嚙踝蕭嚙磅QL嚙踝蕭嚙瞌嚙踝蕭 */
             pres = conn.prepareStatement(sql);
             pres.setString(1, name);
-            pres.setString(2, dorm);
-            pres.setString(3, room);
-            pres.setString(4, bed);
-            /** ����d�ߤ�SQL���O�ðO����^�Ǥ���� */
+            /** 嚙踝蕭嚙踝蕭d嚙賠歹蕭SQL嚙踝蕭嚙瞌嚙衛記嚙踝蕭嚙踝蕭^嚙褒歹蕭嚙踝蕭嚙� */
             rs = pres.executeQuery();
 
-            /** �����в����̫�@�C�A���o�ثe���X��b��Ʈw�� */
+            /** 嚙踝蕭嚙踝蕭嚙請莎蕭嚙踝蕭嚙諒恬蕭@嚙瘠嚙璀嚙踝蕭嚙緻嚙諍前嚙踝蕭嚙碼嚙踝蕭b嚙踝蕭w嚙踝蕭 */
             rs.next();
             row = rs.getInt("count(*)");
             System.out.print(row);
 
         } catch (SQLException e) {
-            /** �L�XJDBC SQL���O���~ **/
+            /** 嚙盤嚙碼JDBC SQL嚙踝蕭嚙瞌嚙踝蕭嚙羯 **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** �Y���~�h�L�X���~�T�� */
+            /** 嚙磐嚙踝蕭嚙羯嚙篁嚙盤嚙碼嚙踝蕭嚙羯嚙確嚙踝蕭 */
             e.printStackTrace();
         } finally {
-            /** �����s�u������Ҧ���Ʈw�������귽 **/
+            /** 嚙踝蕭嚙踝蕭嚙編嚙線嚙踝蕭嚙踝蕭嚙踝蕭狾嚙踝蕭嚙複庫嚙踝蕭嚙踝蕭嚙踝蕭嚙赭源 **/
             DBMgr.close(rs, pres, conn);
         }
         
         /** 
-         * �P�_�O�_�w�g���@���ӹq�l�l��H�c�����
-         * �Y�L�@���h�^��False�A�_�h�^��True 
+         * 嚙瞑嚙稻嚙瞌嚙稻嚙緩嚙篇嚙踝蕭嚙瑾嚙踝蕭嚙諉電嚙締嚙締嚙踝蕭H嚙箱嚙踝蕭嚙踝蕭嚙�
+         * 嚙磐嚙盤嚙瑾嚙踝蕭嚙篁嚙稷嚙踝蕭False嚙璀嚙稻嚙篁嚙稷嚙踝蕭True 
          */
         return (row == 0) ? false : true;
     }
     
     /**
-     * �إ߸ӦW�|���ܸ�Ʈw
+     * 嚙諍立該名嚙罵嚙踝蕭嚙豌賂蕭w
      *
-     * @param m �@�W�|����Member����
-     * @return the JSON object �^��SQL���O���椧���G
+     * @param m 嚙瑾嚙磕嚙罵嚙踝蕭嚙踝蕭Member嚙踝蕭嚙踝蕭
+     * @return the JSON object 嚙稷嚙踝蕭SQL嚙踝蕭嚙瞌嚙踝蕭嚙賣之嚙踝蕭嚙瘦
      */
     public JSONObject create(CheckOut c) {
-        /** �O����ڰ��椧SQL���O */
+        /** 嚙瞌嚙踝蕭嚙踝蕭痚嚙踝蕭璊刨QL嚙踝蕭嚙瞌 */
         String exexcute_sql = "";
-        /** �����{���}�l����ɶ� */
+        /** 嚙踝蕭嚙踝蕭嚙緹嚙踝蕭嚙罷嚙締嚙踝蕭嚙踝蕭伅嚙� */
         long start_time = System.nanoTime();
-        /** ����SQL�`��� */
+        /** 嚙踝蕭嚙踝蕭SQL嚙窯嚙踝蕭嚙� */
         int row = 0;
         
         try {
-            /** ���o��Ʈw���s�u */
+            /** 嚙踝蕭嚙緻嚙踝蕭w嚙踝蕭嚙編嚙線 */
             conn = DBMgr.getConnection();
-            /** SQL���O */
+            /** SQL嚙踝蕭嚙瞌 */
             String sql = "INSERT INTO `missa`.`check_out`(`name`, `dorm`, `room`, `bed`, `created` ,`passORnot`)"
                     + " VALUES(?, ?, ?, ?, ?, ?)";
             
-            /** ���o�һݤ��Ѽ� */
+            /** 嚙踝蕭嚙緻嚙課需歹蕭嚙諸潘蕭 */
             String name=c.getName();
             String dorm = c.getDorm();
             String room = c.getRoom();
             String bed = c.getBed();
             String passORnot = c.getPassORnot();
-            /** �N�ѼƦ^���SQL���O���� */
+            /** 嚙瞇嚙諸數回嚙踝蕭嚙磅QL嚙踝蕭嚙瞌嚙踝蕭 */
             pres = conn.prepareStatement(sql);
             pres.setString(1, name);
             pres.setString(2, dorm);
@@ -282,30 +277,30 @@ public class CheckOutHelper {
             pres.setString(6, passORnot);
 
             
-            /** ����s�W��SQL���O�ðO���v�T����� */
+            /** 嚙踝蕭嚙踝蕭s嚙磕嚙踝蕭SQL嚙踝蕭嚙瞌嚙衛記嚙踝蕭嚙緞嚙確嚙踝蕭嚙踝蕭嚙� */
             row = pres.executeUpdate();
             
-            /** �����u����檺SQL���O�A�æL�X **/
+            /** 嚙踝蕭嚙踝蕭嚙線嚙踝蕭嚙踝蕭瑼搴QL嚙踝蕭嚙瞌嚙璀嚙衛印嚙碼 **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
 
         } catch (SQLException e) {
-            /** �L�XJDBC SQL���O���~ **/
+            /** 嚙盤嚙碼JDBC SQL嚙踝蕭嚙瞌嚙踝蕭嚙羯 **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** �Y���~�h�L�X���~�T�� */
+            /** 嚙磐嚙踝蕭嚙羯嚙篁嚙盤嚙碼嚙踝蕭嚙羯嚙確嚙踝蕭 */
             e.printStackTrace();
         } finally {
-            /** �����s�u������Ҧ���Ʈw�������귽 **/
+            /** 嚙踝蕭嚙踝蕭嚙編嚙線嚙踝蕭嚙踝蕭嚙踝蕭狾嚙踝蕭嚙複庫嚙踝蕭嚙踝蕭嚙踝蕭嚙赭源 **/
             DBMgr.close(pres, conn);
         }
 
-        /** �����{����������ɶ� */
+        /** 嚙踝蕭嚙踝蕭嚙緹嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭嚙踝蕭伅嚙� */
         long end_time = System.nanoTime();
-        /** �����{������ɶ� */
+        /** 嚙踝蕭嚙踝蕭嚙緹嚙踝蕭嚙踝蕭嚙踝蕭伅嚙� */
         long duration = (end_time - start_time);
 
-        /** �NSQL���O�B��O�ɶ��P�v�T��ơA�ʸ˦�JSONObject�^�� */
+        /** 嚙瞇SQL嚙踝蕭嚙瞌嚙畿嚙踝蕭O嚙褕塚蕭嚙瞑嚙緞嚙確嚙踝蕭A嚙褊裝佗蕭JSONObject嚙稷嚙踝蕭 */
         JSONObject response = new JSONObject();
         response.put("sql", exexcute_sql);
         response.put("time", duration);
@@ -314,43 +309,43 @@ public class CheckOutHelper {
         return response;
     }
     public JSONObject update(CheckOut c) {
-        /** �����^�Ǥ���� */
+        /** 嚙踝蕭嚙踝蕭嚙稷嚙褒歹蕭嚙踝蕭嚙� */
         JSONArray jsa = new JSONArray();
-        /** �O����ڰ��椧SQL���O */
+        /** 嚙瞌嚙踝蕭嚙踝蕭痚嚙踝蕭璊刨QL嚙踝蕭嚙瞌 */
         String exexcute_sql = "";
-        /** �����{���}�l����ɶ� */
+        /** 嚙踝蕭嚙踝蕭嚙緹嚙踝蕭嚙罷嚙締嚙踝蕭嚙踝蕭伅嚙� */
         int row = 0;
         
         try {
-            /** ���o��Ʈw���s�u */
+            /** 嚙踝蕭嚙緻嚙踝蕭w嚙踝蕭嚙編嚙線 */
             conn = DBMgr.getConnection();
-            /** SQL���O */
+            /** SQL嚙踝蕭嚙瞌 */
             String sql = "Update `missa`.`check_out` SET `passORnot` = ? WHERE `id` = ?";
-            /** ���o�һݤ��Ѽ� */
+            /** 嚙踝蕭嚙緻嚙課需歹蕭嚙諸潘蕭 */
             int id = c.getID();
             String passORnot = c.getPassORnot();
             
-            /** �N�ѼƦ^���SQL���O���� */
+            /** 嚙瞇嚙諸數回嚙踝蕭嚙磅QL嚙踝蕭嚙瞌嚙踝蕭 */
             pres = conn.prepareStatement(sql);
             pres.setString(1, passORnot);
             pres.setInt(2, id);
             row = pres.executeUpdate();
-            /** �����u����檺SQL���O�A�æL�X **/
+            /** 嚙踝蕭嚙踝蕭嚙線嚙踝蕭嚙踝蕭瑼搴QL嚙踝蕭嚙瞌嚙璀嚙衛印嚙碼 **/
             exexcute_sql = pres.toString();
             System.out.println(exexcute_sql);
 
         } catch (SQLException e) {
-            /** �L�XJDBC SQL���O���~ **/
+            /** 嚙盤嚙碼JDBC SQL嚙踝蕭嚙瞌嚙踝蕭嚙羯 **/
             System.err.format("SQL State: %s\n%s\n%s", e.getErrorCode(), e.getSQLState(), e.getMessage());
         } catch (Exception e) {
-            /** �Y���~�h�L�X���~�T�� */
+            /** 嚙磐嚙踝蕭嚙羯嚙篁嚙盤嚙碼嚙踝蕭嚙羯嚙確嚙踝蕭 */
             e.printStackTrace();
         } finally {
-            /** �����s�u������Ҧ���Ʈw�������귽 **/
+            /** 嚙踝蕭嚙踝蕭嚙編嚙線嚙踝蕭嚙踝蕭嚙踝蕭狾嚙踝蕭嚙複庫嚙踝蕭嚙踝蕭嚙踝蕭嚙赭源 **/
             DBMgr.close(pres, conn);
         }
                 
-        /** �NSQL���O�B��O�ɶ��P�v�T��ơA�ʸ˦�JSONObject�^�� */
+        /** 嚙瞇SQL嚙踝蕭嚙瞌嚙畿嚙踝蕭O嚙褕塚蕭嚙瞑嚙緞嚙確嚙踝蕭A嚙褊裝佗蕭JSONObject嚙稷嚙踝蕭 */
         JSONObject response = new JSONObject();
         response.put("sql", exexcute_sql);
         response.put("row", row);

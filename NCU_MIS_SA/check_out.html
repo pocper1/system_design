@@ -1,21 +1,41 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>首頁 ｜ 宿舍管理系統</title>
+    <meta content="" name="description" />
 
-  <link href="statics/css/bootstrap.min.css" rel="stylesheet">
-  <link href="statics/css/font-awesome.min.css" rel="stylesheet">
-  <link type="text/css" href="statics/css/check_out.css" rel="stylesheet">
-  <script src="statics/js/jquery-3.4.1.min.js"></script>
-   
-    <link href="statics/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="statics/icon/favicon.ico" rel="icon" />
+    <link href="statics/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
     <link
-      href="statics/icon/favicon.ico"
-      type="image/x-icon"
-      rel="shortcut icon"
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
     />
+
+    <!-- Vendor CSS Files -->
+    <link type="text/css" href="statics/css/check_out.css" rel="stylesheet">
+    <link href="statics/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="statics/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="statics/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="statics/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="statics/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="statics/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
     <link
       rel="stylesheet"
@@ -23,316 +43,366 @@
       integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
       crossorigin="anonymous"
     />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
-      crossorigin="anonymous"
-    />
+    <script src="statics/js/jquery-3.4.1.min.js"></script>
+    <!-- Template Main CSS File -->
+    <link href="statics/css/style.css" rel="stylesheet" />
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-      crossorigin="anonymous"
-    ></script>
+    <!-- =======================================================
+  * Template Name: FlexStart - v1.9.0
+  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+  <script>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
+    //alert(name);
+    function notLogin() {
+      alert("請先登入!");
+      window.location = "login.html";
+    }
+    function notAdmin() {
+      alert("你不是管理員!");
+      window.location = "index.html";
+    }
+  </script>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="statics/img/logo.png" alt="" />
+          <span>宿舍管理系統</span>
+        </a>
 
-  <title>退宿</title>
-
-</head>
-
-
-<body>
-
-<div>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background:#899878">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html" style="color:#f7f7f2"
-          ><i class="fa fa-bed"></i> 宿舍管理系統</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html" style="color:#f7f7f2">首頁</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="member.html" style="color:#f7f7f2"
-                ><strong>會員管理</strong></a
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a class="nav-link scrollto active" href="index.html#hero">首頁</a></li>
+            <li><a class="nav-link scrollto" href="index.html#services">選單</a></li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
+                其他功能
+              </a>
+
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="index.html#bulletin_board"
+                    >公告欄</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="discussion_board.html"
+                    >討論版</a
+                  >
+                </li>
+                <li>
+                  <a class="nav-link dropdown-item scrollto" href="payment.html"
+                    >宿舍繳費</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="dormManagement.html"
+                    >宿舍報修</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="check_in.html"
+                    >報到手續</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="check_out.html"
+                    >退宿手續</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider admin" />
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto admin"
+                    href="member.html"
+                    >會員管理</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto admin"
+                    href="bulletinboard.html"
+                    >公告欄管理</a
+                  >
+                </li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="bulletinboard.html" style="color:#f7f7f2">公告欄</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="discussion_board.html" style="color:#f7f7f2">討論版</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" style="color:#f7f7f2">宿舍繳費</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="dormManagement.html" style="color:#f7f7f2">宿舍報修</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="check_in.html" style="color:#f7f7f2">報到手續</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="check_out.html" style="color:#f7f7f2">退宿手續</a>
-            </li>
+
             <div id="loginOrNot"></div>
           </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header> <!-- End Header -->
+
+    <section id="hero" class="hero d-flex align-items-center">
+      <div class="container" id="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h1 data-aos="fade-up">退宿系統</h1>
+          </div>
+   
+          <div class="col-lg-6" data-aos="fade-up">
+            	<div id="process">
+					<ul>
+					  <li>
+					    <img src="statics/img/pic/p1.svg" width="60" style="margin-bottom:20px"><br>
+							<i class="fa fa-history" aria-hidden="true" id="p11"></i>
+	    					<i class="fa fa-check" id="p12"></i>
+	    					<p>填寫申請表</p>
+					  
+					  </li>
+					  <li>
+					    <img src="statics/img/pic/p2.svg" width="60" style="margin-bottom:20px"><br>
+						    <i class="fa fa-times" id="p21"></i>
+	    					<i class="fa fa-history" aria-hidden="true"id="p22"></i>
+	    					<i class="fa fa-check" id="p23"></i>
+	    					<p>檢查中</p>
+					  </li>
+					  <li>
+					    <img src="statics/img/pic/p3.svg" width="60" style="margin-bottom:20px"><br>
+					    	<i class="fa fa-times" id="p31"></i>
+	    					<i class="fa fa-check" id="p32"></i>
+	    					<p>完成退宿</p>
+					  </li>
+					  </ul>
+				</div>
+          </div>
+          
+ 
+          
+          <div class="col-lg-3" data-aos="fade-up">
+      	      <form id="my_form">
+              <div class="row gy-4">
+                <div class="col-md-6">
+                  <input type="text" id="Name" class="form-control" name="姓名" placeholder="姓名" required>
+                </div>
+
+                <div class="col-md-6">
+                 	<select class="form-select" id="dorm" name="宿舍" required>
+				      <option value="國際宿舍 International Dorm">國際宿舍 International Dorm</option>
+				      <option value="研究生宿舍 Graduate Student Dorm">研究生宿舍 Graduate Student Dorm</option>
+				      <option value="G1">G1</option>
+				      <option value="G2">G2</option>
+				      <option value="G3">G3</option>
+				      <option value="G4">G4</option>
+				      <option value="G5">G5</option>
+				      <option value="G14">G14</option>
+				      <option value="B3">B3</option>
+				      <option value="B5">B5</option>
+				      <option value="B6">B6</option>
+				      <option value="B7">B7</option>
+				      <option value="B9A">B9A</option>
+				      <option value="B9B">B9B</option>
+				      <option value="B11">B11</option>
+				      <option value="B12">B12</option>
+				      <option value="B13">B13</option>
+				    </select>
+                </div>
+                <div class="col-md-12">
+                  <input type="text" id="room" class="form-control" name="房號" placeholder="房號" required>
+                </div>
+                <div class="col-md-12">
+                  <input id="bed" type="text" class="form-control" name="床位" placeholder="床位" required>
+                </div>
+                <div class="col-md-12 text-center">
+                  <button type="submit" class="btn btn-primary">送出</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          
+                    
+                    
+           <div class="col-lg-9" data-aos="fade-up"
+            data-aos="zoom-out"
+            data-aos-delay="200">
+            <img src="statics/img/check_out.svg" class="img-fluid" alt="" />
+          </div>
+          
+          
+          
+		</div>
+		</div>
+		<div id="content">  
+			<table id="table" style="position: absolute;left: 450px;top: 180px;">
+  				<thead>
+  				<tr>
+  					<th>編號</th>
+  					<th>姓名</th>
+  					<th>宿舍</th>
+  					<th>房號</th>
+  					<th>床位</th>
+  					<th>狀態</th>
+  					<th>Pass</th>
+  				</tr>
+  				</thead>
+  			<tbody></tbody>
+  			</table> 
+  		</div>
+    </section>
+    
+
+    <footer id="footer" class="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="copyright">
+            &copy; Copyright <strong><span>FlexStart</span></strong
+            >. All Rights Reserved <br />
+            <span class="text-align-center">系統分析與設計_期末專案</span>
+            <span class="text-align-center">第17組</span>
+          </div>
+
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
         </div>
       </div>
-    </nav>
+    </footer>
+    <!-- End Footer -->
 
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
 
-  <div class="tag" style="position:absolute; width:295px; height:76px; left:60px; top:100px;border-radius:50px;background-color: #E4E6C3;box-shadow: 12px 5px 5px #AEB4B1">
-    <img src="statics/img/check_out.svg"  width="95%" height="95%" style="position: absolute;left: -70px;top: 3px;">
-    <span style="position: absolute;width: 95px;height: 28px;left: 140px;top: 28px;font-family: Work Sans;font-style: normal;font-weight: bold;font-size: 24px;line-height: 28px;letter-spacing: -0.02em;">退宿系統</span>
-  </div>
-  
-  <div style="font-family: Work Sans;font-style: normal;font-weight: bold;text-align:center;position:absolute; left:1500px; top:170px;width:5%;font-size: 20px;" id="list">
-  	<a href="check_out_management.html"style="text-decoration:none;color:#899878;" class="listbtn"><img src="statics/img/pic/list.svg">退宿列表</a>
-  </div>
+    <!-- Vendor JS Files -->
+    <script src="statics/vendor/purecounter/purecounter.js"></script>
+    <script src="statics/vendor/aos/aos.js"></script>
+    <script src="statics/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="statics/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="statics/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="statics/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="statics/vendor/php-email-form/validate.js"></script>
 
-	<div class="process">
-	<ul>
-	  <li>
-	    <img src="statics/img/pic/p1.svg" width="60" style="margin-bottom:20px"><br>
-	    <i class="fa fa-refresh" id="p11"></i>
-	    <i class="fa fa-check" id="p12"></i>
-	    <p>填寫申請表</p>
-	  </li>
-	  <li>
-	    <img src="statics/img/pic/p2.svg" width="60" style="margin-bottom:20px"><br>
-	    <i class="fa fa-times" id="p21"></i>
-	    <i class="fa fa-refresh" id="p22"></i>
-	    <i class="fa fa-check" id="p23"></i>
-	    <p>檢查中</p>
-	  </li>
-	  <li>
-	    <img src="statics/img/pic/p3.svg" width="60" style="margin-bottom:20px"><br>
-	    <i class="fa fa-times" id="p31"></i>
-	    <i class="fa fa-check" id="p32"></i>
-	    <p>完成退宿</p>
-	  </li>
-	  </ul>
-	</div>
+    <!-- Template Main JS File -->
+    <script src="statics/js/main.js"></script>
+    <script>
 
-	<div class="container" id="form_back">
-		<br>
-		<center><p style="font-family: Work Sans; font-style: normal; font-weight: bold; font-size: 24px;">退宿申請表</p></center>
-		
-		
-		
-		<form accept-charset="utf-8" id="my_form" style="position: absolute;width: 500px;height: 380px;left: 800px;top: 500px;">
-		  <div>
-		    <label class="form-label">姓名</label>
-		    <input type="text" id="Name" class="form-control" style="width:300px" required="required">
-		  </div>
-		  <br>
-		  <div>
-		    <label class="form-label">宿舍</label><br>
-		    <select class="form-select" id="dorm" style="width:300px" required="required">
-		      <option value="國際宿舍 International Dorm">國際宿舍 International Dorm</option>
-		      <option value="研究生宿舍 Graduate Student Dorm">研究生宿舍 Graduate Student Dorm</option>
-		      <option value="G1">G1</option>
-		      <option value="G2">G2</option>
-		      <option value="G3">G3</option>
-		      <option value="G4">G4</option>
-		      <option value="G5">G5</option>
-		      <option value="G14">G14</option>
-		      <option value="B3">B3</option>
-		      <option value="B5">B5</option>
-		      <option value="B6">B6</option>
-		      <option value="B7">B7</option>
-		      <option value="B9A">B9A</option>
-		      <option value="B9B">B9B</option>
-		      <option value="B11">B11</option>
-		      <option value="B12">B12</option>
-		      <option value="B13">B13</option>
-		    </select>
-		 
-		  </div>
-
-		  <br>
-		  <div>
-		    <label class="form-label">房號</label>
-		    <input type="text" id="room" class="form-control" style="width:300px" required="required">
-		  </div>
-		  <br>
-		  <div>
-		  	<label class="form-label">床號</label>
-		    <input type="text" id="bed" class="form-control" style="width:300px" required="required">
-		  </div>
-		  <br>
-		  <p><input type="submit"></p>
-		  
-		</form>
-		<div id="success">
-		<img src="statics/img/pic/success.svg"style="position: absolute;left: 760px;top: 500px;width:20%">
-		<br>
-		<p style="position: absolute;left: 885px;top: 900px;">退宿完成</p>
-		</div>
-		
-	    <div id="summit_success">
-	    <img src="statics/img/pic/summit_success.svg"style="position: absolute;left: 790px;top: 500px;width:20%">
-	    <br>
-		<p style="position: absolute;left: 885px;top: 900px">完成填寫</p>
-		</div>
-		
-		<script>
-		  var name;
-		  var role;
-		  function getUserID(){
-			  $.ajax({
-		          type: "GET",
-		          url: "api/login.do",
-		          contentType: "application/json; charset=UTF-8",
-		          crossDomain: true,
-		          cache: false,
-		          dataType: 'json',
-		          timeout: 5000,
-		          success: function (response) {
-		              if(response.status == 200){
-		              	if(response.response.status == "login"){//未登入
-		              		name = response.response.name;
-		              		updateStatus(name);
-		              		role = response.response.role;
-		              		if(role!=='1' || role=='2'){$("#list").hide();}
-		              	}else{
-		              		notLogin();
-		              	}
-		              	console.log(response);
-		              }
-		          },
-		          error: function () {
-		              alert("無法連線到伺服器！");
-		          }
-		  	});
-		  }
-		  function updateStatus(name){
-              var name_object = {
-                      'UserId':name
-              };
-              var name_string = JSON.stringify(name_object);
-			  $.ajax({
-		          type: "GET",
-		          url: "api/check_out.do",
-		          contentType: "application/json; charset=UTF-8",
-		          data:name_object,
-		          crossDomain: true,
-		          cache: false,
-		          dataType: 'json',
-		          timeout: 5000,
-		          success: function (response) {
-		              if(response.status == 200){
-		              	if(response.response.passORnot == "Pass"){
-		              		$("#summit_success").hide();
-		              		$("#my_form").hide();
-		              		$("#form_back").css("opacity", "0.55");
-		              		$("#succes").show();
-		        			$("#p11").hide();
-		        			$("#p21").hide();
-		        			$("#p22").hide();
-		        			$("#p31").hide();
-        		    		$("ul li:nth-child(1) .fa").css("background","#60aa97");
-        		    		$("ul li:nth-child(1) .fa").toggleClass("changed");
-        		    		$("ul li:nth-child(2) .fa").css("background","#60aa97");
-        		    		$("ul li:nth-child(2) .fa").toggleClass("changed2");
-        		    		$("ul li:nth-child(3) .fa").css("background","#148e14");
-        		    		$("ul li:nth-child(3) .fa").toggleClass("changed");
-		              	}else if(response.response.passORnot == "NotPass"){
-		              		$("#success").hide();
-		              		$("#my_form").hide();
-		              		$("#form_back").css("opacity", "0.55");
-		              		$("#summit_succes").show();
-		        			$("#p11").hide();
-		        			$("#p21").hide();
-		        			$("#p23").hide();
-		        			$("#p32").hide();
-        		    		$("ul li:nth-child(1) .fa").css("background","#60aa97");
-        		    		$("ul li:nth-child(1) .fa").toggleClass("changed");
-        		    		$("ul li:nth-child(2) .fa").css("background","#148e14");
-        		    		$("ul li:nth-child(2) .fa").toggleClass("changed1");
-		              	}
-		              	else{		  
-		              		$("#success").hide();
-		      		  		$("#summit_success").hide();
-		    		  		$("#p12").hide();
-		    		  		$("#p22").hide();
-		    		  		$("#p23").hide();
-		    		  		$("#p32").hide();
-		    		  	}
-		              	console.log(response);
-		              }
-		          },
-		          error: function () {
-		              alert("無法連線到伺服器！");
-		          }
-		  	});
-		  }
-		$(document).ready(function (){
-			  checkLogin();
-			  getUserID();
-		});
-        function checkLogin(){
-      	    $.ajax({
-      	            type: "GET",
-      	            url: "api/login.do",
-      	            contentType: "application/json; charset=UTF-8",
-      	            crossDomain: true,
-      	            cache: false,
-      	            dataType: 'json',
-      	            timeout: 5000,
-      	            success: function (response) {
-      	                if(response.status == 200){
-      						let inner_html='';
-      	                	if(response.response.status != "login"){//未登入
-      	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html" style="color:#f7f7f2">登入</a></li>';
-      	                	}else{//登入
-      	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#f7f7f2"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
-      	                	}
-      	                	$("#loginOrNot").append(inner_html);
-      	                }
-      	                console.log(response);
-      	            },
-      	            error: function () {
-      	                alert("無法連線到伺服器！");
-      	            }
-      	    });
-        }
-		  
-
-
-		
-		  
+    var name;
+    var role;
+    function checkID() {
+      $.ajax({
+        type: "GET",
+        url: "api/login.do",
+        crossDomain: true,
+        cache: false,
+        dataType: "json",
+        timeout: 5000,
+        success: function (response) {
+          if (response.status == 200) {
+            if (response.response.status == "login") {
+              //未登入
+              name = response.response.name;
+              role = response.response.role;
+              updateStatus(name);
+              if (role == "1" || role == "2") {
+            	  $("#container").hide();
+            	  getAllForm();
+              } else {
+            	  $("#content").hide();
+              }
+            } else {
+              //notLogin();
+            }
+            $("#addbtn").append(addbtn);
+            console.log(response);
+          }
+        },
+        error: function () {
+          alert("無法連線到伺服器！");
+        },
+      });
+    }
+    checkID();
+      //account function
+      function checkLogin() {
+        $.ajax({
+          type: "GET",
+          url: "api/login.do",
+          crossDomain: true,
+          cache: false,
+          dataType: "json",
+          timeout: 5000,
+          success: function (response) {
+            if (response.status == 200) {
+              let inner_html = "";
+              if (response.response.status != "login") {
+                //未登入
+                inner_html +=
+                  '<li class="nav-item"><a class="getstarted scrollto" href="login.html" role="button">登入 / 註冊</a></li>';
+              } else {
+                //登入
+                inner_html +=
+                  '<li class="dropdown"><a href="#"><span>' +
+                  response.response.name +
+                  '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()" role="button">登出</a></li></ul></li>';
+              }
+              $("#loginOrNot").append(inner_html);
+            }
+            console.log(response);
+          },
+          error: function () {
+            alert("無法連線到伺服器！");
+          },
+        });
+      }
+      checkLogin();
+      function Logout() {
+        // 發出POST的AJAX請求
+        $.ajax({
+          type: "POST",
+          url: "api/logout.do",
+          crossDomain: true,
+          cache: false,
+          dataType: "json",
+          timeout: 5000,
+          success: function (response) {
+            if (response.status == 200) {
+            }
+            console.log(response);
+          },
+          error: function () {
+            alert("無法連線到伺服器！");
+          },
+        });
+        window.location.reload();
+      }
+      //end account function
 	    	$("#my_form").submit(function(event) {
 	    		event.preventDefault();
                 var UserId=$("#Name").val();
@@ -375,6 +445,10 @@
                         		alert("提交成功!");
                         		location.reload(true);
                         	}
+                        	else{
+                        		alert("您已填寫過填寫!");
+                       
+                        	}
                         	console.log(response);
                         },
                         error: function () {
@@ -384,36 +458,118 @@
                 }
 		    		
 	    	});
+			  function updateStatus(name){
+	              var name_object = {
+	                      'UserId':name
+	              };
+	              var name_string = JSON.stringify(name_object);
+				  $.ajax({
+			          type: "GET",
+			          url: "api/check_out.do",
+			          contentType: "application/json; charset=UTF-8",
+			          data:name_object,
+			          crossDomain: true,
+			          cache: false,
+			          dataType: 'json',
+			          timeout: 5000,
+			          success: function (response) {
+			              if(response.status == 200){
+			              	if(response.response.passORnot == "Pass"){
+			        			$("#p11").hide();
+			        			$("#p21").hide();
+			        			$("#p22").hide();
+			        			$("#p31").hide();
+	        		    		$("ul li:nth-child(1) .fa").css("background","#60aa97");
+	        		    		$("ul li:nth-child(1) .fa").toggleClass("changed");
+	        		    		$("ul li:nth-child(2) .fa").css("background","#60aa97");
+	        		    		$("ul li:nth-child(2) .fa").toggleClass("changed2");
+	        		    		$("ul li:nth-child(3) .fa").css("background","#148e14");
+	        		    		$("ul li:nth-child(3) .fa").toggleClass("changed");
+			              	}else if(response.response.passORnot == "NotPass"){
+			        			$("#p11").hide();
+			        			$("#p21").hide();
+			        			$("#p23").hide();
+			        			$("#p32").hide();
+	        		    		$("ul li:nth-child(1) .fa").css("background","#60aa97");
+	        		    		$("ul li:nth-child(1) .fa").toggleClass("changed");
+	        		    		$("ul li:nth-child(2) .fa").css("background","#148e14");
+	        		    		$("ul li:nth-child(2) .fa").toggleClass("changed1");
+			              	}
+			              	else{		  
+			    		  		$("#p12").hide();
+			    		  		$("#p22").hide();
+			    		  		$("#p23").hide();
+			    		  		$("#p32").hide();
+			    		  	}
+			              	console.log(response);
+			              }
+			          },
+			          error: function () {
+			              alert("無法連線到伺服器！");
+			          }
+			  	});
+			  }
+			  	function pass(id){
+			  	  
+			  		var request = {'id': id};
+			        var data_string = JSON.stringify(request);
+			        
+			        $.ajax({
+			            type: "PUT",
+			            url: "api/check_out.do",
+			            crossDomain: true,
+			            data: data_string,
+			            cache: false,
+			            dataType: 'json',
+			            timeout: 5000,
+			            success: function (response) {
+			                if(response.status == 200){
+			                    getAllForm();
+			                }    
+			            },
+			            error: function () {
+			                alert("無法連線到伺服器！");
+			            }
+			        });
+			  	}
+			  	
+			  	function getAllForm(){
+			        $.ajax({
+			            type: "GET",
+			            url: "api/check_out.do",
+			            crossDomain: true,
+			            cache: false,
+			            dataType: 'json',
+			            timeout: 5000,
+			            success: function (response) {
+			                if(response.status == 200){
+			                    updateTable(response.response.data);
+			                }
+			                console.log(response);
+			            },
+			            error: function () {
+			                alert("無法連線到伺服器！");
+			            }
+			    	}); 		
+			  	}
+			    function updateTable(data) {
+			        $("#table > tbody").empty();
+			        var table_html = '';
+			        $.each(data, function(index, value) {
+			        	var id = value['id'].toString();
+			            table_html += '<tr><td scope="row">' + value['id'] + '</td>';
+			            table_html += '<td>' + value['name'] + '</td>';
+			            table_html += '<td>' + value['dorm'] + '</td>';
+			            table_html += '<td>' + value['room'] + '</td>';
+			            table_html += '<td>' + value['bed'] + '</td>';
+			            if(value['passORnot']=='Pass'){table_html += '<td style="color:#02C874">' + value['passORnot'] + '</td>';}
+			            else{table_html += '<td style="color:#FF2D2D">' + value['passORnot'] + '</td>';}
+			            table_html += '<td><a type="button" class="btn btn-success" style="font-size:18px;color:white;text-decoration:none;" href="javascript: pass(' + value['id'] + ');" >Pass</a></td></tr>';
+			        })
 
-	        
-	        function Logout() {
-	      	    // 發出POST的AJAX請求
-	      	    $.ajax({
-	      	      type: "POST",
-	      	      url: "api/logout.do",
-	      	      crossDomain: true,
-	      	      cache: false,
-	      	      dataType: "json",
-	      	      timeout: 5000,
-	      	      success: function (response) {
-	      	          if(response.status == 200){
-	      	          }
-	      	          console.log(response);
-	      	      },
-	      	      error: function () {
-	      	        alert("無法連線到伺服器！");
-	      	      },
-	      	    });
-	      	    window.location.reload();
-	        };
-	        function notLogin(){
-	        	alert("請先登入!");
-	       		//window.location = "login.html";
-	        }
-	    </script>
-	</div>
-</div>
-
-</body>
-
+			        $("#table > tbody").append(table_html);
+			    }  	
+			  
+    </script>
+  </body>
 </html>
