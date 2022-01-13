@@ -15,6 +15,15 @@
   <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
   <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
 
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+  </script>
+
 
   <style>
     .bd-placeholder-img {
@@ -37,19 +46,46 @@
 
   <script src="statics/js/jquery-3.4.1.min.js"></script>
 </head>
-
 <body>
-  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal">NCU_MIS-SA</h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-2 text-dark" href="index.html">會員管理模組</a>
-      <a class="p-2 text-dark" href="product.html">商品列表</a>
-      <a class="p-2 text-dark" href="dormManagement.html">宿舍報修</a>
-      <a class="p-2 text-dark" href="order.html">訂單列表</a>
-    </nav>
-    <a class="btn btn-outline-primary" href="welcome.html">首頁</a>
-  </div>
-
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-bed me-1"></i> 宿舍管理系統</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+		    <a class="nav-link" href="index.html">首頁</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="member.html" style="display:none" id="member"><strong>會員管理</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">公告欄</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="discussion_board.html">討論版</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">宿舍繳費</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="dormManagement.html">宿舍報修</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">報到手續</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">退宿手續</a>
+          </li>
+          <div id="loginOrNot">
+          </div>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">問題反映</h1>
     <p class="lead">**填寫以下資訊以送出報修表單**</p>
@@ -57,134 +93,177 @@
 
   <div class="album py-5 bg-light">
     <div class="container">
-      <div id="product_panel" class="row">
+	      <a
+	      	role="button"
+	        id="send"
+	        type="submit"
+	        class="btn btn-primary text-center"
+	        style="color:white"
+	      >
+	        送出
+	       <i class="fa fa-arrow-alt-from-left"></i>
+	      </a>
+	      <a href="dormManagement.html" class="btn btn-secondary text-right ml-2">
+	        回上一頁
+	        <i class="fas fa-undo"></i>
+	      </a>
+      <div class="pt-3">
+      	<textarea style="width:60vw;height:200px;" id="reason"></textarea>
       </div>
     </div>
   </div>
 
   <script>   
-    var [client_cart_obj, client_cart_amount]  = getCartDataFromClient();
-    
-    function getAllProduct() {
-      $.ajax({
-        type: "GET",
-        url: "api/product.do",
-        crossDomain: true,
-        cache: false,
-        dataType: 'json',
-        timeout: 5000,
-        success: function (response) {
-          if (response.status == 200) {
-        	var product_panel = '';
-        	
-        	$.each(response.response.data, function (){
-        		product_panel += addProduct(this);
-        	})
-        	
-        	$("#product_panel").append(product_panel);
-        	setButtonFunction();
-        	checkIfExistInCart();
+  $( document ).ready(function() {
+  var thisURL = document.URL;      
+  var  getval =thisURL.split('?')[1];    
+  var id= getval.split("=")[1];    
+  var name;
+  function getUserID(){
+	  $.ajax({
+          type: "GET",
+          url: "api/login.do",
+          crossDomain: true,
+          cache: false,
+          dataType: 'json',
+          timeout: 5000,
+          success: function (response) {
+              if(response.status == 200){
+              	if(response.response.status == "login"){//未登入
+              		name = response.response.name;
+              	}else{
+              		notLogin();
+              	}
+              	console.log(response);
+              }
+          },
+          error: function () {
+              alert("無法連線到伺服器！");
           }
-        },
-        error: function () {
-          alert("無法連線到伺服器！");
+  	});
+  }
+  getUserID();
+  function notLogin(){
+		alert("請先登入!");
+		window.location = "login.html";
+  }
+  function addFeedback(){
+	//alert(id);
+  }
+  $("#send").click(function () {
+  	var reason=document.getElementById('reason').value;
+  	alert(id +' '+ name+' '+ reason);
+     var data = {
+   		  userID:name,
+	      fixID:id,
+	      reason:reason,
+     };
+
+      // 驗證輸入的資料
+      pass_vaild = vaildData(data);
+      function vaildData(data) {
+          if (data["reason"] == "")
+            alert("必填寫欄位不得有空值！");
+          else
+        	  return true;
+          return false;
         }
-      });
+      if (pass_vaild) {
+          var data_string = JSON.stringify(data);
+          // 發出POST的AJAX請求
+          $.ajax({
+            type: "POST",
+            url: "api/feedback.do",
+            data: data_string,
+            crossDomain: true,
+            cache: false,
+            dataType: "json",
+            timeout: 5000,
+            success: function (response) {
+                if(response.status == 200){
+              	  alert('新增問題反映成功\n自動導向回報修頁面...');
+              	  redirect();
+                }
+                console.log(response);
+            },
+            error: function () {
+              alert("無法連線到伺服器！");
+            },
+          });
+        }
+   });
+  function redirect(){
+		window.location = "dormManagement.html";
+  } 
+  
+//  addFeedback();
+  //account function
+  function checkLogin(){
+	    $.ajax({
+	            type: "GET",
+	            url: "api/login.do",
+	            crossDomain: true,
+	            cache: false,
+	            dataType: 'json',
+	            timeout: 5000,
+	            success: function (response) {
+	                if(response.status == 200){
+	  	                  	//$('.del').hide();
+						let inner_html='';
+	                	if(response.response.status != "login"){//未登入
+	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+	                	
+	  	                  	}else{//登入
+	                		if(response.response.role=='1'||response.response.role=='2'){
+	                			isAdmin();
+	                		}
+	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
+	                	}
+	                	$("#loginOrNot").append(inner_html);
+	                }
+	                console.log(response);
+	            },
+	            error: function () {
+	                alert("無法連線到伺服器！");
+	            }
+	    });
+  }
+  checkLogin();
+ function Logout() {
+	    // 發出POST的AJAX請求
+	    $.ajax({
+	      type: "POST",
+	      url: "api/logout.do",
+	      crossDomain: true,
+	      cache: false,
+	      dataType: "json",
+	      timeout: 5000,
+	      success: function (response) {
+	          if(response.status == 200){
+	          }
+	          console.log(response);
+	      },
+	      error: function () {
+	        alert("無法連線到伺服器！");
+	      },
+	    });
+	    window.location.reload();
+  };
+  //end account function
+    var admin=0;
+    function isAdmin(){
+    	admin=1;
+    	adminShow();
+		//document.getElementById('del-col').style.display="";
+    	document.getElementById('member').style.display="";
+    	//$('.del').show();
     }
-
-    //getAllProduct();
-    
-    function addProduct(data) {
-    	let inner_html = '';
-    	inner_html += '<div class="col-md-4">';
-   		inner_html += '<div class="card-header">';
-   		inner_html += '<h4 class="font-weight-normal text-center text-truncate">' + data.name + '</h4>';
- 		inner_html += '</div>';
- 		inner_html += '<div class="card mb-4 shadow-sm">';
- 		inner_html += '<img src="statics/img/product/' + data.image + '" width="100%">';
-		inner_html += '<div class="card-body">';
-		inner_html += '<h1 class="card-title pricing-card-title">$' + data.price + ' <small class="text-muted">/ USD</small></h1>';
-		inner_html += '<p class="card-text">' + data.describe + '</p>';
-		inner_html += '<div class="d-flex justify-content-between align-items-center">';
-		inner_html += '<div class="btn-group">';
-		inner_html += '<button id="add_cart_' + data.id + '" name="add_cart" type="button" class="btn btn-lg btn-block btn-outline-primary">加入購物車</button>';
-		inner_html += '</div><small class="text-muted">id: ' + data.id + '</small>';
-		inner_html += '</div></div></div></div>';
-    	
-		return inner_html;
+    function adminShow(){
+		//$("#del-col").show();
+		//$(".del").show();
     }
-    
-    function setButtonFunction() {
-    	$('button[name="add_cart"]').click(function () {
-    		var action = (this.id).split('_')[0];
-    		var destination = (this.id).split('_')[1];
-    		var id = (this.id).split('_')[2];
-    		addProductToCart(id, 1);
-        });
-    }
-    
-    function getCartDataFromClient() {
-    	let cart = JSON.parse(localStorage.getItem("client_cart_obj"));
-    	let amount = JSON.parse(localStorage.getItem("client_cart_amount"));
-    	cart = !cart ? new Array() : cart;
-    	amount = !amount ? new Array() : amount;
-    	return [cart, amount];
-    }
-    
-    function addProductToCart(id, amount) {
-    	if (!(client_cart_obj.includes(id))) {
-    		client_cart_obj.push(id);
-    		client_cart_amount.push(amount);
-    		updateCartDataToClent();
-    	}
-    	
-    	checkIfExistInCart();
-    }
-    
-    function updateCartDataToClent() {
-    	localStorage.setItem("client_cart_obj", JSON.stringify(client_cart_obj));
-    	localStorage.setItem("client_cart_amount", JSON.stringify(client_cart_amount));
-    }
-    
-    function checkIfExistInCart() {
-    	$('button[name="add_cart"]').each(function (){
-    		var action = (this.id).split('_')[0];
-    		var destination = (this.id).split('_')[1];
-    		var id = (this.id).split('_')[2];
-    		if (client_cart_obj.includes(id)) {
-    			setButtonState(this.id, false);
-    		}
-    		else {
-    			setButtonState(this.id, true);
-    		}
-    		
-        });
-    }
-    
-    function setButtonState(id, action) {
-    	if (!action) {
-    	    $('#' + id).prop('disabled', true);
-    	    $('#' + id).addClass('disabled');
-    	    $('#' + id).html('已加入');
-    	}
-    	else {
-    		$('#' + id).prop('disabled', false);
-    	    $('#' + id).removeClass('disabled');
-    	    $('#' + id).html('加入購物車');
-    	}
-    }
+});
   </script>
-
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-right">
-        <a href="#">Back to top</a>
-      </p>
-      <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a
-          href="/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-  </footer>
 </body>
 
 </html>
