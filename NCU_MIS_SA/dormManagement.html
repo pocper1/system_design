@@ -457,7 +457,7 @@
               if (response.response.status != "login") {
                 //未登入
                 inner_html +=
-                  '<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+                	 '<li class="nav-item"><a class="getstarted scrollto" href="login.html">登入 / 註冊</a></li>';
               } else {
                 //登入
                 if (
@@ -467,9 +467,9 @@
                   isAdmin();
                 }
                 inner_html +=
-                  '<li class="dropdown"><a href="#"><span>' +
-                  response.response.name +
-                  '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()" role="button">登出</a></li></ul></li>';
+                    '<li class="dropdown"><a href="#"><span>' +
+                    response.response.name +
+                    '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()">登出</a></li></ul></li>';
               }
               $("#loginOrNot").append(inner_html);
             }

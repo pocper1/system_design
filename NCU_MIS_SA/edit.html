@@ -397,28 +397,21 @@
           dataType: "json",
           timeout: 5000,
           success: function (response) {
-            if (response.status == 200) {
-              let inner_html = "";
-              if (response.response.status != "login") {
-                //未登入
-                inner_html +=
-                  '<li class="nav-item"><a class="getstarted scrollto" href="login.html" role="button">登入 / 註冊</a></li>';
-              } else {
-                //登入
-                if (
-                  response.response.role == "1" ||
-                  response.response.role == "2"
-                ) {
-                  //document.getElementById('member').style.display = "";
+        	  if (response.status == 200) {
+                  let inner_html = "";
+                  if (response.response.status != "login") {
+                    //未登入
+                    inner_html +=
+                      '<li class="nav-item"><a class="getstarted scrollto" href="login.html" role="button">登入 / 註冊</a></li>';
+                  } else {
+                    //登入
+                    inner_html +=
+                      '<li class="dropdown"><a href="#"><span>' +
+                      response.response.name +
+                      '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()" role="button">登出</a></li></ul></li>';
+                  }
+                  $("#loginOrNot").append(inner_html);
                 }
-
-                inner_html +=
-                  '<li class="dropdown"><a href="#"><span>' +
-                  response.response.name +
-                  '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()" role="button">登出</a></li></ul></li>';
-              }
-              $("#loginOrNot").append(inner_html);
-            }
             console.log(response);
           },
           error: function () {
