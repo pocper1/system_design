@@ -93,47 +93,100 @@ function notAdmin(){
 
 <body>
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <header id="header" class="header fixed-top">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="statics/img/logo.png" alt="" />
+          <span>宿舍管理系統</span>
+        </a>
 
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="statics/img/logo.png" alt="">
-        <span>宿舍管理系統</span>
-      </a>
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a class="nav-link scrollto active" href="index.html#hero">首頁</a></li>
+            <li><a class="nav-link scrollto" href="index.html#services">選單</a></li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                其他功能
+              </a>
 
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">首頁</a></li>
-          <li><a class="nav-link scrollto" href="#services">選單</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              其他功能
-            </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="index.html#bulletin_board"
+                    >公告欄</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="discussion_board.html"
+                    >討論版</a
+                  >
+                </li>
+                <li>
+                  <a class="nav-link dropdown-item scrollto" href="payment.html"
+                    >宿舍繳費</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="dormManagement.html"
+                    >宿舍報修</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="check_in.html"
+                    >報到手續</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="check_out.html"
+                    >退宿手續</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider admin" />
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto admin"
+                    href="member.html"
+                    >會員管理</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto admin"
+                    href="bulletinboard.html"
+                    >公告欄管理</a
+                  >
+                </li>
+              </ul>
+            </li>
 
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-              <li><a class="nav-link dropdown-item scrollto" href="#bulletin_board">公告欄</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="discussion_board.html">討論版</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="payment.html">宿舍繳費</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="dormManagement.html">宿舍報修</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="check_in.html">報到手續</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="check_out.html">退宿手續</a></li>
-              <li>
-                <hr class="dropdown-divider admin">
-              </li>
-              <li><a class="nav-link dropdown-item scrollto admin" href="member.html">會員管理</a></li>
-              <li><a class="nav-link dropdown-item scrollto admin" href="bulletinboard.html">公告欄管理</a></li>
-            </ul>
-          </li>
-
-          <div id="loginOrNot"></div>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
+            <div id="loginOrNot"></div>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
     <section class="login-section">
