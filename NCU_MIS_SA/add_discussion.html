@@ -145,6 +145,7 @@ function notAdmin(){
 
       <div class="clearfix"></div>
       <hr />
+      
       <div class="discussion_board">
         <form>
           <div class="mb-3">
@@ -174,6 +175,9 @@ function notAdmin(){
               aria-describedby="author"
             />
           </div>
+          
+          
+          
           <button
             id="post_article"
             type="submit"
@@ -186,6 +190,9 @@ function notAdmin(){
     </div>
 </section><!-- End Hero -->
     <script>
+    
+ 
+    
       $("#post_article").click(function () {
         var data = {
           article_title: $("#article_title").val(),
