@@ -15,85 +15,87 @@
 
     <title>討論列表 ｜ NCU MIS SA</title>
 
-   <!-- Bootstrap core CSS -->
-  <link href="statics/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon" />
-  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+   <!-- Favicons -->
+  <link href="statics/icon/favicon.ico" rel="icon">
+  <link href="statics/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="statics/vendor/aos/aos.css" rel="stylesheet">
+  <link href="statics/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="statics/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="statics/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="statics/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="statics/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+  <script src="statics/js/jquery-3.4.1.min.js"></script>
+  <!-- Template Main CSS File -->
+  <link href="statics/css/style.css" rel="stylesheet">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-  </script>
-    
-	
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="statics/css/product.css" rel="stylesheet" />
-
-    <script src="statics/js/jquery-3.4.1.min.js"></script>
+  <!-- =======================================================
+  * Template Name: FlexStart - v1.9.0
+  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
   </head>
 
   <body>
   
       
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><i class="fas fa-bed me-1"></i> 宿舍管理系統</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-          <li class="nav-item">
-		    <a class="nav-link" href="index.html">首頁</a>
+   <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="statics/img/logo.png" alt="">
+        <span>宿舍管理系統</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="index.html#hero">首頁</a></li>
+          <li><a class="nav-link scrollto" href="index.html#services">選單</a></li>
+          <li><a class="nav-link scrollto" href="index.html#bulletin_board">公告欄</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              其他功能
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+              <li><a class="nav-link dropdown-item scrollto" href="bulletinboard.html">公告欄</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="discussion_board.html">討論版</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="payment.html">宿舍繳費</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="dormManagement.html">宿舍報修</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="check_in.html">報到手續</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="check_out.html">退宿手續</a></li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="nav-link dropdown-item scrollto" href="member.html">會員管理</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="admin.html">管理員管理</a></li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="member.html"><strong>會員管理</strong></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">公告欄</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="discussion_board.html">討論版</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">宿舍繳費</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="dormManagement.html">宿舍報修</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">報到手續</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">退宿手續</a>
-          </li>
-          <div id="loginOrNot">
-          </div>
+
+          <div id="loginOrNot"></div>
         </ul>
-      </div>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
     </div>
-  </nav>
+  </header><!-- End Header -->
+
+<!-- ======= Hero Section ======= -->
+  <section >
 
     <div class="container">
       <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -114,7 +116,7 @@
         ></div>
       </div>
     </div>
-
+</section><!-- End Hero -->
     <script>
       // var [client_cart_obj, client_cart_amount] = getCartDataFromClient();
 
@@ -181,37 +183,38 @@
 		
     //account function
       function checkLogin() {
-        $.ajax({
-          type: "GET",
-          url: "api/login.do",
-          crossDomain: true,
-          cache: false,
-          dataType: "json",
-          timeout: 5000,
-          success: function (response) {
-            if (response.status == 200) {
-              let inner_html = "";
-              if (response.response.status != "login") {
-                //未登入
-                inner_html +=
-                  '<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
-              } else {
-                //登入
-                inner_html +=
-                  '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>' +
-                  response.response.name +
-                  '</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
+      $.ajax({
+        type: "GET",
+        url: "api/login.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+          if (response.status == 200) {
+            let inner_html = '';
+            if (response.response.status != "login") {
+              //未登入
+              inner_html += '<li class="nav-item"><a class="getstarted scrollto" href="login.html">登入</a></li>';
+            } else {
+              //登入
+              if (response.response.role == '1' || response.response.role == '2') {
+                document.getElementById('member').style.display = "";
               }
-              $("#loginOrNot").append(inner_html);
+
+              inner_html += '<li class="dropdown"><a href="#"><span>' + response.response.name +
+                '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()">登出</a></li></ul></li>'
             }
-            console.log(response);
-          },
-          error: function () {
-            alert("無法連線到伺服器！");
-          },
-        });
-      }
-      checkLogin();
+            $("#loginOrNot").append(inner_html);
+          }
+          console.log(response);
+        },
+        error: function () {
+          alert("無法連線到伺服器！");
+        }
+      });
+    }
+    checkLogin();
       function Logout() {
         // 發出POST的AJAX請求
         $.ajax({
@@ -233,80 +236,45 @@
         window.location.reload();
       }
       //end account function
-      
-      /*
-      function setButtonFunction() {
-        $('button[name="add_cart"]').click(function () {
-          var action = this.id.split("_")[0];
-          var destination = this.id.split("_")[1];
-          var id = this.id.split("_")[2];
-          addDiscussionToCart(id, 1);
-        });
-      }
-
-      function getCartDataFromClient() {
-        let cart = JSON.parse(localStorage.getItem("client_cart_obj"));
-        let amount = JSON.parse(localStorage.getItem("client_cart_amount"));
-        cart = !cart ? new Array() : cart;
-        amount = !amount ? new Array() : amount;
-        return [cart, amount];
-      }
-
-      function addDiscussionToCart(id, amount) {
-        if (!client_cart_obj.includes(id)) {
-          client_cart_obj.push(id);
-          client_cart_amount.push(amount);
-          updateCartDataToClent();
-        }
-
-        checkIfExistInCart();
-      }
-
-      function updateCartDataToClent() {
-        localStorage.setItem(
-          "client_cart_obj",
-          JSON.stringify(client_cart_obj)
-        );
-        localStorage.setItem(
-          "client_cart_amount",
-          JSON.stringify(client_cart_amount)
-        );
-      }
-
-      function checkIfExistInCart() {
-        $('button[name="add_cart"]').each(function () {
-          var action = this.id.split("_")[0];
-          var destination = this.id.split("_")[1];
-          var id = this.id.split("_")[2];
-          if (client_cart_obj.includes(id)) {
-            setButtonState(this.id, false);
-          } else {
-            setButtonState(this.id, true);
-          }
-        });
-      }
-
-      function setButtonState(id, action) {
-        if (!action) {
-          $("#" + id).prop("disabled", true);
-          $("#" + id).addClass("disabled");
-          $("#" + id).html("已加入");
-        } else {
-          $("#" + id).prop("disabled", false);
-          $("#" + id).removeClass("disabled");
-          $("#" + id).html("加入購物車");
-        }
-      }
-      */
     </script>
 
-    <footer class="text-muted">
+    <footer id="footer" class="footer">
+
+
+
+    <div class="footer-top">
       <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
-       
+        <div class="copyright">
+          &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved <br>
+          <span class="text-align-center">系統分析與設計_期末專案</span>
+          <span class="text-align-center">第17組</span>
+        </div>
+
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
       </div>
-    </footer>
+    </div>
+
+  </footer><!-- End Footer -->
+  
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="statics/vendor/purecounter/purecounter.js"></script>
+  <script src="statics/vendor/aos/aos.js"></script>
+  <script src="statics/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="statics/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="statics/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="statics/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="statics/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="statics/js/main.js"></script>
   </body>
 </html>

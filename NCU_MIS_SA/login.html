@@ -2,169 +2,273 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Jekyll v3.8.5">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-  <title>宿舍管理 ｜ NCU MIS SA</title>
+    <title>宿舍管理 ｜ NCU MIS SA</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="statics/css/bootstrap.min.css" rel="stylesheet">
-  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
-  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+    <!-- Favicons -->
+    <link href="statics/icon/favicon.ico" rel="icon">
+    <link href="statics/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-  </script>
-  
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
+    <!-- Vendor CSS Files -->
+    <link href="statics/vendor/aos/aos.css" rel="stylesheet">
+    <link href="statics/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="statics/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="statics/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="statics/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="statics/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="statics/js/jquery-3.4.1.min.js"></script>
+    <!-- Template Main CSS File -->
+    <link href="statics/css/style.css" rel="stylesheet">
+    <link href="statics/css/login.css" rel="stylesheet">
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
-  <!-- Custom styles for this template -->
-  <link href="statics/css/product.css" rel="stylesheet">
-
-  <script src="statics/js/jquery-3.4.1.min.js"></script>
+    <!-- =======================================================
+  * Template Name: FlexStart - v1.9.0
+  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+    <script src="statics/js/jquery-3.4.1.min.js"></script>
 </head>
+
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><i class="fas fa-bed me-1"></i> 宿舍管理系統</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-          <li class="nav-item">
-		    <a class="nav-link" href="index.html">首頁</a>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="statics/img/logo.png" alt="">
+        <span>宿舍管理系統</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="index.html#hero">首頁</a></li>
+          <li><a class="nav-link scrollto" href="index.html#services">選單</a></li>
+          <li><a class="nav-link scrollto" href="index.html#bulletin_board">公告欄</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              其他功能
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+              <li><a class="nav-link dropdown-item scrollto" href="bulletinboard.html">公告欄</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="discussion_board.html">討論版</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="payment.html">宿舍繳費</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="dormManagement.html">宿舍報修</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="check_in.html">報到手續</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="check_out.html">退宿手續</a></li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="nav-link dropdown-item scrollto" href="member.html">會員管理</a></li>
+              <li><a class="nav-link dropdown-item scrollto" href="admin.html">管理員管理</a></li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">公告欄</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="discussion_board.html">討論版</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">宿舍繳費</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="dormManagement.html">宿舍報修</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">報到手續</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">退宿手續</a>
-          </li>
+
+          <div id="loginOrNot"></div>
         </ul>
-      </div>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
     </div>
-  </nav>
-<div class="text-center pt-4">
-    <form>
-        電子郵件：<input type="text" id="email" name="email">  密碼：<input type="password" id="password" name="password">
-		          <button
-		            id="login"
-		            type="submit"
-		            class="btn btn-primary text-center"
-		          >
-		            登入
-		          </button>
-    </form>
-</div>
-<script>
-$("#login").click(function () {
-      var data = {
-    	    	email:$("#email").val(),
-    	    	password:$("#password").val(),
-      };
+  </header><!-- End Header -->
 
-      // 驗證輸入的資料
-      pass_vaild = vaildData(data);
-      function vaildData(data) {
-          if (
-            data["email"] == "" ||
-            data["password"] == "" 
-          )
-            alert("必填寫欄位不得有空值！");
-          else
-        	  return true;
-          return false;
-        }
-      
-      if (pass_vaild) {
-        var data_string = JSON.stringify(data);
-        // 發出POST的AJAX請求
-        $.ajax({
-          type: "POST",
-          url: "api/login.do",
-          data: data_string,
-          crossDomain: true,
-          cache: false,
-          dataType: "json",
-          timeout: 5000,
-          success: function (response) {
-              if(response.status == 200){
-              }
-              console.log(response);
-          },
-          error: function () {
-            alert("無法連線到伺服器！");
-          },
+    <!-- ======= Hero Section ======= -->
+    <section class="login-section">
+        <div class="container-fluid h-100">
+            
+                <form>
+                    <div class="cont">
+                        <div class="form sign-in">
+                            <h2>登入宿舍管理系統</h2>
+                            <label>
+                                <span>電子郵件</span>
+                                <input type="email" id="email" name="email">
+                            </label>
+                            <label>
+                                <span>密碼</span>
+                                <input type="password" id="password" name="password">
+                            </label>
+                            <p class="forgot-pass">忘記密碼</p>
+                            <button id="login" type="button" class="submit">登入</button>
+
+                        </div>
+                        <div class="sub-cont">
+                            <div class="img">
+                                <div class="img__text m--up">
+                                    <h2>成為中大的一份子</h2>
+                                    <p>註冊以獲得絕佳體驗</p>
+                                </div>
+                                <div class="img__text m--in">
+                                    <h2>已經是會員</h2>
+                                    <p>請登入帳號！</p>
+                                </div>
+                                <div class="img__btn">
+                                    <span class="m--up">註冊</span>
+                                    <span class="m--in">登入</span>
+                                </div>
+                            </div>
+                            <div class="form sign-up">
+                                <h2>快來體驗宿舍系統</h2>
+                                <label>
+                                    <span>名稱</span>
+                                    <input type="text" />
+                                </label>
+                                <label>
+                                    <span>電子郵件</span>
+                                    <input type="email" />
+                                </label>
+                                <label>
+                                    <span>密碼</span>
+                                    <input type="password" />
+                                </label>
+                                <button  id="signup" type="button" class="submit">註冊</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </form>
+           
+        </div>
+
+
+
+    </section>
+
+
+    <script>
+        document.querySelector('.img__btn').addEventListener('click', function () {
+            document.querySelector('.cont').classList.toggle('s--signup');
         });
-      }
-    });
-   function redirect(){
-   		window.location = "index.html";
-   }
-    
-function getAll() {
-    // 發出POST的GET請求取得所有會員列表
-    $.ajax({
-            type: "GET",
-            url: "api/login.do",
-            crossDomain: true,
-            cache: false,
-            dataType: 'json',
-            timeout: 5000,
-            success: function (response) {
-                if(response.status == 200){
-                	if(response.response.status == "login"){//登入
-                		redirect();
-                		}
-//                    updateTable(response.response.data);
-  //                  updateSQLTable(response.response);
-                }
-                console.log(response);
-            },
-            error: function () {
-                alert("無法連線到伺服器！");
-            }
-    });
-}
-getAll();
 
-</script>
+        $("#login").click(function () {
+            var data = {
+                email: $("#email").val(),
+                password: $("#password").val(),
+            };
+
+            // 驗證輸入的資料
+            pass_vaild = vaildData(data);
+
+            function vaildData(data) {
+                if (
+                    data["email"] == "" ||
+                    data["password"] == ""
+                )
+                    alert("必填寫欄位不得有空值！");
+                else
+                    return true;
+                return false;
+            }
+
+            if (pass_vaild) {
+                var data_string = JSON.stringify(data);
+                // 發出POST的AJAX請求
+                $.ajax({
+                    type: "POST",
+                    url: "api/login.do",
+                    data: data_string,
+                    crossDomain: true,
+                    cache: false,
+                    dataType: "json",
+                    timeout: 5000,
+                    success: function (response) {
+                        if (response.status == 200) {}
+                        console.log(response);
+                    },
+                    error: function () {
+                        alert("無法連線到伺服器！");
+                    },
+                });
+            }
+        });
+
+        function redirect() {
+            window.location = "index.html";
+        }
+
+        //account function
+        function checkLogin() {
+      $.ajax({
+        type: "GET",
+        url: "api/login.do",
+        crossDomain: true,
+        cache: false,
+        dataType: 'json',
+        timeout: 5000,
+        success: function (response) {
+          if (response.status == 200) {
+            let inner_html = '';
+            if (response.response.status != "login") {
+              //未登入
+              inner_html += '<li class="nav-item"><a class="getstarted scrollto" href="login.html">登入</a></li>';
+            } else {
+              //登入
+              if (response.response.role == '1' || response.response.role == '2') {
+                document.getElementById('member').style.display = "";
+              }
+
+              inner_html += '<li class="dropdown"><a href="#"><span>' + response.response.name +
+                '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()">登出</a></li></ul></li>'
+            }
+            $("#loginOrNot").append(inner_html);
+          }
+          console.log(response);
+        },
+        error: function () {
+          alert("無法連線到伺服器！");
+        }
+      });
+    }
+    checkLogin();
+
+        function getAll() {
+            // 發出POST的GET請求取得所有會員列表
+            $.ajax({
+                type: "GET",
+                url: "api/login.do",
+                crossDomain: true,
+                cache: false,
+                dataType: 'json',
+                timeout: 5000,
+                success: function (response) {
+                    if (response.status == 200) {
+                        if (response.response.status == "login") { //登入
+                            redirect();
+                        }
+                        //                    updateTable(response.response.data);
+                        //                  updateSQLTable(response.response);
+                    }
+                    console.log(response);
+                },
+                error: function () {
+                    alert("無法連線到伺服器！");
+                }
+            });
+        }
+        getAll();
+    </script>
 </body>
