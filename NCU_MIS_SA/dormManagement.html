@@ -1,459 +1,547 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Jekyll v3.8.5" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Jekyll v3.8.5">
+    <title>報修管理 ｜ 宿舍管理系統</title>
+    <meta content="" name="description" />
 
-  <title>宿舍管理 ｜ NCU MIS SA</title>
+    <meta content="" name="keywords" />
 
-  <!-- Vendor CSS Files -->
-  <link href="statics/vendor/aos/aos.css" rel="stylesheet">
-  <link href="statics/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="statics/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="statics/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="statics/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="statics/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Favicons -->
+    <link href="statics/icon/favicon.ico" rel="icon" />
+    <link href="statics/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-  <script src="statics/js/jquery-3.4.1.min.js"></script>
-  <!-- Template Main CSS File -->
-  <link href="statics/css/style.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
 
-  <!-- =======================================================
+    <!-- Vendor CSS Files -->
+    <link href="statics/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="statics/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="statics/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="statics/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="statics/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="statics/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <script src="statics/js/jquery-3.4.1.min.js"></script>
+    <!-- Template Main CSS File -->
+    <link href="statics/css/style.css" rel="stylesheet" />
+
+    <!-- =======================================================
   * Template Name: FlexStart - v1.9.0
   * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
- <script>
-var name;
-var role;
-function checkID(){
-	  $.ajax({
+  </head>
+
+  <script>
+    var name;
+    var role;
+    function checkID() {
+      $.ajax({
         type: "GET",
         url: "api/login.do",
         crossDomain: true,
         cache: false,
-        dataType: 'json',
-        timeout: 5000,
-        success: function (response) {
-            if(response.status == 200){
-            	if(response.response.status == "login"){//未登入
-            		name = response.response.name;
-            		role = response.response.role;
-            		if(role == '1'|| role == '2'){
-            		}else{
-            			//notAdmin();	
-            		}
-            	}else{
-            		//notLogin();
-            	}
-            	console.log(response);
-            }
-        },
-        error: function () {
-            alert("無法連線到伺服器！");
-        }
-	});
-}
-checkID();
-//alert(name);
-function notLogin(){
-		alert("請先登入!");
-		window.location = "login.html";
-}
-function notAdmin(){
-	alert("你不是管理員!");
-	window.location = "index.html";
-}
-</script>
-
-</head>
-
-<script>
-var name;
-var role;
-function checkID(){
-	  $.ajax({
-        type: "GET",
-        url: "api/login.do",
-        crossDomain: true,
-        cache: false,
-        dataType: 'json',
-        timeout: 5000,
-        success: function (response) {
-            if(response.status == 200){
-            	if(response.response.status == "login"){//未登入
-            		name = response.response.name;
-            		role = response.response.role;
-            		if(role == '1'|| role == '2'){
-            		}else{
-            			//notAdmin();	
-            		}
-            	}else{
-            		//notLogin();
-            	}
-            	console.log(response);
-            }
-        },
-        error: function () {
-            alert("無法連線到伺服器！");
-        }
-	});
-}
-checkID();
-//alert(name);
-function notLogin(){
-		alert("請先登入!");
-		window.location = "login.html";
-}
-function notAdmin(){
-	alert("你不是管理員!");
-	window.location = "index.html";
-}
-</script>
-<body>
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="statics/img/logo.png" alt="">
-        <span>宿舍管理系統</span>
-      </a>
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">首頁</a></li>
-          <li><a class="nav-link scrollto" href="#services">選單</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              其他功能
-            </a>
-
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-              <li><a class="nav-link dropdown-item scrollto" href="#bulletin_board">公告欄</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="discussion_board.html">討論版</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="payment.html">宿舍繳費</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="dormManagement.html">宿舍報修</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="check_in.html">報到手續</a></li>
-              <li><a class="nav-link dropdown-item scrollto" href="check_out.html">退宿手續</a></li>
-              <li>
-                <hr class="dropdown-divider admin">
-              </li>
-              <li><a class="nav-link dropdown-item scrollto admin" href="member.html">會員管理</a></li>
-              <li><a class="nav-link dropdown-item scrollto admin" href="bulletinboard.html">公告欄管理</a></li>
-            </ul>
-          </li>
-
-          <div id="loginOrNot"></div>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section>
-  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4"><b>宿舍報修系統</b></h1>
-    <p class="lead">**以下為報修系統使用者介面**</p>
-  </div>
-
-  <div class="album py-5 bg-light">
-    <div class="container">
-	      <a class="btn btn-primary text-right" onclick="add()" style="color:white">
-	        新增報修
-	        <i class="fas fa-plus"></i>
-	      </a>
-      <div class="pt-3">
-	      <table class="table table-success table-striped text-center">
-			<thead>
-			  <tr>
-			    <th scope="col">#</th>
-			    <th scope="col">大樓</th>
-			    <th scope="col">種類</th>
-			    <th scope="col">報修日期</th>
-			    <th scope="col">進度</th>
-			    <th scope="col">詳細資訊</th>
-			    <th scope="col">問題反映</th>
-			    <th scope="col" id="del-col" style="display:none">刪除</th>
-			  </tr>
-			</thead>
-		  <tbody id="fix_table">
-		  
-		  </tbody>
-		  </table>
-      </div>
-    </div>
-  </div>
-</section>
-  <script>   
-  //接下來要把有被回報的報修紀錄標記給管理者看 點即可以查看
-  //外聘廠商更改progress
-    
-    function getAllFix() {
-      $.ajax({
-        type: "GET",
-        url: "api/fix.do",
-        crossDomain: true,
-        cache: false,
-        dataType: 'json',
+        dataType: "json",
         timeout: 5000,
         success: function (response) {
           if (response.status == 200) {
-        	var fix_table = '';
-        	
-        	$.each(response.response.data, function (){
-        		fix_table += addFix(this);
-        	})
-        	$("#fix_table").append(fix_table);
+            if (response.response.status == "login") {
+              //未登入
+              name = response.response.name;
+              role = response.response.role;
+              if (role == "1" || role == "2") {
+              } else {
+                //notAdmin();
+              }
+            } else {
+              //notLogin();
+            }
+            console.log(response);
           }
         },
         error: function () {
           alert("無法連線到伺服器！");
-        }
-      });
-    }
-
-    
-    
-	var red=[];
-    function getAllFeedback() {
-      $.ajax({
-        type: "GET",
-        url: "api/feedback.do",
-        crossDomain: true,
-        cache: false,
-        dataType: 'json',
-        timeout: 5000,
-        success: function (response) {
-          if (response.status == 200) {
-       		console.log(response.response.data);	
-        	$.each(response.response.data, function (){
-        		red.push(this.fixID);
-        	})
-			red.forEach(function(x){
-				if(role=='1'||role=='2'){
-					$(".report"+x).attr('style','color:red');
-					$(".report"+x).attr('href','FixQuestion.html?id='+x);
-				}
-			});
-          }
         },
-        error: function () {
-          alert("無法連線到伺服器！");
-        }
       });
     }
-    getAllFix();
-	getAllFeedback();
-    
-    var click=[];
-    function addFix(data) {
-    	document.getElementById('fix_table').innerHTML="";
-    	let inner_html = '';
-    	inner_html+='<tr><th scope="row" class="'+data.id+'"><a class="report'+data.id+'"">'+data.id+'</a></th>';
-		inner_html+='<td>'+data.dorm+'</td>';
-		inner_html+='<td>'+data.category+'</td>';
-		inner_html+='<td>'+data.created.split(" ",1)+'</td>';
-		inner_html+='<td>'+data.progress+'%</td>';
-		inner_html+='<td><div><a role="button" onclick="detail('+data['id']+')" class="btn btn-warning ml-2">詳細資訊 <i class="fas fa-sort-amount-down"></i></a></div></td>';
-		inner_html+='<td><div><a role="button" onclick="report('+data['id']+')" class="btn btn-info ml-2">反映 <i class="fas fa-wrench"></i></a></div></td>';
-    	inner_html+='<td class="del"  style="display:none"><div><a href="javascript: deleteFix(' + data['id'] + ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
-		inner_html+='<tr id="detail'+data['id']+'" style="display:none"><td colspan="8"><table class="table table-success table-striped text-center"><thead><tr><th scope="col">報修申請人</th><th scope="col">樓層</th><th scope="col">房號</th><th scope="col">項目</th><th scope="col">細項</th><th scope="col">是否同意入寢維修</th><th scope="col">預約時段</th><th scope="col">更新時間</th></tr></thead><tbody><td>'+data.userID+'</td><td>'+data.floor+'</td><td>'+data.roomNo+'</td><td>'+data.item+'</td><td>'+data.detail+'</td><td>';
-		if(data.inRoom==1){
-			inner_html+='是';
-		}else{
-			inner_html+='否';
-		}
-		inner_html+='</td><td>'+data.reserve+'</td><td>'+data.modified.split(" ",1)+'</td></tbody></table></td></tr>';
-		click[data.id]=1;
-		return inner_html;
+    checkID();
+    //alert(name);
+    function notLogin() {
+      alert("請先登入!");
+      window.location = "login.html";
     }
-    function deleteFix(id) {
-        var check = window.confirm("確認刪除此筆資料？");
-        if (check == true) {
-            console.log("You pressed OK!");
-            var request = {'id': id};
-            var data_string = JSON.stringify(request);
-            $.ajax({
-                type: "DELETE",
-                url: "api/fix.do",
-                crossDomain: true,
-                data: data_string,
-                cache: false,
-                dataType: 'json',
-                timeout: 5000,
-                success: function (response) {
-                    if(response.status == 200){
-                        getAllFix();
-                        adminShow();
-                    }
-                    console.log(response);
-                },
-                error: function () {
-                    alert("無法連線到伺服器！");
-                }
-            });
-        }
-        else {
-            console.log("You pressed Cancel!");
-        }
-  	    window.location.reload();
-    }
-    function detail(id){
-    	if(click[id]==1){
-	    	document.getElementById('detail'+id).style.display="";
-	    	click[id]=0;
-    	}else{
-	    	document.getElementById('detail'+id).style.display="none";
-    		click[id]=1;
-    	}
-    }
-	function report(id){
-	 	window.location = "addFixQuestion.html?id="+id;
-	}
-    //account function
-    function checkLogin(){
-  	    $.ajax({
-  	            type: "GET",
-  	            url: "api/login.do",
-  	            crossDomain: true,
-  	            cache: false,
-  	            dataType: 'json',
-  	            timeout: 5000,
-  	            success: function (response) {
-  	                if(response.status == 200){
-	  	                  	//$('.del').hide();
-  						let inner_html='';
-  	                	if(response.response.status != "login"){//未登入
-  	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
-  	                	
-	  	                  	}else{//登入
-	                		if(response.response.role=='1'||response.response.role=='2'){
-	                			isAdmin();
-	                		}
-	                		inner_html += '<li class="dropdown"><a href="#"><span>' + response.response.name +
-	                        '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()" role="button">登出</a></li></ul></li>'
-	                    }
-  	                	$("#loginOrNot").append(inner_html);
-  	                }
-  	                console.log(response);
-  	            },
-  	            error: function () {
-  	                alert("無法連線到伺服器！");
-  	            }
-  	    });
-    }
-    checkLogin();
-   function Logout() {
-  	    // 發出POST的AJAX請求
-  	    $.ajax({
-  	      type: "POST",
-  	      url: "api/logout.do",
-  	      crossDomain: true,
-  	      cache: false,
-  	      dataType: "json",
-  	      timeout: 5000,
-  	      success: function (response) {
-  	          if(response.status == 200){
-  	          }
-  	          console.log(response);
-  	      },
-  	      error: function () {
-  	        alert("無法連線到伺服器！");
-  	      },
-  	    });
-  	    window.location.reload();
-    };
-    //end account function
-    function add(){
-  	    $.ajax({
-	            type: "GET",
-	            url: "api/login.do",
-	            crossDomain: true,
-	            cache: false,
-	            dataType: 'json',
-	            timeout: 5000,
-	            success: function (response) {
-	                if(response.status == 200){
-	                	if(response.response.status != "login"){//未登入
-	                		notLogin();
-	                	}else{//登入
-	                		toAdd();
-	                	}
-	                }
-	                console.log(response);
-	            },
-	            error: function () {
-	                alert("無法連線到伺服器！");
-	            }
-	    });
-    	
-    }
-    function notLogin(){
-    	alert("請先登入!");
-   		window.location = "login.html";
-    }
-    function toAdd(){
-    	window.location = "addFix.html";
-    }
-    function isAdmin(){
-    	adminShow();
-    }
-    function adminShow(){
-		$("#del-col").show();
-		$(".del").show();
+    function notAdmin() {
+      alert("你不是管理員!");
+      window.location = "index.html";
     }
   </script>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="statics/img/logo.png" alt="" />
+          <span>宿舍管理系統</span>
+        </a>
 
-  <footer id="footer" class="footer">
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li>
+              <a class="nav-link scrollto active" href="index.html#hero"
+                >首頁</a
+              >
+            </li>
+            <li>
+              <a class="nav-link scrollto" href="index.html#services">選單</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                其他功能
+              </a>
 
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="index.html#bulletin_board"
+                    >公告欄</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="discussion_board.html"
+                    >討論版</a
+                  >
+                </li>
+                <li>
+                  <a class="nav-link dropdown-item scrollto" href="payment.html"
+                    >宿舍繳費</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="dormManagement.html"
+                    >宿舍報修</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="check_in.html"
+                    >報到手續</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="check_out.html"
+                    >退宿手續</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider admin" />
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto admin"
+                    href="member.html"
+                    >會員管理</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto admin"
+                    href="bulletinboard.html"
+                    >公告欄管理</a
+                  >
+                </li>
+              </ul>
+            </li>
 
+            <div id="loginOrNot"></div>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header>
 
-    <div class="footer-top">
-      <div class="container">
-        <div class="copyright">
-          &copy; Copyright <strong><span>FlexStart</span></strong>. All Rights Reserved <br>
-          <span class="text-align-center">系統分析與設計_期末專案</span>
-          <span class="text-align-center">第17組</span>
-        </div>
+    <!-- ======= Hero Section ======= -->
+    <section>
+      <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4"><b>宿舍報修系統</b></h1>
+        <p class="lead">**以下為報修系統使用者介面**</p>
+      </div>
 
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <a
+            class="btn btn-primary text-right"
+            onclick="add()"
+            style="color: white"
+          >
+            新增報修
+            <i class="fas fa-plus"></i>
+          </a>
+          <div class="pt-3">
+            <table class="table table-responsive table-hover text-center">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">大樓</th>
+                  <th scope="col">種類</th>
+                  <th scope="col">報修日期</th>
+                  <th scope="col">進度</th>
+                  <th scope="col">詳細資訊</th>
+                  <th scope="col">問題反映</th>
+                  <th scope="col" id="del-col" style="display: none">刪除</th>
+                </tr>
+              </thead>
+              <tbody id="fix_table"></tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+    <script>
+      //接下來要把有被回報的報修紀錄標記給管理者看 點即可以查看
+      //外聘廠商更改progress
 
-  </footer><!-- End Footer -->
+      function getAllFix() {
+        $.ajax({
+          type: "GET",
+          url: "api/fix.do",
+          crossDomain: true,
+          cache: false,
+          dataType: "json",
+          timeout: 5000,
+          success: function (response) {
+            if (response.status == 200) {
+              var fix_table = "";
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+              $.each(response.response.data, function () {
+                fix_table += addFix(this);
+              });
+              $("#fix_table").append(fix_table);
+            }
+          },
+          error: function () {
+            alert("無法連線到伺服器！");
+          },
+        });
+      }
 
-  <!-- Vendor JS Files -->
-  <script src="statics/vendor/purecounter/purecounter.js"></script>
-  <script src="statics/vendor/aos/aos.js"></script>
-  <script src="statics/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="statics/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="statics/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="statics/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="statics/vendor/php-email-form/validate.js"></script>
+      var red = [];
+      function getAllFeedback() {
+        $.ajax({
+          type: "GET",
+          url: "api/feedback.do",
+          crossDomain: true,
+          cache: false,
+          dataType: "json",
+          timeout: 5000,
+          success: function (response) {
+            if (response.status == 200) {
+              console.log(response.response.data);
+              $.each(response.response.data, function () {
+                red.push(this.fixID);
+              });
+              red.forEach(function (x) {
+                if (role == "1" || role == "2") {
+                  $(".report" + x).attr("style", "color:red");
+                  $(".report" + x).attr("href", "FixQuestion.html?id=" + x);
+                }
+              });
+            }
+          },
+          error: function () {
+            alert("無法連線到伺服器！");
+          },
+        });
+      }
+      getAllFix();
+      getAllFeedback();
 
-  <!-- Template Main JS File -->
-  <script src="statics/js/main.js"></script>
-</body>
+      var click = [];
+      function addFix(data) {
+        document.getElementById("fix_table").innerHTML = "";
+        let inner_html = "";
+        inner_html +=
+          '<tr><th scope="row" class="' +
+          data.id +
+          '"><a class="report' +
+          data.id +
+          '"">' +
+          data.id +
+          "</a></th>";
+        inner_html += "<td>" + data.dorm + "</td>";
+        inner_html += "<td>" + data.category + "</td>";
+        inner_html += "<td>" + data.created.split(" ", 1) + "</td>";
+        inner_html += "<td>" + data.progress + "%</td>";
+        inner_html +=
+          '<td><div><a role="button" onclick="detail(' +
+          data["id"] +
+          ')" class="btn btn-warning ml-2">詳細資訊 <i class="fas fa-sort-amount-down"></i></a></div></td>';
+        inner_html +=
+          '<td><div><a role="button" onclick="report(' +
+          data["id"] +
+          ')" class="btn btn-info ml-2">反映 <i class="fas fa-wrench"></i></a></div></td>';
+        inner_html +=
+          '<td class="del"  style="display:none"><div><a href="javascript: deleteFix(' +
+          data["id"] +
+          ');" class="btn btn-danger ml-2 delete-btn">刪除 <i class="fas fa-trash"></i></a></div></td></tr>';
+        inner_html +=
+          '<tr id="detail' +
+          data["id"] +
+          '" style="display:none"><td colspan="8"><table class="table table-hover table-responsive text-center"><thead><tr><th scope="col">報修申請人</th><th scope="col">樓層</th><th scope="col">房號</th><th scope="col">項目</th><th scope="col">細項</th><th scope="col">是否同意入寢維修</th><th scope="col">預約時段</th><th scope="col">更新時間</th></tr></thead><tbody><td>' +
+          data.userID +
+          "</td><td>" +
+          data.floor +
+          "</td><td>" +
+          data.roomNo +
+          "</td><td>" +
+          data.item +
+          "</td><td>" +
+          data.detail +
+          "</td><td>";
+        if (data.inRoom == 1) {
+          inner_html += "是";
+        } else {
+          inner_html += "否";
+        }
+        inner_html +=
+          "</td><td>" +
+          data.reserve +
+          "</td><td>" +
+          data.modified.split(" ", 1) +
+          "</td></tbody></table></td></tr>";
+        click[data.id] = 1;
+        return inner_html;
+      }
+      function deleteFix(id) {
+        var check = window.confirm("確認刪除此筆資料？");
+        if (check == true) {
+          console.log("You pressed OK!");
+          var request = { id: id };
+          var data_string = JSON.stringify(request);
+          $.ajax({
+            type: "DELETE",
+            url: "api/fix.do",
+            crossDomain: true,
+            data: data_string,
+            cache: false,
+            dataType: "json",
+            timeout: 5000,
+            success: function (response) {
+              if (response.status == 200) {
+                getAllFix();
+                adminShow();
+              }
+              console.log(response);
+            },
+            error: function () {
+              alert("無法連線到伺服器！");
+            },
+          });
+        } else {
+          console.log("You pressed Cancel!");
+        }
+        window.location.reload();
+      }
+      function detail(id) {
+        if (click[id] == 1) {
+          document.getElementById("detail" + id).style.display = "";
+          click[id] = 0;
+        } else {
+          document.getElementById("detail" + id).style.display = "none";
+          click[id] = 1;
+        }
+      }
+      function report(id) {
+        window.location = "addFixQuestion.html?id=" + id;
+      }
+      //account function
+      function checkLogin() {
+        $.ajax({
+          type: "GET",
+          url: "api/login.do",
+          crossDomain: true,
+          cache: false,
+          dataType: "json",
+          timeout: 5000,
+          success: function (response) {
+            if (response.status == 200) {
+              //$('.del').hide();
+              let inner_html = "";
+              if (response.response.status != "login") {
+                //未登入
+                inner_html +=
+                  '<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+              } else {
+                //登入
+                if (
+                  response.response.role == "1" ||
+                  response.response.role == "2"
+                ) {
+                  isAdmin();
+                }
+                inner_html +=
+                  '<li class="dropdown"><a href="#"><span>' +
+                  response.response.name +
+                  '</span> <i class="bi bi-chevron-down"></i></a><ul><li><a href="self-info.html">使用者資訊</a></li><li><a id="logout" onclick="Logout()" role="button">登出</a></li></ul></li>';
+              }
+              $("#loginOrNot").append(inner_html);
+            }
+            console.log(response);
+          },
+          error: function () {
+            alert("無法連線到伺服器！");
+          },
+        });
+      }
+      checkLogin();
+      function Logout() {
+        // 發出POST的AJAX請求
+        $.ajax({
+          type: "POST",
+          url: "api/logout.do",
+          crossDomain: true,
+          cache: false,
+          dataType: "json",
+          timeout: 5000,
+          success: function (response) {
+            if (response.status == 200) {
+            }
+            console.log(response);
+          },
+          error: function () {
+            alert("無法連線到伺服器！");
+          },
+        });
+        window.location.reload();
+      }
+      //end account function
+      function add() {
+        $.ajax({
+          type: "GET",
+          url: "api/login.do",
+          crossDomain: true,
+          cache: false,
+          dataType: "json",
+          timeout: 5000,
+          success: function (response) {
+            if (response.status == 200) {
+              if (response.response.status != "login") {
+                //未登入
+                notLogin();
+              } else {
+                //登入
+                toAdd();
+              }
+            }
+            console.log(response);
+          },
+          error: function () {
+            alert("無法連線到伺服器！");
+          },
+        });
+      }
+      function notLogin() {
+        alert("請先登入!");
+        window.location = "login.html";
+      }
+      function toAdd() {
+        window.location = "addFix.html";
+      }
+      function isAdmin() {
+        adminShow();
+      }
+      function adminShow() {
+        $("#del-col").show();
+        $(".del").show();
+      }
+    </script>
 
+    <footer id="footer" class="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="copyright">
+            &copy; Copyright <strong><span>FlexStart</span></strong
+            >. All Rights Reserved <br />
+            <span class="text-align-center">系統分析與設計_期末專案</span>
+            <span class="text-align-center">第17組</span>
+          </div>
+
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="statics/vendor/purecounter/purecounter.js"></script>
+    <script src="statics/vendor/aos/aos.js"></script>
+    <script src="statics/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="statics/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="statics/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="statics/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="statics/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="statics/js/main.js"></script>
+  </body>
 </html>

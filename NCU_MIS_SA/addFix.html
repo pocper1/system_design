@@ -1,425 +1,588 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Jekyll v3.8.5" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Jekyll v3.8.5">
+    <title>新增報修 ｜ 宿舍管理系統</title>
+    <meta content="" name="description" />
 
-  <title>宿舍管理 ｜ NCU MIS SA</title>
+    <meta content="" name="keywords" />
 
-  <!-- Bootstrap core CSS -->
-  <link href="statics/css/bootstrap.min.css" rel="stylesheet">
-  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="icon">
-  <link href="statics/icon/favicon.ico" type="image/x-icon" rel="shortcut icon">
+    <!-- Favicons -->
+    <link href="statics/icon/favicon.ico" rel="icon" />
+    <link href="statics/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+    <!-- Vendor CSS Files -->
+    <link href="statics/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="statics/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="statics/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="statics/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="statics/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="statics/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <script src="statics/js/jquery-3.4.1.min.js"></script>
+    <!-- Template Main CSS File -->
+    <link href="statics/css/style.css" rel="stylesheet" />
+
+    <!-- =======================================================
+  * Template Name: FlexStart - v1.9.0
+  * Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <script>
+    var name;
+    var role;
+    function checkID() {
+      $.ajax({
+        type: "GET",
+        url: "api/login.do",
+        crossDomain: true,
+        cache: false,
+        dataType: "json",
+        timeout: 5000,
+        success: function (response) {
+          if (response.status == 200) {
+            if (response.response.status == "login") {
+              //未登入
+              name = response.response.name;
+              role = response.response.role;
+              if (role == "1" || role == "2") {
+              } else {
+                //notAdmin();
+              }
+            } else {
+              //notLogin();
+            }
+            console.log(response);
+          }
+        },
+        error: function () {
+          alert("無法連線到伺服器！");
+        },
+      });
+    }
+    checkID();
+    //alert(name);
+    function notLogin() {
+      alert("請先登入!");
+      window.location = "login.html";
+    }
+    function notAdmin() {
+      alert("你不是管理員!");
+      window.location = "index.html";
+    }
   </script>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="statics/img/logo.png" alt="" />
+          <span>宿舍管理系統</span>
+        </a>
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li>
+              <a class="nav-link scrollto active" href="index.html#hero"
+                >首頁</a
+              >
+            </li>
+            <li>
+              <a class="nav-link scrollto" href="index.html#services">選單</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                其他功能
+              </a>
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
-  <!-- Custom styles for this template -->
-  <link href="statics/css/product.css" rel="stylesheet">
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="index.html#bulletin_board"
+                    >公告欄</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="discussion_board.html"
+                    >討論版</a
+                  >
+                </li>
+                <li>
+                  <a class="nav-link dropdown-item scrollto" href="payment.html"
+                    >宿舍繳費</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="dormManagement.html"
+                    >宿舍報修</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="check_in.html"
+                    >報到手續</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto"
+                    href="check_out.html"
+                    >退宿手續</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider admin" />
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto admin"
+                    href="member.html"
+                    >會員管理</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="nav-link dropdown-item scrollto admin"
+                    href="bulletinboard.html"
+                    >公告欄管理</a
+                  >
+                </li>
+              </ul>
+            </li>
 
-  <script src="statics/js/jquery-3.4.1.min.js"></script>
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><i class="fas fa-bed me-1"></i> 宿舍管理系統</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 ">
-          <li class="nav-item">
-		    <a class="nav-link" href="index.html">首頁</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="member.html"><strong>會員管理</strong></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">公告欄</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="discussion_board.html">討論版</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">宿舍繳費</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="dormManagement.html">宿舍報修</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">報到手續</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">退宿手續</a>
-          </li>
-          <div id="loginOrNot">
-          </div>
-        </ul>
+            <div id="loginOrNot"></div>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
       </div>
-    </div>
-  </nav>
+    </header>
+    <!-- End Header -->
+    <section>
+      <div class="container">
+        <header class="section-header">
+          <h2>新增報修表單</h2>
+          <p>填寫以下資訊以送出報修表單</p>
+        </header>
 
-  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">新增報修表單</h1>
-    <p class="lead">**填寫以下資訊以送出報修表單**</p>
-  </div>
+        <div id="addFix_panel" class="">
+          <form>
+            <div class="row mt-2 mb-2">
+              <div class="col-4">
+                <label for="dorm" class="form-label">大樓</label>
+                <select id="dorm" aria-describedby="title" class="form-select">
+                  <option value="D10.男十ㄧ舍">D10.男十ㄧ舍 Student B11</option>
+                  <option value="D11.男十二舍">D11.男十二舍 Student B12</option>
+                  <option value="D12.男十三舍">D12.男十三舍 Student B13</option>
+                  <option value="D13.研究生宿舍">
+                    D13.研究生宿舍 Graduate Students Dorm
+                  </option>
+                  <option value="D14.女十四舍">D14.女十四舍 Student G14</option>
+                  <option value="D15.女一宿舍">D15.女一宿舍 Student G1</option>
+                  <option value="D16.女二宿舍">D16.女二宿舍 Student G2</option>
+                  <option value="D17.女三宿舍">D17.女三宿舍 Student G3</option>
+                  <option value="D18.女四宿舍">D18.女四宿舍 Student G4</option>
+                  <option value="D3.男三宿舍">D3.男三宿舍 Student B3</option>
+                  <option value="D4.女五宿舍">D4.女五宿舍 Student G5</option>
+                  <option value="D5.男五宿舍(女6)">
+                    D5.男五宿舍(女6) Student G6
+                  </option>
+                  <option value="D6.男六宿舍">D6.男六宿舍 Student B6</option>
+                  <option value="D7.男七舍">D7.男七舍 Student B7</option>
+                  <option value="D9A.男九A">D9A.男九A Student B9A</option>
+                  <option value="D9B.男九B">D9B.男九B Student B9B</option>
+                  <option value="HO1.國際學舍">
+                    HO1.國際學舍 International Dorm
+                  </option>
+                </select>
+                <!--<input
+                  type="text"
+                  class="form-control"
+                  id="dorm"
+                  aria-describedby="title"
+                />-->
+              </div>
+              <div class="col-4">
+                <label for="floor" class="form-label">樓層</label>
+                <br />
+                <select id="floor" class="form-select">
+                  <option value="1F">一樓</option>
+                  <option value="2F">二樓</option>
+                  <option value="3F">三樓</option>
+                  <option value="4F">四樓</option>
+                  <option valur="5F">五樓</option>
+                  <option value="6F">六樓</option>
+                  <option valur="7F">七樓</option>
+                </select>
+              </div>
+              <div class="col-4">
+                <label for="roomNo" class="form-label">房號或位置</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="roomNo"
+                  aria-describedby="title"
+                />
+              </div>
+            </div>
+            <div class="row mt-2 mb-2">
+              <div class="col-4">
+                <label for="category" class="form-label">種類</label><br />
+                <select
+                  class="form-select"
+                  id="category"
+                  onchange="SetSubmenu(this)"
+                  aria-describedby="title"
+                >
+                  <option value="衣櫃">衣櫃</option>
+                  <option value="鞋櫃">鞋櫃</option>
+                  <option value="燈具">燈具</option>
+                  <option value="電力系統">電力系統</option>
+                  <option value="書桌">書桌</option>
+                  <option value="浴刷">浴廁</option>
+                  <option value="床">床</option>
+                  <option value="門">門</option>
+                  <option value="窗戶">窗戶</option>
+                  <option value="供水系統">供水系統</option>
+                  <option value="牆壁">牆壁</option>
+                  <option value="天花板">天花板</option>
+                  <option value="磁磚">磁磚</option>
+                  <option value="鍋爐">鍋爐</option>
+                  <option value="飲水機">飲水機</option>
+                  <option value="油漆">油漆</option>
+                  <option value="冷氣機">冷氣機</option>
+                  <option value="其他">其他</option>
+                  <option value="漏水">漏水</option>
+                  <option value="電扇">電扇</option>
+                  <option value="電話">電話</option>
+                  <option value="電視">電視(限交誼廳)</option>
+                  <option value="洗、烘衣機">洗、烘衣機</option>
+                  <option value="消防">消防</option>
+                  <option value="販賣機">販賣機</option>
+                  <option value="廚房">廚房電器</option>
+                  <option value="寢室椅">寢室椅</option>
+                  <option value="寢室地板">寢室地板</option>
+                  <option value="冷氣讀卡機">冷氣讀卡機</option>
+                  <option value="浴室供水">浴室供水系統</option>
+                </select>
+                <!--            <input
+                  type="text"
+                  class="form-control"
+                  id="category"
+                  aria-describedby="title"
+                />-->
+              </div>
+              <div class="col-4">
+                <label for="item" class="form-label">項目</label>
+                <br />
+                <select id="item" aria-describedby="title" class="form-select">
+                  <option value="衣櫃門換活頁">衣櫃門換活頁</option>
+                  <option value="衣櫃門貼美耐板">衣櫃門貼美耐板</option>
+                  <option value="衣櫃門板補釘">衣櫃門板補釘</option>
+                  <option value="衣櫃門新做">衣櫃門新做</option>
+                  <option value="衣櫥門扇鉸鍊檢修<">衣櫥門扇鉸鍊檢修</option>
+                </select>
+                <!-- 
+                <input
+                  type="text"
+                  class="form-control"
+                  id="item"
+                  aria-describedby="title"
+                /> -->
+              </div>
+              <div class="col-4">
+                <label for="detail" class="form-label">細項</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="detail"
+                  aria-describedby="title"
+                />
+              </div>
+            </div>
+            <div class="row mt-2 mb-2">
+              <div class="col-12">
+                <label for="reserve" class="form-label"
+                  >預約時間
+                </label>
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="reserve"
+                  aria-describedby="title"
+                />
+              </div>
+            </div>
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-      <div id="addFix_panel" class="">
-      <form>
-      <div class="row">
-          <div class="col-4">
-            <label for="dorm" class="form-label">大樓</label>
-            <select id="dorm"  aria-describedby="title">
-				<option value="D10.男十ㄧ舍">D10.男十ㄧ舍 Student B11</option>
-				<option value="D11.男十二舍">D11.男十二舍 Student B12</option>
-				<option value="D12.男十三舍">D12.男十三舍 Student B13</option>
-				<option value="D13.研究生宿舍">D13.研究生宿舍 Graduate Students Dorm</option>
-				<option value="D14.女十四舍">D14.女十四舍 Student G14</option>
-				<option value="D15.女一宿舍">D15.女一宿舍 Student G1</option>
-				<option value="D16.女二宿舍">D16.女二宿舍 Student G2</option>
-				<option value="D17.女三宿舍">D17.女三宿舍 Student G3</option>
-				<option value="D18.女四宿舍">D18.女四宿舍 Student G4</option>
-				<option value="D3.男三宿舍">D3.男三宿舍 Student B3</option>
-				<option value="D4.女五宿舍">D4.女五宿舍 Student G5</option>
-				<option value="D5.男五宿舍(女6)">D5.男五宿舍(女6) Student G6</option>
-				<option value="D6.男六宿舍">D6.男六宿舍	Student B6</option>
-				<option value="D7.男七舍">D7.男七舍	Student B7</option>
-				<option value="D9A.男九A">D9A.男九A Student B9A</option>
-				<option value="D9B.男九B">D9B.男九B Student B9B</option>
-				<option value="HO1.國際學舍">HO1.國際學舍 International Dorm</option>
-			</select>
-            <!--<input
-              type="text"
-              class="form-control"
-              id="dorm"
-              aria-describedby="title"
-            />-->
-          </div>
-          <div class="col-4">
-            <label for="floor" class="form-label">樓層</label>
-            <br>
-            <select id="floor" >
-            	<option value="1F">一樓</option>
-            	<option value="2F">二樓</option>
-            	<option value="3F">三樓</option>
-            	<option value="4F">四樓</option>
-            	<option valur="5F">五樓</option>
-            	<option value="6F">六樓</option>
-            	<option valur="7F">七樓</option>
-            </select>
-          </div>
-          <div class="col-4">
-            <label for="roomNo" class="form-label">房號或位置</label>
-            <input
-              type="text"
-              class="form-control"
-              id="roomNo"
-              aria-describedby="title"
-            />
-          </div>
+            <div class="d-flex justify-content-end mt-3 mb-3">
+              <input
+                type="checkbox"
+                class="form-check-input ml-2"
+                id="checkbox_inRoom"
+                aria-describedby="title"
+              />
+              <label for="checkbox_inRoom" class="form-label ms-3 pr-3"
+                >入寢維修</label
+              >
+            </div>
+            <div style="display: none">
+              <input type="text" placeholder="inRoom" id="inRoom" />
+            </div>
+            <div class="d-flex justify-content-center">
+              <a
+                role="button"
+                id="post_Fix"
+                type="submit"
+                class="btn btn-primary text-center me-3"
+                style="color: white"
+              >
+                送出
+                <i class="fa fa-arrow-alt-from-left ml-2"></i>
+              </a>
+              <a
+                href="dormManagement.html"
+                class="btn btn-secondary text-right ml-2"
+              >
+                回上一頁
+                <i class="fas fa-undo ml-2"></i>
+              </a>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="row">
-          <div class="col-4">
-            <label for="category" class="form-label">種類</label><br>
-            <select id="category" onchange="SetSubmenu(this)" aria-describedby="title">
-            	<option value="衣櫃">衣櫃</option>
-            	<option value="鞋櫃">鞋櫃</option>
-            	<option value="燈具">燈具</option>
-            	<option value="電力系統">電力系統</option>
-            	<option value="書桌">書桌</option>
-            	<option value="浴刷">浴廁</option>
-            	<option value="床">床</option>
-            	<option value="門">門</option>
-            	<option value="窗戶">窗戶</option>
-            	<option value="供水系統">供水系統</option>
-            	<option value="牆壁">牆壁</option>
-            	<option value="天花板">天花板</option>
-            	<option value="磁磚">磁磚</option>
-            	<option value="鍋爐">鍋爐</option>
-            	<option value="飲水機">飲水機</option>
-            	<option value="油漆">油漆</option>
-            	<option value="冷氣機">冷氣機</option>
-            	<option value="其他">其他</option>
-            	<option value="漏水">漏水</option>
-            	<option value="電扇">電扇</option>
-            	<option value="電話">電話</option>
-            	<option value="電視">電視(限交誼廳)</option>
-            	<option value="洗、烘衣機">洗、烘衣機</option>
-            	<option value="消防">消防</option>
-            	<option value="販賣機">販賣機</option>
-            	<option value="廚房">廚房電器</option>
-            	<option value="寢室椅">寢室椅</option>
-            	<option value="寢室地板">寢室地板</option>
-            	<option value="冷氣讀卡機">冷氣讀卡機</option>
-            	<option value="浴室供水">浴室供水系統</option>
-            </select>
-<!--            <input
-              type="text"
-              class="form-control"
-              id="category"
-              aria-describedby="title"
-            />-->
-          </div>
-          <div class="col-4">
-            <label for="item" class="form-label">項目</label>
-            <br>
-            <select id="item" aria-describedby="title">
-            	<option value="衣櫃門換活頁">衣櫃門換活頁</option>
-            	<option value="衣櫃門貼美耐板">衣櫃門貼美耐板</option>
-            	<option value="衣櫃門板補釘">衣櫃門板補釘</option>
-            	<option value="衣櫃門新做">衣櫃門新做</option>
-            	<option value="衣櫥門扇鉸鍊檢修<">衣櫥門扇鉸鍊檢修</option>
-            </select>
-            <!-- 
-            <input
-              type="text"
-              class="form-control"
-              id="item"
-              aria-describedby="title"
-            /> -->
-          </div>
-          <div class="col-4">
-            <label for="detail" class="form-label">細項</label>
-            <input
-              type="text"
-              class="form-control"
-              id="detail"
-              aria-describedby="title"
-            />
-          </div>
-      </div>
-      <div class="row">
-      	<div class="col-12">
-      		<label for="reserve" class="form-label">預約時間 ( 請輸入時段 ex : 2021/12/31 12:00-13:00 ) </label>
-      		<input 
-      		type="text"
-      		class="form-control"
-      		id="reserve"
-      		aria-describedby="title"
-      		/>
-      	</div>
-      </div>
-          
-          <div class="d-flex justify-content-end">
-            <input
-              type="checkbox"
-              class="form-check-input ml-2"
-              id="checkbox_inRoom"
-              aria-describedby="title"
-            />
-            <label for="checkbox_inRoom" class="form-label pr-3">入寢維修</label>
-          </div>
-          <div style="display:none">
-          	<input type="text" placeholder="inRoom" id="inRoom">
-          </div>
-	          <div class="d-flex justify-content-center">
-		          <a
-		          	role="button"
-		            id="post_Fix"
-		            type="submit"
-		            class="btn btn-primary text-center"
-		            style="color:white"
-		          >
-		            送出
-			          <i class="fa fa-arrow-alt-from-left"></i>
-		          </a>
-		      <a href="dormManagement.html" class="btn btn-secondary text-right ml-2">
-		        回上一頁
-		        <i class="fas fa-undo"></i>
-		      </a>
-	        </div>
-        </form>
-      
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <script>  
-  var name;
-  function getUserID(){
-	  $.ajax({
+    <script>
+      var name;
+      function getUserID() {
+        $.ajax({
           type: "GET",
           url: "api/login.do",
           crossDomain: true,
           cache: false,
-          dataType: 'json',
+          dataType: "json",
           timeout: 5000,
           success: function (response) {
-              if(response.status == 200){
-              	if(response.response.status == "login"){//未登入
-              		name = response.response.name;
-              	}else{
-              		notLogin();
-              	}
-              	console.log(response);
+            if (response.status == 200) {
+              if (response.response.status == "login") {
+                //未登入
+                name = response.response.name;
+              } else {
+                notLogin();
               }
+              console.log(response);
+            }
           },
           error: function () {
-              alert("無法連線到伺服器！");
-          }
-  	});
-  }
-  getUserID();
-//  alert(name);
-  function notLogin(){
-  		alert("請先登入!");
- 		window.location = "login.html";
-  }
-  function SetSubmenu(obj)   {
-	  var selected="";
-	  switch(obj.value){
-	  case "衣櫃":
-		  selected='<option value="衣櫃門換活頁">衣櫃門換活頁</option><option value="衣櫃門貼美耐板">衣櫃門貼美耐板</option><option value="衣櫃門板補釘">衣櫃門板補釘</option><option value="衣櫃門新做">衣櫃門新做</option><option value="衣櫥門扇鉸鍊檢修<">衣櫥門扇鉸鍊檢修</option>'
-		  break;
-	  case "鞋櫃":
-		  selected='<option value="鞋櫃活頁修繕(土木泥作支)">鞋櫃活頁修繕(土木泥作支)</option>';
-		  break;
-	  case "燈具":
-		  selected='<option value="室內開關或插座故障">室內開關或插座故障</option><option value="寢室電器產品故障">寢室電器產品故障</option><option value="燈管、燈泡不亮">燈管、燈泡不亮</option><option value="日光燈具故障">日光燈具故障</option>';
-		  break;
-	  case "電力系統":
-		  selected='<option value="電力系統">電力系統</option>';
-		  break;
-	  case "書桌":
-		  selected='<option value="抽屜新做(書桌、衣櫥)(上漆)">抽屜新做(書桌、衣櫥)(上漆)</option><option value="抽屜新做(書桌、衣櫥)(不上漆)">抽屜新做(書桌、衣櫥)(不上漆)</option><option value="抽屜修繕">抽屜修繕</option><option value="抽屜鎖">抽屜鎖</option><option value="書架修繕">書架修繕</option><option value="書桌桌面貼皮">書桌桌面貼皮</option><option value="桌腳補強">桌腳補強</option><option value="桌腳加不銹鋼柱補強">桌腳加不銹鋼柱補強</option><option value="貼書架或公佈欄軟木層">貼書架或公佈欄軟木層</option>';
-		  break;
-	  case "浴刷":
-		  selected='<option value="小便斗故障">小便斗故障</option><option value="洗臉盆故障">洗臉盆故障</option><option value="浴室、寢室吸排風扇故障">浴室、寢室吸排風扇故障</option><option value="浴室、寢室相關置物架故障">浴室、寢室相關置物架故障</option><option value="浴室抽風機修繕更新">浴室抽風機修繕更新</option><option value="浴室單槍陶瓷沐浴混合龍頭組故障">浴室單槍陶瓷沐浴混合龍頭組故障</option><option value="馬桶設備相關故障">馬桶設備相關故障</option><option value="腳踏沖水器故障">腳踏沖水器故障</option><option value="男十三舍寢室浴室檔水門檻修復">男十三舍寢室浴室檔水門檻修復</option><option value="浴廁天花板拆除復原">浴廁天花板拆除復原</option><option value="浴廁塑膠門新做">浴廁塑膠門新做</option><option value="浴廁門扣">浴廁門扣</option><option value="浴廁門換活頁">浴廁門換活頁</option><option value="浴室拉門鎖(12舍)(含稅)">浴室拉門鎖(12舍)(含稅)</option><option value="浴室天花板押條脫落檢修">浴室天花板押條脫落檢修</option><option value="浴室排水">浴室排水</option>';
-		  break;
-	  case "床":
-		  selected='<option value="不銹鋼（鐵）床梯焊接">不銹鋼（鐵）床梯焊接</option><option value="不銹鋼（鐵）床梯螺栓固定">不銹鋼（鐵）床梯螺栓固定</option><option value="床底大抽屜新(上漆)">床底大抽屜新(上漆)</option><option value="床底大抽屜新(不上漆)">床底大抽屜新(不上漆)</option><option value="床沿板修繕">床沿板修繕</option><option value="木床梯修繕">木床梯修繕</option><option value="木床梯新做">木床梯新做</option><option value="不銹鋼床梯焊接">不銹鋼床梯焊接</option><option value="床板新做">床板新做</option><option value="床頭置物櫃修繕">床頭置物櫃修繕</option>';
-		  break;
-	  case "門":
-		  selected='<option value="男十三舍寢室門框邊裂縫修補">男十三舍寢室門框邊裂縫修補</option><option value="紗網換修">紗網換修</option><option value="紗窗檢修(含框)">紗窗檢修(含框)</option><option value="門弓器更新（加裝）">門弓器更新（加裝）</option><option value="門加換裝日製門弓器">門加換裝日製門弓器</option><option value="門加換裝日製地腳鏈">門加換裝日製地腳鏈</option><option value="門加換裝安全門鎖">門加換裝安全門鎖</option><option value="門加換裝推拉門水平鎖">門加換裝推拉門水平鎖</option><option value="木門鎖心故障維修">木門鎖心故障維修</option><option value="不銹鋼安全門鎖換修">不銹鋼安全門鎖換修</option><option value="不銹鋼（鐵）門變形調整">不銹鋼（鐵）門變形調整</option><option value="不銹鋼（鐵）門扇脫落安裝">不銹鋼（鐵）門扇脫落安裝</option><option value="不銹鋼（鐵）門板開裂焊接固定">不銹鋼（鐵）門板開裂焊接固定</option><option value="不銹鋼（鐵）門活頁焊接">不銹鋼（鐵）門活頁焊接</option><option value="不銹鋼（鐵）門活頁換新">不銹鋼（鐵）門活頁換新</option><option value="不銹鋼喇叭鎖換修">不銹鋼喇叭鎖換修</option><option value="不銹鋼天地插梢換修">不銹鋼天地插梢換修</option><option value="寢室門(木門)新做">寢室門(木門)新做</option><option value="木門或塑鋼門換活頁">木門或塑鋼門換活頁</option><option value="木門或塑鋼門變形調整或不銹鋼喇叭鎖調整">木門或塑鋼門變形調整或不銹鋼喇叭鎖調整</option><option value="寢室門(塑鋼門)新做">寢室門(塑鋼門)新做</option><option value="寢室門換不銹鋼喇叭鎖">寢室門換不銹鋼喇叭鎖</option><option value="換特殊規格性不銹鋼喇叭鎖">換特殊規格性不銹鋼喇叭鎖</option><option value="門上通風口(排氣孔)修繕">門上通風口(排氣孔)修繕</option><option value="門上通風口(排氣孔)更新">門上通風口(排氣孔)更新</option><option value="門框小木塊">門框小木塊</option><option value="門止">門止</option>';
-		  break;
-	  case "窗戶":
-		  selected='<option value="紗窗紗網換修">紗窗紗網換修</option><option value="紗窗變形調整">紗窗變形調整</option><option value="紗窗更新(含框)">紗窗更新(含框)</option><option value="窗鎖扣更新">窗鎖扣更新</option><option value="窗戶四連檔更新">窗戶四連檔更新</option><option value="拉窗滾輪換裝更新">拉窗滾輪換裝更新</option><option value="換5mm，110×60以下 玻璃">換5mm，110×60以下 玻璃</option><option value="換5mm，110×60以上 玻璃">換5mm，110×60以上 玻璃</option><option value="窗簾換繩子">窗簾換繩子</option><option value="窗簾脫落">窗簾脫落</option><option value="窗簾更換軌道">窗簾更換軌道</option><option value="改裝舊窗簾">改裝舊窗簾</option><option value="百葉窗簾修理">百葉窗簾修理</option><option value="木窗調整修理">木窗調整修理</option>';
-		  break;
-	  case "供水系統":
-		  selected='<option valur="無">無</option>';
-		  break;
-	  case "牆壁":
-		  selected='<option value="牆壁粉刷層打除後1:3水泥粉刷">牆壁粉刷層打除後1:3水泥粉刷</option>';
-		  break;
-	  case "天花板":
-		  selected='<option value="輕剛架礦纖天花板">輕剛架礦纖天花板</option><option value="浴室PVC天花板更新">浴室PVC天花板更新</option>';
-		  break;
-	  case "磁磚":
-		  selected='<option value="地面舖貼磁磚">地面舖貼磁磚</option><option value="牆面舖貼磁磚">牆面舖貼磁磚</option>';
-		  break;
-	  case "鍋爐":
-		  selected='<option value="鍋爐零星修繕">鍋爐零星修繕</option><option value="電熱水器沒熱水">電熱水器沒熱水</option><option value="電熱水器沒有電">電熱水器沒有電</option>';
-		  break;
-	  case "飲水機":
-		  selected='<option value="飲水機其他">飲水機其他</option><option value="飲水機無法取用冰、溫、熱水">飲水機無法取用冰、溫、熱水</option><option value="飲水機無冰水">飲水機無冰水</option><option value="飲水機漏水">飲水機漏水</option><option value="飲水機無電源">飲水機無電源</option><option value="飲水機無熱水">飲水機無熱水</option>';
-		  break;
-	  case "油漆":
-		  selected='<option value="樓梯扶手或鐵欗杆油漆">樓梯扶手或鐵欗杆油漆</option><option value="室內牆面平頂刷水性水泥漆(35㎡以下)">室內牆面平頂刷水性水泥漆(35㎡以下)</option><option value="室內牆面平頂刷水性水泥漆">室內牆面平頂刷水性水泥漆</option><option value="牆面平頂刷油性水泥漆">牆面平頂刷油性水泥漆</option>';
-		  break;
-	  case "冷氣機":
-		  selected='<option value="冷氣機排水管堵塞">冷氣機排水管堵塞</option><option value="冷氣機壓縮機故障">冷氣機壓縮機故障</option><option value="冷氣機無送風情形">冷氣機無送風情形</option><option value="冷氣機無電源">冷氣機無電源</option><option value="冷氣機滴水">冷氣機滴水</option><option value="冷氣機遙控器故障">冷氣機遙控器故障</option><option value="冷氣機有送風但無冷氣">冷氣機有送風但無冷氣</option><option value="冷氣機其他項目">冷氣機其他項目</option><option value="冷氣讀卡機故障">冷氣讀卡機故障</option>';
-		  break;
-	  case "其他":
-		  selected='<option value="搭鷹架">搭鷹架</option><option value="10cm厚水泥路面補修">10cm厚水泥路面補修</option><option value="5cm厚瀝青路面補修">5cm厚瀝青路面補修</option><option value="鍍鋅水溝鐵蓋板更換（50×50cmm含以下)">鍍鋅水溝鐵蓋板更換（50×50cmm含以下)</option><option value="RC水溝蓋板更換">RC水溝蓋板更換</option><option value="鍍鋅陰井鐵蓋板更換（80×80cmm含以下)">鍍鋅陰井鐵蓋板更換（80×80cmm含以下)</option><option value="土木泥作其他">土木泥作其他</option><option value="室內踢腳刷油漆">室內踢腳刷油漆</option><option value="室內裝修其他">室內裝修其他</option><option value="水電零星修繕其他">水電零星修繕其他</option><option value="鋁鐵門窗、紗網、玻璃其他">鋁鐵門窗、紗網、玻璃其他</option><option value="漏水、壁癌">漏水、壁癌 其他</option>';
-		  break;
-	  case "漏水":
-		  selected='<option value="屋頂防水層修繕">屋頂防水層修繕</option><option value="門(窗)框滲漏水修繕">門(窗)框滲漏水修繕</option><option value="漏水修繕">漏水修繕</option><option value="外牆防水材塗刷">外牆防水材塗刷</option><option value="壁癌修繕">壁癌修繕</option>';
-		  break;
-	  case "電扇":
-		  selected='<option value="電扇故障或電扇髒汚清理">電扇故障或電扇髒汚清理</option>';
-		  break;
-	  case "電話":
-		  selected='<option value="無撥號音">無撥號音</option><option value="雜音">雜音</option><option value="線路斷線或脫落">線路斷線或脫落</option><option value="接線盒接點生銹">接線盒接點生銹</option><option value="撥不進，撥不出">撥不進，撥不出</option><option value="移機">移機</option><option value="電話其他">電話其他</option>';
-		  break;
-	  case "電視":
-		  selected='<option value="無訊號">無訊號</option><option value="訊號不清晰或有雪花">訊號不清晰或有雪花</option><option value="有線電視線路斷線或脫落">有線電視線路斷線或脫落</option><option value="電視遙控器壞">電視遙控器壞</option><option value="分趾器壞掉無作用">分趾器壞掉無作用</option><option value="電視其他">電視其他</option>';
-		  break;
-	  case "洗、烘衣機":
-		  selected='<option value="洗、烘衣機">洗、烘衣機</option>';
-		  break;
-	  case "消防":
-		  selected='<option value="滅火器">滅火器</option><option value="警報器故障">警報器故障</option><option value="方向指示燈故障">方向指示燈故障</option><option value="廣播系統故障">廣播系統故障</option><option value="緊急照明燈">緊急照明燈</option><option value="緩降機">緩降機</option><option value="消防箱">消防箱</option><option value="消防其他">消防其他</option>';
-		  break;
-	  case "販賣機":
-		  selected='<option value="販賣機">販賣機</option>';
-		  break;
-	  case "廚房":
-		  selected='<option value="廚房電器用品">廚房電器用品</option>';
-		  break;
-	  case "寢室椅":
-		  selected='<option value="寢室椅故障">寢室椅故障</option>';
-		  break;
-	  case "寢室地板":
-		  selected='<option value="地板故障或鋪貼木地板">地板故障或鋪貼木地板</option>';
-		  break;
-	  case "冷氣讀卡機":
-		  selected='<option value="冷氣讀卡機">冷氣讀卡機</option><option value="冷氣電表">冷氣電表</option>';
-		  break;
-	  case "浴室供水":
-		  selected='<option value="供水系統">供水系統</option><option value="供水系統修繕">供水系統修繕</option>';
-		  break;
-	  }
-  	document.getElementById('item').innerHTML=selected;
-	}
-  
-  $("#checkbox_inRoom").change(function(){
-	  var status=document.getElementById("checkbox_inRoom").checked;
-	  $("#inRoom").val(status==true?1:0);
-  })
-  
-  function redirect(){
- 		window.location = "dormManagement.html";
- } 
-  $("#post_Fix").click(function () {
-	  if($("#inRoom").val()==""){
-		  $("#inRoom").val("0");
-	  }
-//	  alert($("#inRoom").val());
-      var data = {
-    		  UserID:name,
-    	    	dorm:$("#dorm").val(),
-    	    	floor:$("#floor").val(),
-    	    	roomNo:$("#roomNo").val(),
-    	    	category:$("#category").val(),
-    	    	item:$("#item").val(),
-    	    	detail:$("#detail").val(),
-    	    	inRoom:$("#inRoom").val(),
-    	    	reserve:$("#reserve").val(),
-      };
+            alert("無法連線到伺服器！");
+          },
+        });
+      }
+      getUserID();
+      //  alert(name);
+      function notLogin() {
+        alert("請先登入!");
+        window.location = "login.html";
+      }
+      function SetSubmenu(obj) {
+        var selected = "";
+        switch (obj.value) {
+          case "衣櫃":
+            selected =
+              '<option value="衣櫃門換活頁">衣櫃門換活頁</option><option value="衣櫃門貼美耐板">衣櫃門貼美耐板</option><option value="衣櫃門板補釘">衣櫃門板補釘</option><option value="衣櫃門新做">衣櫃門新做</option><option value="衣櫥門扇鉸鍊檢修<">衣櫥門扇鉸鍊檢修</option>';
+            break;
+          case "鞋櫃":
+            selected =
+              '<option value="鞋櫃活頁修繕(土木泥作支)">鞋櫃活頁修繕(土木泥作支)</option>';
+            break;
+          case "燈具":
+            selected =
+              '<option value="室內開關或插座故障">室內開關或插座故障</option><option value="寢室電器產品故障">寢室電器產品故障</option><option value="燈管、燈泡不亮">燈管、燈泡不亮</option><option value="日光燈具故障">日光燈具故障</option>';
+            break;
+          case "電力系統":
+            selected = '<option value="電力系統">電力系統</option>';
+            break;
+          case "書桌":
+            selected =
+              '<option value="抽屜新做(書桌、衣櫥)(上漆)">抽屜新做(書桌、衣櫥)(上漆)</option><option value="抽屜新做(書桌、衣櫥)(不上漆)">抽屜新做(書桌、衣櫥)(不上漆)</option><option value="抽屜修繕">抽屜修繕</option><option value="抽屜鎖">抽屜鎖</option><option value="書架修繕">書架修繕</option><option value="書桌桌面貼皮">書桌桌面貼皮</option><option value="桌腳補強">桌腳補強</option><option value="桌腳加不銹鋼柱補強">桌腳加不銹鋼柱補強</option><option value="貼書架或公佈欄軟木層">貼書架或公佈欄軟木層</option>';
+            break;
+          case "浴刷":
+            selected =
+              '<option value="小便斗故障">小便斗故障</option><option value="洗臉盆故障">洗臉盆故障</option><option value="浴室、寢室吸排風扇故障">浴室、寢室吸排風扇故障</option><option value="浴室、寢室相關置物架故障">浴室、寢室相關置物架故障</option><option value="浴室抽風機修繕更新">浴室抽風機修繕更新</option><option value="浴室單槍陶瓷沐浴混合龍頭組故障">浴室單槍陶瓷沐浴混合龍頭組故障</option><option value="馬桶設備相關故障">馬桶設備相關故障</option><option value="腳踏沖水器故障">腳踏沖水器故障</option><option value="男十三舍寢室浴室檔水門檻修復">男十三舍寢室浴室檔水門檻修復</option><option value="浴廁天花板拆除復原">浴廁天花板拆除復原</option><option value="浴廁塑膠門新做">浴廁塑膠門新做</option><option value="浴廁門扣">浴廁門扣</option><option value="浴廁門換活頁">浴廁門換活頁</option><option value="浴室拉門鎖(12舍)(含稅)">浴室拉門鎖(12舍)(含稅)</option><option value="浴室天花板押條脫落檢修">浴室天花板押條脫落檢修</option><option value="浴室排水">浴室排水</option>';
+            break;
+          case "床":
+            selected =
+              '<option value="不銹鋼（鐵）床梯焊接">不銹鋼（鐵）床梯焊接</option><option value="不銹鋼（鐵）床梯螺栓固定">不銹鋼（鐵）床梯螺栓固定</option><option value="床底大抽屜新(上漆)">床底大抽屜新(上漆)</option><option value="床底大抽屜新(不上漆)">床底大抽屜新(不上漆)</option><option value="床沿板修繕">床沿板修繕</option><option value="木床梯修繕">木床梯修繕</option><option value="木床梯新做">木床梯新做</option><option value="不銹鋼床梯焊接">不銹鋼床梯焊接</option><option value="床板新做">床板新做</option><option value="床頭置物櫃修繕">床頭置物櫃修繕</option>';
+            break;
+          case "門":
+            selected =
+              '<option value="男十三舍寢室門框邊裂縫修補">男十三舍寢室門框邊裂縫修補</option><option value="紗網換修">紗網換修</option><option value="紗窗檢修(含框)">紗窗檢修(含框)</option><option value="門弓器更新（加裝）">門弓器更新（加裝）</option><option value="門加換裝日製門弓器">門加換裝日製門弓器</option><option value="門加換裝日製地腳鏈">門加換裝日製地腳鏈</option><option value="門加換裝安全門鎖">門加換裝安全門鎖</option><option value="門加換裝推拉門水平鎖">門加換裝推拉門水平鎖</option><option value="木門鎖心故障維修">木門鎖心故障維修</option><option value="不銹鋼安全門鎖換修">不銹鋼安全門鎖換修</option><option value="不銹鋼（鐵）門變形調整">不銹鋼（鐵）門變形調整</option><option value="不銹鋼（鐵）門扇脫落安裝">不銹鋼（鐵）門扇脫落安裝</option><option value="不銹鋼（鐵）門板開裂焊接固定">不銹鋼（鐵）門板開裂焊接固定</option><option value="不銹鋼（鐵）門活頁焊接">不銹鋼（鐵）門活頁焊接</option><option value="不銹鋼（鐵）門活頁換新">不銹鋼（鐵）門活頁換新</option><option value="不銹鋼喇叭鎖換修">不銹鋼喇叭鎖換修</option><option value="不銹鋼天地插梢換修">不銹鋼天地插梢換修</option><option value="寢室門(木門)新做">寢室門(木門)新做</option><option value="木門或塑鋼門換活頁">木門或塑鋼門換活頁</option><option value="木門或塑鋼門變形調整或不銹鋼喇叭鎖調整">木門或塑鋼門變形調整或不銹鋼喇叭鎖調整</option><option value="寢室門(塑鋼門)新做">寢室門(塑鋼門)新做</option><option value="寢室門換不銹鋼喇叭鎖">寢室門換不銹鋼喇叭鎖</option><option value="換特殊規格性不銹鋼喇叭鎖">換特殊規格性不銹鋼喇叭鎖</option><option value="門上通風口(排氣孔)修繕">門上通風口(排氣孔)修繕</option><option value="門上通風口(排氣孔)更新">門上通風口(排氣孔)更新</option><option value="門框小木塊">門框小木塊</option><option value="門止">門止</option>';
+            break;
+          case "窗戶":
+            selected =
+              '<option value="紗窗紗網換修">紗窗紗網換修</option><option value="紗窗變形調整">紗窗變形調整</option><option value="紗窗更新(含框)">紗窗更新(含框)</option><option value="窗鎖扣更新">窗鎖扣更新</option><option value="窗戶四連檔更新">窗戶四連檔更新</option><option value="拉窗滾輪換裝更新">拉窗滾輪換裝更新</option><option value="換5mm，110×60以下 玻璃">換5mm，110×60以下 玻璃</option><option value="換5mm，110×60以上 玻璃">換5mm，110×60以上 玻璃</option><option value="窗簾換繩子">窗簾換繩子</option><option value="窗簾脫落">窗簾脫落</option><option value="窗簾更換軌道">窗簾更換軌道</option><option value="改裝舊窗簾">改裝舊窗簾</option><option value="百葉窗簾修理">百葉窗簾修理</option><option value="木窗調整修理">木窗調整修理</option>';
+            break;
+          case "供水系統":
+            selected = '<option valur="無">無</option>';
+            break;
+          case "牆壁":
+            selected =
+              '<option value="牆壁粉刷層打除後1:3水泥粉刷">牆壁粉刷層打除後1:3水泥粉刷</option>';
+            break;
+          case "天花板":
+            selected =
+              '<option value="輕剛架礦纖天花板">輕剛架礦纖天花板</option><option value="浴室PVC天花板更新">浴室PVC天花板更新</option>';
+            break;
+          case "磁磚":
+            selected =
+              '<option value="地面舖貼磁磚">地面舖貼磁磚</option><option value="牆面舖貼磁磚">牆面舖貼磁磚</option>';
+            break;
+          case "鍋爐":
+            selected =
+              '<option value="鍋爐零星修繕">鍋爐零星修繕</option><option value="電熱水器沒熱水">電熱水器沒熱水</option><option value="電熱水器沒有電">電熱水器沒有電</option>';
+            break;
+          case "飲水機":
+            selected =
+              '<option value="飲水機其他">飲水機其他</option><option value="飲水機無法取用冰、溫、熱水">飲水機無法取用冰、溫、熱水</option><option value="飲水機無冰水">飲水機無冰水</option><option value="飲水機漏水">飲水機漏水</option><option value="飲水機無電源">飲水機無電源</option><option value="飲水機無熱水">飲水機無熱水</option>';
+            break;
+          case "油漆":
+            selected =
+              '<option value="樓梯扶手或鐵欗杆油漆">樓梯扶手或鐵欗杆油漆</option><option value="室內牆面平頂刷水性水泥漆(35㎡以下)">室內牆面平頂刷水性水泥漆(35㎡以下)</option><option value="室內牆面平頂刷水性水泥漆">室內牆面平頂刷水性水泥漆</option><option value="牆面平頂刷油性水泥漆">牆面平頂刷油性水泥漆</option>';
+            break;
+          case "冷氣機":
+            selected =
+              '<option value="冷氣機排水管堵塞">冷氣機排水管堵塞</option><option value="冷氣機壓縮機故障">冷氣機壓縮機故障</option><option value="冷氣機無送風情形">冷氣機無送風情形</option><option value="冷氣機無電源">冷氣機無電源</option><option value="冷氣機滴水">冷氣機滴水</option><option value="冷氣機遙控器故障">冷氣機遙控器故障</option><option value="冷氣機有送風但無冷氣">冷氣機有送風但無冷氣</option><option value="冷氣機其他項目">冷氣機其他項目</option><option value="冷氣讀卡機故障">冷氣讀卡機故障</option>';
+            break;
+          case "其他":
+            selected =
+              '<option value="搭鷹架">搭鷹架</option><option value="10cm厚水泥路面補修">10cm厚水泥路面補修</option><option value="5cm厚瀝青路面補修">5cm厚瀝青路面補修</option><option value="鍍鋅水溝鐵蓋板更換（50×50cmm含以下)">鍍鋅水溝鐵蓋板更換（50×50cmm含以下)</option><option value="RC水溝蓋板更換">RC水溝蓋板更換</option><option value="鍍鋅陰井鐵蓋板更換（80×80cmm含以下)">鍍鋅陰井鐵蓋板更換（80×80cmm含以下)</option><option value="土木泥作其他">土木泥作其他</option><option value="室內踢腳刷油漆">室內踢腳刷油漆</option><option value="室內裝修其他">室內裝修其他</option><option value="水電零星修繕其他">水電零星修繕其他</option><option value="鋁鐵門窗、紗網、玻璃其他">鋁鐵門窗、紗網、玻璃其他</option><option value="漏水、壁癌">漏水、壁癌 其他</option>';
+            break;
+          case "漏水":
+            selected =
+              '<option value="屋頂防水層修繕">屋頂防水層修繕</option><option value="門(窗)框滲漏水修繕">門(窗)框滲漏水修繕</option><option value="漏水修繕">漏水修繕</option><option value="外牆防水材塗刷">外牆防水材塗刷</option><option value="壁癌修繕">壁癌修繕</option>';
+            break;
+          case "電扇":
+            selected =
+              '<option value="電扇故障或電扇髒汚清理">電扇故障或電扇髒汚清理</option>';
+            break;
+          case "電話":
+            selected =
+              '<option value="無撥號音">無撥號音</option><option value="雜音">雜音</option><option value="線路斷線或脫落">線路斷線或脫落</option><option value="接線盒接點生銹">接線盒接點生銹</option><option value="撥不進，撥不出">撥不進，撥不出</option><option value="移機">移機</option><option value="電話其他">電話其他</option>';
+            break;
+          case "電視":
+            selected =
+              '<option value="無訊號">無訊號</option><option value="訊號不清晰或有雪花">訊號不清晰或有雪花</option><option value="有線電視線路斷線或脫落">有線電視線路斷線或脫落</option><option value="電視遙控器壞">電視遙控器壞</option><option value="分趾器壞掉無作用">分趾器壞掉無作用</option><option value="電視其他">電視其他</option>';
+            break;
+          case "洗、烘衣機":
+            selected = '<option value="洗、烘衣機">洗、烘衣機</option>';
+            break;
+          case "消防":
+            selected =
+              '<option value="滅火器">滅火器</option><option value="警報器故障">警報器故障</option><option value="方向指示燈故障">方向指示燈故障</option><option value="廣播系統故障">廣播系統故障</option><option value="緊急照明燈">緊急照明燈</option><option value="緩降機">緩降機</option><option value="消防箱">消防箱</option><option value="消防其他">消防其他</option>';
+            break;
+          case "販賣機":
+            selected = '<option value="販賣機">販賣機</option>';
+            break;
+          case "廚房":
+            selected = '<option value="廚房電器用品">廚房電器用品</option>';
+            break;
+          case "寢室椅":
+            selected = '<option value="寢室椅故障">寢室椅故障</option>';
+            break;
+          case "寢室地板":
+            selected =
+              '<option value="地板故障或鋪貼木地板">地板故障或鋪貼木地板</option>';
+            break;
+          case "冷氣讀卡機":
+            selected =
+              '<option value="冷氣讀卡機">冷氣讀卡機</option><option value="冷氣電表">冷氣電表</option>';
+            break;
+          case "浴室供水":
+            selected =
+              '<option value="供水系統">供水系統</option><option value="供水系統修繕">供水系統修繕</option>';
+            break;
+        }
+        document.getElementById("item").innerHTML = selected;
+      }
 
-      // 驗證輸入的資料
-      pass_vaild = vaildData(data);
-      function vaildData(data) {
+      $("#checkbox_inRoom").change(function () {
+        var status = document.getElementById("checkbox_inRoom").checked;
+        $("#inRoom").val(status == true ? 1 : 0);
+      });
+
+      function redirect() {
+        window.location = "dormManagement.html";
+      }
+      $("#post_Fix").click(function () {
+        if ($("#inRoom").val() == "") {
+          $("#inRoom").val("0");
+        }
+        //	  alert($("#inRoom").val());
+        var data = {
+          UserID: name,
+          dorm: $("#dorm").val(),
+          floor: $("#floor").val(),
+          roomNo: $("#roomNo").val(),
+          category: $("#category").val(),
+          item: $("#item").val(),
+          detail: $("#detail").val(),
+          inRoom: $("#inRoom").val(),
+          reserve: $("#reserve").val(),
+        };
+
+        // 驗證輸入的資料
+        pass_vaild = vaildData(data);
+        function vaildData(data) {
           if (
             data["dorm"] == "" ||
             data["floor"] == "" ||
@@ -427,98 +590,131 @@
             data["category"] == "" ||
             data["item"] == "" ||
             data["detail"] == "" ||
-            data["reserve"] == "" 
+            data["reserve"] == ""
           )
             alert("必填寫欄位不得有空值！");
-          else
-        	  return true;
+          else return true;
           return false;
         }
-      
-      if (pass_vaild) {
-        var data_string = JSON.stringify(data);
-        // 發出POST的AJAX請求
+
+        if (pass_vaild) {
+          var data_string = JSON.stringify(data);
+          // 發出POST的AJAX請求
+          $.ajax({
+            type: "POST",
+            url: "api/fix.do",
+            data: data_string,
+            crossDomain: true,
+            cache: false,
+            dataType: "json",
+            timeout: 5000,
+            success: function (response) {
+              if (response.status == 200) {
+                alert("新增報修成功\n自動導向回報修頁面...");
+                redirect();
+              }
+              console.log(response);
+            },
+            error: function () {
+              alert("無法連線到伺服器！");
+            },
+          });
+        }
+      });
+      //account function
+      function checkLogin() {
         $.ajax({
-          type: "POST",
-          url: "api/fix.do",
-          data: data_string,
+          type: "GET",
+          url: "api/login.do",
           crossDomain: true,
           cache: false,
           dataType: "json",
           timeout: 5000,
           success: function (response) {
-              if(response.status == 200){
-            	  alert('新增報修成功\n自動導向回報修頁面...');
-            	  redirect();
+            if (response.status == 200) {
+              let inner_html = "";
+              if (response.response.status != "login") {
+                //未登入
+                inner_html +=
+                  '<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
+              } else {
+                //登入
+                inner_html +=
+                  '<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>' +
+                  response.response.name +
+                  '</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
               }
-              console.log(response);
+              $("#loginOrNot").append(inner_html);
+            }
+            console.log(response);
           },
           error: function () {
             alert("無法連線到伺服器！");
           },
         });
       }
-    });
-  //account function
-    function checkLogin(){
-  	    $.ajax({
-  	            type: "GET",
-  	            url: "api/login.do",
-  	            crossDomain: true,
-  	            cache: false,
-  	            dataType: 'json',
-  	            timeout: 5000,
-  	            success: function (response) {
-  	                if(response.status == 200){
-  						let inner_html='';
-  	                	if(response.response.status != "login"){//未登入
-  	                      	inner_html+='<li class="nav-item"><a class="nav-link" href="login.html">登入</a></li>';
-  	                	}else{//登入
-  	                		inner_html+='<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user me-1"></i>'+response.response.name+'</a><ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="#"><i class="fas fa-info-circle me-1"></i>使用者資訊</a></li><li><hr class="dropdown-divider" /></li><li><a id="logout" class="dropdown-item" type="button" onclick="Logout()"><i class="fas fa-sign-out-alt me-1"></i>登出</a></li></ul></li>';
-  	                	}
-  	                	$("#loginOrNot").append(inner_html);
-  	                }
-  	                console.log(response);
-  	            },
-  	            error: function () {
-  	                alert("無法連線到伺服器！");
-  	            }
-  	    });
-    }
-    checkLogin();
-   function Logout() {
-  	    // 發出POST的AJAX請求
-  	    $.ajax({
-  	      type: "POST",
-  	      url: "api/logout.do",
-  	      crossDomain: true,
-  	      cache: false,
-  	      dataType: "json",
-  	      timeout: 5000,
-  	      success: function (response) {
-  	          if(response.status == 200){
-  	          }
-  	          console.log(response);
-  	      },
-  	      error: function () {
-  	        alert("無法連線到伺服器！");
-  	      },
-  	    });
-  	    window.location.reload();
-    };
-    //end account function
-  </script>
+      checkLogin();
+      function Logout() {
+        // 發出POST的AJAX請求
+        $.ajax({
+          type: "POST",
+          url: "api/logout.do",
+          crossDomain: true,
+          cache: false,
+          dataType: "json",
+          timeout: 5000,
+          success: function (response) {
+            if (response.status == 200) {
+            }
+            console.log(response);
+          },
+          error: function () {
+            alert("無法連線到伺服器！");
+          },
+        });
+        window.location.reload();
+      }
+      //end account function
+    </script>
 
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-right">
-        <a href="#">Back to top</a>
-      </p>
-      <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a
-          href="/docs/4.3/getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-  </footer>
-</body>
+    <footer id="footer" class="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="copyright">
+            &copy; Copyright <strong><span>FlexStart</span></strong
+            >. All Rights Reserved <br />
+            <span class="text-align-center">系統分析與設計_期末專案</span>
+            <span class="text-align-center">第17組</span>
+          </div>
 
+          <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="statics/vendor/purecounter/purecounter.js"></script>
+    <script src="statics/vendor/aos/aos.js"></script>
+    <script src="statics/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="statics/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="statics/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="statics/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="statics/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="statics/js/main.js"></script>
+  </body>
 </html>
