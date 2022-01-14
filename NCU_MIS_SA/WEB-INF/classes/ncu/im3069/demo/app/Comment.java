@@ -15,7 +15,7 @@ public class Comment {
     private String discussion_id;
     
     /** user_id，留言之使用者編號 */
-    private int user_id;
+    private String user_id;
     
     /** content，留言 */
     private String content;
@@ -47,7 +47,7 @@ public class Comment {
      * @param created_at 留言創建時間
      * @param updated_at 留言修改時間
      */
-    public Comment(String discussion_id, int user_id, String content) {
+    public Comment(String discussion_id, String user_id, String content) {
     	this.discussion_id = discussion_id;
     	this.user_id = user_id;
         this.content = content;
@@ -63,7 +63,7 @@ public class Comment {
      * @param created_at 留言創建時間
      * @param updated_at 留言修改時間
      */
-    public Comment(int id, String discussion_id, int user_id, String content, Timestamp updated_at) {
+    public Comment(int id, String discussion_id, String user_id, String content, Timestamp updated_at) {
     	this.id = id;
     	this.discussion_id = discussion_id;
     	this.user_id = user_id;
@@ -80,7 +80,7 @@ public class Comment {
      * @param created_at 留言創建時間
      * @param updated_at 留言修改時間
      */
-    public Comment(int ct_id, String discussion_id, int user_id, String content) {
+    public Comment(int ct_id, String discussion_id, String user_id, String content) {
     	this.discussion_id = discussion_id;
     	this.id = ct_id;
     	this.user_id = user_id;
@@ -117,7 +117,7 @@ public class Comment {
      *
      * @return int 回傳留言之使用者編號
      */
-    public int getUserID() {
+    public String getUserID() {
         return this.user_id;
     }
     

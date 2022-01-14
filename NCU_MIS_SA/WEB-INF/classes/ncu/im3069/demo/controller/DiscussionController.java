@@ -131,7 +131,9 @@ public class DiscussionController extends HttpServlet {
 		        JSONObject jso = jsr.getObject();
 		        
 		        /** 取出經解析到JSONObject之Request參數 */
+		       
 		        int id = jso.getInt("id");
+		        System.out.println(id);
 		        
 		        /** 透過MemberHelper物件的deleteByID()方法至資料庫刪除該名會員，回傳之資料為JSONObject物件 */
 		        JSONObject query = ph.deleteByID(id);

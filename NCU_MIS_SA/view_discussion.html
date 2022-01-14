@@ -241,7 +241,7 @@
           <h1 class="display-4">查看討論版</h1>
         </div>
 
-        <a id="deletePost" class="btn btn-danger float-end">
+        <a id="deletePost" class="btn btn-danger float-end" onclick="deletePost()">
           刪除文章
           <i class="fas fa-trash"></i>
         </a>
@@ -381,7 +381,34 @@
           },
         });
       }
-
+		function deletePost(){
+		var check = window.confirm("確認刪除此筆留言？");
+        if (check == true) {
+            console.log("You pressed OK!");
+            var request = {
+              id: id,
+            };
+            var data_string = JSON.stringify(request);
+            $.ajax({
+              type: "DELETE",
+              url: "api/discussion.do",
+              crossDomain: true,
+              data: data_string,
+              cache: false,
+              dataType: "json",
+              timeout: 5000,
+              success: function (response) {
+                    window.location = "discussion_board.html";
+                console.log(response);
+              },
+              error: function () {
+                alert("無法連線到伺服器！");
+              },
+            });
+          } else {
+            console.log("You pressed Cancel!");
+          }
+		};
       //delete message data
       function delete_message(id) {
         var check = window.confirm("確認刪除此筆留言？");

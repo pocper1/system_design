@@ -103,7 +103,7 @@ public class CommentController extends HttpServlet {
 	
 	        /** 取出經解析到 JSONObject 之 Request 參數 */
 	        String discussion_id 		= jso.getString("discussion_id");
-	        int user_id 				= jso.getInt("user_id");
+	        String user_id 				= jso.getString("user_id");
 	        String content 				= jso.getString("content");
 
 	        /** 建立一個新的討論物件 */

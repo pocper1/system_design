@@ -38,7 +38,7 @@ public class CommentHelper {
             
             /** 取得所需之參數 */
             String discussion_id 	= comment.getDiscussionID();
-            int user_id 			= comment.getUserID();
+            String user_id 			= comment.getUserID();
             String content 			= comment.getContent();
             Timestamp created_at 	= comment.getCreatedTime();
             Timestamp updated_at 	= comment.getUpdatedTime();
@@ -47,7 +47,7 @@ public class CommentHelper {
             /** 將參數回填至SQL指令當中 */
             pres = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pres.setString(1, discussion_id);
-            pres.setInt(2, user_id);
+            pres.setString(2, user_id);
             pres.setString(3, content);
             pres.setTimestamp(4, created_at);
             pres.setTimestamp(5, updated_at);
@@ -178,7 +178,7 @@ public class CommentHelper {
                 /** 將 ResultSet 之資料取出 */
                 int id = rs.getInt("id");
                 String content = rs.getString("content");
-                Integer user_id = rs.getInt("user_id");
+                String user_id = rs.getString("user_id");
                 Timestamp created_at = rs.getTimestamp("created_at");
                 Timestamp updated_at = rs.getTimestamp("updated_at");
                 
@@ -250,7 +250,7 @@ public class CommentHelper {
                 /** 將 ResultSet 之資料取出 */
                 int id = rs.getInt("id");
                 String content = rs.getString("content");
-                Integer user_id = rs.getInt("user_id");
+                String user_id = rs.getString("user_id");
                 Timestamp created_at = rs.getTimestamp("created_at");
                 Timestamp updated_at = rs.getTimestamp("updated_at");
                 
