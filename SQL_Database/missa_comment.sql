@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `discussion_id` varchar(100) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,

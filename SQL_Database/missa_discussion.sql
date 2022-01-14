@@ -26,7 +26,7 @@ CREATE TABLE `discussion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `article_title` varchar(255) DEFAULT NULL,
   `article_content` varchar(255) DEFAULT NULL,
-  `author` int(11) DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
