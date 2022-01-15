@@ -1,9 +1,10 @@
 # 中央大學資管系—系統分析與設計期末專案_第17組
-
+## 主題為宿舍管理系統
 - Version : 1.0.0
 - Last Update Date : 2021/01/15
 
-> 本專案為中央大學資管系系統分析與設計課程之期末範例專案，主題為宿舍管理系統
+> 本專案為中央大學資管系系統分析與設計課程之期末範例專案
+
 > 套用模板： [bootstrapmade 網站之模板](https://bootstrapmade.com/flexstart-bootstrap-startup-template/)
 
 ## 小組成員
