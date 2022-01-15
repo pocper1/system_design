@@ -26,5 +26,16 @@
 4. 宿舍報修子系統
 5. 退宿手續子系統
 
+## 使用語言
+地點           | 語言      
+------------- |:-----:    
+前端            | HTML、CSS、JS、Jquery
+傳遞資料        | Servlet、Ajax
+後端            | JAVA
+資料庫連線       | JDBC
+資料庫          |MYSQL
+開發需安裝工具   | xampp、eclipse web developer
+
+
 ## 相關文件
 - 於文件資料夾當中
